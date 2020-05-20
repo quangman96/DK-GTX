@@ -1,6 +1,6 @@
 package com.ait.service.JDBC;
 
-import com.ait.model.Brand;
+import com.ait.model.Color;
 import com.ait.service.BaseService;
 import com.ait.service.DatabaseConnection;
 import org.springframework.stereotype.Service;
@@ -13,39 +13,39 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class BrandJDBC implements BaseService<Brand> {
+public class ColorJDBC implements BaseService<Color> {
     Connection connection = DatabaseConnection.getConnection();
 
-    private String SELECT_ALL_BRANDS = "SELECT * FROM brand WHERE isDelete=0;";
-    private String SELECT_BRAND_BY_ID = "SELECT * FROM brand WHERE id=?;";
-    private String INSERT_BRAND = "INSERT INTO brand "+" (name) VALUES "+ "(?);";
-    private String UPDATE_BRAND = "UPDATE brand SET name=? WHERE id=?;";
-    private String REMOVE_BRAND = "UPDATE brand SET isDelete = 1 WHERE id=?;";
+    private String SELECT_ALL_COLORS = "SELECT * FROM color WHERE isDelete=0;";
+    private String SELECT_COLOR_BY_ID = "SELECT * FROM color WHERE id=?;";
+    private String INSERT_COLOR = "INSERT INTO color "+" (name) VALUES "+ "(?);";
+    private String UPDATE_COLOR = "UPDATE color SET name=? WHERE id=?;";
+    private String REMOVE_COLOR = "UPDATE color SET isDelete = 1 WHERE id=?;";
 
 
 
     @Override
-    public List<Brand> findAll() {
-        List<Brand> brands = new ArrayList<>();
-        try(PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ALL_BRANDS);){
+    public List<Color> findAll() {
+        List<Color> colors = new ArrayList<>();
+        try(PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ALL_COLORS);){
             ResultSet rs = preparedStatement.executeQuery();
             while (rs.next()){
                 Long id =rs.getLong("id");
                 String name = rs.getString("name");
                 Integer isDelete = rs.getInt("isDelete");
-                brands.add(new Brand(id,name,isDelete));
+                colors.add(new Color(id,name,isDelete));
             }
         } catch (SQLException e) {
         }
-        return brands;
+        return colors;
 
 
     }
 
     @Override
-    public Brand findById(Long id) {
-        Brand brand = null;
-        try (PreparedStatement preparedStatement = connection.prepareStatement(SELECT_BRAND_BY_ID);) {
+    public Color findById(Long id) {
+        Color color = null;
+        try (PreparedStatement preparedStatement = connection.prepareStatement(SELECT_COLOR_BY_ID);) {
             preparedStatement.setLong(1, id);
             ResultSet rs = preparedStatement.executeQuery();
 
@@ -53,18 +53,18 @@ public class BrandJDBC implements BaseService<Brand> {
                 String name = rs.getString("name");
                 Integer isDelete = rs.getInt("isDelete");
 
-                brand =(new Brand(id, name, isDelete));
+                color =(new Color(id, name, isDelete));
             }
         } catch (SQLException e) {
         }
-        return brand;
+        return color;
 
     }
 
     @Override
-    public void save(Brand brand) {
-        try (PreparedStatement preparedStatement = connection.prepareStatement(INSERT_BRAND)) {
-            preparedStatement.setString(1, brand.getName());
+    public void save(Color color) {
+        try (PreparedStatement preparedStatement = connection.prepareStatement(INSERT_COLOR)) {
+            preparedStatement.setString(1, color.getName());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             printSQLException(e);
@@ -72,10 +72,10 @@ public class BrandJDBC implements BaseService<Brand> {
     }
 
     @Override
-    public void update(Brand brand) {
-        try (PreparedStatement statement = connection.prepareStatement(UPDATE_BRAND)) {
-            statement.setString(1, brand.getName());
-            statement.setLong(2, brand.getId());
+    public void update(Color color) {
+        try (PreparedStatement statement = connection.prepareStatement(UPDATE_COLOR)) {
+            statement.setString(1, color.getName());
+            statement.setLong(2, color.getId());
             statement.executeUpdate();
         } catch (SQLException e) {
             printSQLException(e);
@@ -85,7 +85,7 @@ public class BrandJDBC implements BaseService<Brand> {
 
     @Override
     public void remove(Long id) {
-        try(PreparedStatement statement = connection.prepareStatement(REMOVE_BRAND)) {
+        try(PreparedStatement statement = connection.prepareStatement(REMOVE_COLOR)) {
             statement.setLong(1,id);
             statement.executeUpdate();
         }
@@ -111,3 +111,4 @@ public class BrandJDBC implements BaseService<Brand> {
     }
 
 }
+
