@@ -1,13 +1,21 @@
 package com.ait.controller;
 
-import org.springframework.stereotype.Controller;
+import com.ait.model.Brand;
+import com.ait.service.JDBC.BrandJDBC;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-@Controller
+import java.util.List;
+
+@RestController
 public class HomeController {
+    @Autowired
+    BrandJDBC brandService;
+
     @GetMapping("/")
-    public String home(Model model){
-        return "home";
+    public List<Brand> brands() {
+        return brandService.findAll();
     }
 }
