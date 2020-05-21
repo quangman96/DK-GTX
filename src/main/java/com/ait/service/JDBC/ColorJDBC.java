@@ -22,8 +22,6 @@ public class ColorJDBC implements BaseService<Color> {
     private String UPDATE_COLOR = "UPDATE color SET name=? WHERE id=?;";
     private String REMOVE_COLOR = "UPDATE color SET isDelete = 1 WHERE id=?;";
 
-
-
     @Override
     public List<Color> findAll() {
         List<Color> colors = new ArrayList<>();
