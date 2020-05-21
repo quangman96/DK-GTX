@@ -2,7 +2,7 @@ let customers = {} || customers;
 
 customers.iniTable = function(){
     $.ajax({
-        url: "customers",
+        url: "api/customers",
         method: "GET",
         dataType: "JSON",
         success: function (data) {
@@ -37,7 +37,7 @@ customers.iniTable = function(){
 
 customers.initProvince = function(){
     $.ajax({
-        url : "provinces/",
+        url : "api/provinces",
         method : "GET",
         dataType : "json",
         success: function (data) {
@@ -53,7 +53,7 @@ customers.initProvince = function(){
 
 customers.get = function(id){
     $.ajax({
-        url : "customers/" + id,
+        url : "api/customers/" + id,
         method : "GET",
         dataType : "json",
         success: function (data) {
@@ -101,7 +101,7 @@ customers.save = function(){
             console.log(customerObj);
 
             $.ajax({
-                url: "customers/" +customerObj.id,
+                url: "api/customers/" +customerObj.id,
                 method: "PUT",
                 dataType: "JSON",
                 contentType: "application/json",
@@ -128,7 +128,7 @@ customers.delete = function(id){
         .then((willDelete) => {
             if (willDelete) {
                 $.ajax({
-                    url: "customers/delete/" +id,
+                    url: "api/customers/delete/" +id,
                     method: "PUT",
                     // dataType: "JSON",
                     success: function () {
