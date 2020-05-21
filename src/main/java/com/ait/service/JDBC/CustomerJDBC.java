@@ -16,8 +16,8 @@ import java.util.List;
 public class CustomerJDBC implements BaseService<Customer> {
     Connection connection = DatabaseConnection.getConnection();
 
-    private String SELECT_ALL_CUSTOMERS = "SELECT * FROM customer WHERE isDelete=0;";
-    private String SELECT_CUSTOMER_BY_ID = "SELECT * FROM customer WHERE id=?;";
+    private String SELECT_ALL_CUSTOMERS = "SELECT customer.id, customer.name, customer.address, customer.phone, customer.identity, customer.province_id, customer.isDelete, province.name AS province FROM customer INNER JOIN province ON province.id = customer.province_id WHERE (customer.isDelete=0 AND province.isdelete=0);";
+    private String SELECT_CUSTOMER_BY_ID = "SELECT customer.id, customer.name, customer.address, customer.phone, customer.identity, customer.province_id, customer.isDelete, province.name AS province FROM customer INNER JOIN province ON province.id = customer.province_id WHERE (customer.isDelete=0 AND province.isdelete=0 AND customer.id = ?);";
     private String INSERT_CUSTOMER = "INSERT INTO customer "+" (name, address,phone,identity,province_id) VALUES "+ "(?,?,?,?,?);";
     private String UPDATE_CUSTOMER = "UPDATE customer SET name=?,address=? ,phone=? ,identity=? ,province_id=? WHERE id=?;";
     private String REMOVE_CUSTOMER = "UPDATE customer SET isDelete = 1 WHERE id=?;";
@@ -34,9 +34,10 @@ public class CustomerJDBC implements BaseService<Customer> {
                 String phone = rs.getString("phone");
                 String identity = rs.getString("identity");
                 Long province_id = rs.getLong("province_id");
+                String province_name = rs.getString("province");
 //                Date current_day = rs.getDate("current_day");
                 Integer isDelete = rs.getInt("isDelete");
-                customers.add(new Customer(id,name,address,phone,identity,province_id, isDelete));
+                customers.add(new Customer(id,name,address,phone,identity,province_id,province_name, isDelete));
             }
         } catch (SQLException e) {
         }
@@ -46,21 +47,23 @@ public class CustomerJDBC implements BaseService<Customer> {
     }
 
     @Override
-    public Customer findById(Long id) {
+    public Customer findById(Long id_customer) {
         Customer customer = null;
         try (PreparedStatement preparedStatement = connection.prepareStatement(SELECT_CUSTOMER_BY_ID);) {
-            preparedStatement.setLong(1, id);
+            preparedStatement.setLong(1, id_customer);
             ResultSet rs = preparedStatement.executeQuery();
 
             while (rs.next()){
+                Long id = rs.getLong("id");
                 String name = rs.getString("name");
                 String address = rs.getString("address");
                 String phone = rs.getString("phone");
                 String identity = rs.getString("identity");
                 Long province_id = rs.getLong("province_id");
+                String province_name = rs.getString("province");
 //                Date current_day = rs.getDate("current_day");
                 Integer isDelete = rs.getInt("isDelete");
-                customer =(new Customer(id,name,address,phone,identity,province_id, isDelete));
+                customer =(new Customer(id,name,address,phone,identity,province_id,province_name, isDelete));
             }
         } catch (SQLException e) {
         }

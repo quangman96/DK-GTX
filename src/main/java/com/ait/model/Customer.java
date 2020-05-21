@@ -15,7 +15,7 @@ public class Customer {
     private String province_name;
 
     public Customer(Long id, String name, String address, String phone, String identity,
-                    Long province_id, Integer isDelete ) {
+                    Long province_id,String province_name, Integer isDelete ) {
         this.id = id;
         this.name = name;
         this.address = address;
@@ -24,6 +24,7 @@ public class Customer {
 //        this.current_day = current_day;
         this.isDelete = isDelete;
         this.province_id = province_id;
+        this.province_name = province_name;
     }
 
     public Long getId() {
