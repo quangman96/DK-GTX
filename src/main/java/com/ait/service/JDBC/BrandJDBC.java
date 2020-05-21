@@ -16,8 +16,8 @@ import java.util.List;
 public class BrandJDBC implements BaseService<Brand> {
     Connection connection = DatabaseConnection.getConnection();
 
-    private String SELECT_ALL_BRANDS = "SELECT * FROM brand WHERE isDelete=0;";
-    private String SELECT_BRAND_BY_ID = "SELECT * FROM brand WHERE id=?;";
+    private String SELECT_ALL_BRANDS = "SELECT * FROM brand WHERE isDelete =0;";
+    private String SELECT_BRAND_BY_ID = "SELECT * FROM brand WHERE (isDelete= 0 AND id=?);";
     private String INSERT_BRAND = "INSERT INTO brand "+" (name) VALUES "+ "(?);";
     private String UPDATE_BRAND = "UPDATE brand SET name=? WHERE id=?;";
     private String REMOVE_BRAND = "UPDATE brand SET isDelete = 1 WHERE id=?;";

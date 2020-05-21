@@ -16,8 +16,8 @@ import java.util.List;
 public class ColorJDBC implements BaseService<Color> {
     Connection connection = DatabaseConnection.getConnection();
 
-    private String SELECT_ALL_COLORS = "SELECT * FROM color WHERE isDelete=0;";
-    private String SELECT_COLOR_BY_ID = "SELECT * FROM color WHERE id=?;";
+    private String SELECT_ALL_COLORS = "SELECT * FROM color WHERE isDelete= 0;";
+    private String SELECT_COLOR_BY_ID = "SELECT * FROM color WHERE (isDelete=0 AND id=?);";
     private String INSERT_COLOR = "INSERT INTO color "+" (name) VALUES "+ "(?);";
     private String UPDATE_COLOR = "UPDATE color SET name=? WHERE id=?;";
     private String REMOVE_COLOR = "UPDATE color SET isDelete = 1 WHERE id=?;";

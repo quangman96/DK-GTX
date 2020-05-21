@@ -15,12 +15,16 @@ public class Vehicle {
     private Long color_id;
     private String color_name;
 
-    public Vehicle(Long id, String engine_num, String chassis_num, String customer_name, String brand_name, String color_name) {
+    public Vehicle(Long id, String engine_num, String chassis_num, Integer isDelete, Long customer_id, String customer_name, Long brand_id, String brand_name, Long color_id, String color_name) {
         this.id = id;
         this.engine_num = engine_num;
         this.chassis_num = chassis_num;
+        this.isDelete = isDelete;
+        this.customer_id = customer_id;
         this.customer_name = customer_name;
+        this.brand_id = brand_id;
         this.brand_name = brand_name;
+        this.color_id = color_id;
         this.color_name = color_name;
     }
 

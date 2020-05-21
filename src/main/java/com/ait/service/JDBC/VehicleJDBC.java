@@ -16,13 +16,13 @@ import java.util.List;
 public class VehicleJDBC implements BaseService<Vehicle> {
     Connection connection = DatabaseConnection.getConnection();
 
-    private String SELECT_ALL_VEHICLES = "SELECT vehicle.id, vehicle.engine_num, vehicle.chassis_num, " +
+    private String SELECT_ALL_VEHICLES = "SELECT vehicle.id, vehicle.engine_num, vehicle.chassis_num, vehicle.customer_id, vehicle.brand_id, vehicle.color_id, vehicle.isDelete, " +
         "customer.name AS customer, brand.name AS brand, color.name AS color FROM vehicle " +
         "INNER JOIN customer ON customer.id = vehicle.customer_id INNER JOIN brand ON brand.id = vehicle.brand_id " +
         "INNER JOIN color ON color.id = vehicle.color_id WHERE (vehicle.isDelete= 0 AND customer.isDelete=0 " +
         "AND brand.isDelete = 0 AND color.isDelete =0);";
 
-    private String SELECT_VEHICLE_BY_ID  = "SELECT vehicle.id, vehicle.engine_num, vehicle.chassis_num, " +
+    private String SELECT_VEHICLE_BY_ID  = "SELECT vehicle.id, vehicle.engine_num, vehicle.chassis_num, vehicle.customer_id, vehicle.brand_id, vehicle.color_id, vehicle.isDelete, " +
             "customer.name AS customer, brand.name AS brand, color.name AS color FROM vehicle " +
             "INNER JOIN customer ON customer.id = vehicle.customer_id INNER JOIN brand ON brand.id = vehicle.brand_id " +
             "INNER JOIN color ON color.id = vehicle.color_id WHERE (vehicle.isDelete= 0 AND customer.isDelete=0 " +
@@ -47,10 +47,14 @@ public class VehicleJDBC implements BaseService<Vehicle> {
                 Long id =rs.getLong("id");
                 String engine_num = rs.getString("engine_num");
                 String chassis_num = rs.getString("chassis_num");
+                Long customer_id = rs.getLong("customer_id");
                 String customer = rs.getString("customer");
+                Long brand_id = rs.getLong("brand_id");
                 String brand = rs.getString("brand");
+                Long color_id = rs.getLong("color_id");
                 String color = rs.getString("color");
-                vehicles.add(new Vehicle(id,engine_num,chassis_num,customer,brand,color));
+                Integer isDelete = rs.getInt("isDelete");
+                vehicles.add(new Vehicle(id,engine_num,chassis_num,isDelete,customer_id,customer,brand_id,brand,color_id,color));
             }
         } catch (SQLException e) {
         }
@@ -60,20 +64,24 @@ public class VehicleJDBC implements BaseService<Vehicle> {
     }
 
     @Override
-    public Vehicle findById(Long id) {
+    public Vehicle findById(Long vehicle_id) {
         Vehicle vehicle = null;
         try (PreparedStatement preparedStatement = connection.prepareStatement(SELECT_VEHICLE_BY_ID);) {
-            preparedStatement.setLong(1, id);
+            preparedStatement.setLong(1, vehicle_id);
             ResultSet rs = preparedStatement.executeQuery();
 
             while (rs.next()) {
+                Long id =rs.getLong("id");
                 String engine_num = rs.getString("engine_num");
                 String chassis_num = rs.getString("chassis_num");
+                Long customer_id = rs.getLong("customer_id");
                 String customer = rs.getString("customer");
+                Long brand_id = rs.getLong("brand_id");
                 String brand = rs.getString("brand");
+                Long color_id = rs.getLong("color_id");
                 String color = rs.getString("color");
-
-                vehicle =(new Vehicle(id,engine_num,chassis_num,customer,brand,color));
+                Integer isDelete = rs.getInt("isDelete");
+                vehicle = (new Vehicle(id,engine_num,chassis_num,isDelete,customer_id,customer,brand_id,brand,color_id,color));
             }
         } catch (SQLException e) {
         }
