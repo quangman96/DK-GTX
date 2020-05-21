@@ -3,14 +3,16 @@ package com.ait.model;
 public class Province {
     private Long id;
     private String name;
-    private Integer code;
+    private String province_code;
+    private String telephone_code;
     private Integer quantity;
     private Integer isDelete;
 
-    public Province(Long id, String name, Integer code, Integer isDelete) {
+    public Province(Long id, String name, String province_code, String telephone_code, Integer isDelete) {
         this.id = id;
         this.name = name;
-        this.code = code;
+        this.province_code = province_code;
+        this.telephone_code = telephone_code;
         this.isDelete = isDelete;
     }
 
@@ -30,12 +32,20 @@ public class Province {
         this.name = name;
     }
 
-    public Integer getCode() {
-        return code;
+    public String getProvince_code() {
+        return province_code;
     }
 
-    public void setCode(Integer code) {
-        this.code = code;
+    public void setProvince_code(String province_code) {
+        this.province_code = province_code;
+    }
+
+    public String getTelephone_code() {
+        return telephone_code;
+    }
+
+    public void setTelephone_code(String telephone_code) {
+        this.telephone_code = telephone_code;
     }
 
     public Integer getQuantity() {
