@@ -102,7 +102,7 @@
             </a>
         </li>
         <li class="nav-item active">
-            <a class="nav-link" href="/customer">
+            <a class="nav-link" href="/admin/customers">
                 <i class="fas fa-fw fa-folder"></i>
                 <span>Customer </span></a>
         </li>
@@ -130,49 +130,55 @@
             <!-- Breadcrumbs-->
             <ol class="breadcrumb">
                 <li class="breadcrumb-item">
-                    <a href="#">Dashboard</a>
+                    <a href="#">Customer</a>
                 </li>
-                <li class="breadcrumb-item active">Charts</li>
+<!--                <li class="breadcrumb-item active">Tables</li>-->
             </ol>
 
-            <!-- Area Chart Example-->
+            <!-- DataTables Example -->
             <div class="card mb-3">
                 <div class="card-header">
-                    <i class="fas fa-chart-area"></i>
-                    Area Chart Example</div>
+                    <i class="fas fa-table"></i>
+                    Customer Data
+                    <button type="button" class="btn btn-success btn-lg float-right" onclick="location.href='excel/download'">Export Data to Excel</button>
+                </div>
                 <div class="card-body">
-                    <canvas id="myAreaChart" width="100%" height="30"></canvas>
-                </div>
-                <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
-            </div>
+                    <div class="table-responsive">
+                        <table class="table table-bordered" width="100%" cellspacing="0" id="tblCustomer" name="tblCustomer">
+                            <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Address</th>
+                                <th>Phone</th>
+                                <th>Identity</th>
+                                <th>Province</th>
+                                <th>Edit</th>
+                                <th>Delete</th>
+                            </tr>
+                            </thead>
+                            <tfoot>
+                            <tr>
+                                <th>Name</th>
+                                <th>Address</th>
+                                <th>Phone</th>
+                                <th>Identity</th>
+                                <th>Province</th>
+                                <th>Edit</th>
+                                <th>Delete</th>
+                            </tr>
+                            </tfoot>
+                            <tbody>
 
-            <div class="row">
-                <div class="col-lg-8">
-                    <div class="card mb-3">
-                        <div class="card-header">
-                            <i class="fas fa-chart-bar"></i>
-                            Bar Chart Example</div>
-                        <div class="card-body">
-                            <canvas id="myBarChart" width="100%" height="50"></canvas>
-                        </div>
-                        <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+
+                            </tbody>
+                        </table>
                     </div>
                 </div>
-                <div class="col-lg-4">
-                    <div class="card mb-3">
-                        <div class="card-header">
-                            <i class="fas fa-chart-pie"></i>
-                            Pie Chart Example</div>
-                        <div class="card-body">
-                            <canvas id="myPieChart" width="100%" height="100"></canvas>
-                        </div>
-                        <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
-                    </div>
-                </div>
+                <div class="card-footer small text-muted"></div>
             </div>
 
             <p class="small text-center text-muted my-5">
-                <em>More chart examples coming soon...</em>
+                <em>More table examples coming soon...</em>
             </p>
 
         </div>
@@ -182,7 +188,7 @@
         <footer class="sticky-footer">
             <div class="container my-auto">
                 <div class="copyright text-center my-auto">
-                    <span>Copyright © Your Website 2019</span>
+                    <span></span>
                 </div>
             </div>
         </footer>
@@ -198,42 +204,115 @@
     <i class="fas fa-angle-up"></i>
 </a>
 
-<!-- Logout Modal-->
-<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
+
+<!-- The Modal -->
+<div class="modal fade" id="modalAddEdit" name="modalAddEdit">
+    <div class="modal-dialog">
         <div class="modal-content">
+
+            <!-- Modal Header -->
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">×</span>
-                </button>
+                <h4 class="modal-title" id="modalTitle" ></h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
-            <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+                <form id="formAddEdit" >
+                    <input hidden name="id" id="id" >
+                    <div class="row form-group">
+                        <div class="col-3">
+                            <label>Name</label>
+                        </div>
+                        <div class="col-9">
+                            <input class="form-control" type="text"
+                                   name="name" id="name"
+                                   data-rule-required=true >
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-3">
+                            <label>Address</label>
+                        </div>
+                        <div class="col-9">
+                            <input class="form-control" type="text"
+                                   name="address" id="address"
+                                   data-rule-required=true >
+                        </div>
+                    </div>
+
+                    <div class="row form-group">
+                        <div class="col-3">
+                            <label>Phone</label>
+                        </div>
+                        <div class="col-9">
+                            <input class="form-control" type="text"
+                                   name="phone" id="phone"
+                                   data-rule-required=true >
+                        </div>
+                    </div>
+
+                    <div class="row form-group">
+                        <div class="col-3">
+                            <label>Identity</label>
+                        </div>
+                        <div class="col-9">
+                            <input class="form-control" type="text"
+                                   name="identity" id="identity"
+                                   data-rule-required=true >
+                        </div>
+                    </div>
+
+                    <div class="row form-group">
+                        <div class="col-3">
+                            <label>Province</label>
+                        </div>
+                        <div class="col-9">
+                            <select class="form-control" name="province" id="province"></select>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Modal footer -->
             <div class="modal-footer">
-                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                <a class="btn btn-primary" href="login.html">Logout</a>
+                <a href="javascript:;" class="btn btn-primary"
+                   onclick="customers.save()">Save</a>
+
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
             </div>
+
         </div>
     </div>
 </div>
 
 <!-- Bootstrap core JavaScript-->
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/5.4.0/bootbox.min.js"></script>
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.10.0.min.js"></script>
+<script src="ajax/customer.js"></script>
+<script src="vendor/jquery-validation-1.19.1"></script>
 <script src="vendor/jquery/jquery.min.js"></script>
 <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!--Jquery validation-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/additional-methods.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/additional-methods.min.js"></script>
 
 <!-- Core plugin JavaScript-->
 <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
 
 <!-- Page level plugin JavaScript-->
-<script src="vendor/chart.js/Chart.min.js"></script>
+<script src="vendor/datatables/jquery.dataTables.js"></script>
+<script src="vendor/datatables/dataTables.bootstrap4.js"></script>
+
 
 <!-- Custom scripts for all pages-->
-<script src="js/sb-admin.min.js"></script>
+<!--  <script src="js/sb-admin.min.js"></script>-->
 
 <!-- Demo scripts for this page-->
-<script src="js/demo/chart-area-demo.js"></script>
-<script src="js/demo/chart-bar-demo.js"></script>
-<script src="js/demo/chart-pie-demo.js"></script>
+<script src="js/demo/datatables-demo.js"></script>
 
 </body>
 
