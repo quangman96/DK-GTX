@@ -130,7 +130,7 @@
             <!-- Breadcrumbs-->
             <ol class="breadcrumb">
                 <li class="breadcrumb-item">
-                    <a href="#">Customer</a>
+                    <a href="#">Province</a>
                 </li>
                 <!--                <li class="breadcrumb-item active">Tables</li>-->
             </ol>
@@ -139,8 +139,8 @@
             <div class="card mb-3">
                 <div class="card-header">
                     <i class="fas fa-table"></i>
-                    Customer Data
-                    <button type="button" class="btn btn-success btn-lg float-right" onclick="location.href='excel/download'">Export Data to Excel</button>
+                    Province Data
+                    <button type="button" class="btn btn-secondary btn-lg float-right" onclick='provinces.addNew()'>Create new Province</button>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
@@ -148,7 +148,7 @@
                             <thead>
                             <tr>
                                 <th>Name</th>
-                                <th>Code</th>
+                                <th>Province_Code</th>
                                 <th>Phone_Code</th>
                                 <th>Edit</th>
                                 <th>Delete</th>
@@ -157,7 +157,7 @@
                             <tfoot>
                             <tr>
                                 <th>Name</th>
-                                <th>Code</th>
+                                <th>Province_Code</th>
                                 <th>Phone_Code</th>
                                 <th>Edit</th>
                                 <th>Delete</th>
@@ -228,45 +228,26 @@
                     </div>
                     <div class="row form-group">
                         <div class="col-3">
-                            <label>Address</label>
+                            <label>Province_code</label>
                         </div>
                         <div class="col-9">
                             <input class="form-control" type="text"
-                                   name="address" id="address"
+                                   name="province_code" id="province_code"
                                    data-rule-required=true >
                         </div>
                     </div>
 
                     <div class="row form-group">
                         <div class="col-3">
-                            <label>Phone</label>
+                            <label>Phone_code</label>
                         </div>
                         <div class="col-9">
                             <input class="form-control" type="text"
-                                   name="phone" id="phone"
+                                   name="telephone_code" id="telephone_code"
                                    data-rule-required=true >
                         </div>
                     </div>
 
-                    <div class="row form-group">
-                        <div class="col-3">
-                            <label>Identity</label>
-                        </div>
-                        <div class="col-9">
-                            <input class="form-control" type="text"
-                                   name="identity" id="identity"
-                                   data-rule-required=true >
-                        </div>
-                    </div>
-
-                    <div class="row form-group">
-                        <div class="col-3">
-                            <label>Province</label>
-                        </div>
-                        <div class="col-9">
-                            <select class="form-control" name="province" id="province"></select>
-                        </div>
-                    </div>
                 </form>
             </div>
 
