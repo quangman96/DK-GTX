@@ -14,7 +14,7 @@
 
 	// AMDJS module definition
 	if ( typeof define === 'function' && define.amd && define.amd.jQuery ) {
-		define(['static/vendor/jquery-validation-1.19.1/lib/jquery'], function($) {
+		define(['jquery'], function($) {
 			return factory($, root);
 		});
 
