@@ -6,12 +6,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class HomeController {
-    @GetMapping({"/","chart"})
+    @GetMapping({"chart"})
     public String home(Model model){
         return "admin/chart";
     }
 
-    @GetMapping("hello")
+    @GetMapping("/")
     public String hello(Model model){ return "user/home";}
 
     @GetMapping("customer")
@@ -25,4 +25,5 @@ public class HomeController {
 
     @GetMapping("brandColor")
     public String brandColor(Model model){return "admin/brandColor";}
+
 }
