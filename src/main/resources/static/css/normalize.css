@@ -531,3 +531,17 @@ table {
     border-collapse: collapse;
     border-spacing: 0;
 }
+
+.from_input {
+    background: #eee;
+    display: block;
+    margin: 0.5em;
+    min-height: 45em;
+    overflow: hidden;
+    position: relative;
+    width: auto;
+
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+}

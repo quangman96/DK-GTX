@@ -59,6 +59,7 @@ public class ColorJDBC implements BaseService<Color> {
 
     }
 
+
     @Override
     public void save(Color color) {
         try (PreparedStatement preparedStatement = connection.prepareStatement(INSERT_COLOR)) {

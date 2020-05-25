@@ -80,31 +80,83 @@
                     </li>
 
                 </ol>
+                <form>
+                    <div class="from_input">
+                        <div class="form-row">
+                            <div class="form-group col-md-7">
+                                <label for="input_name">Name *</label>
+                                <div class="input-group-lg">
+                                    <input type="text" class="form-control" id="input_name" placeholder="Name">
+                                </div>
+                            </div>
+                            <div class="form-group col-md-5">
+                                <label for="input_identity">Identity *</label>
+                                <div class="input-group-lg">
+                                    <input type="text" class="form-control" id="input_identity" placeholder="Identity">
+                                </div>
+                            </div>
+                            <div class="form-group col-md-8">
+                                <label for="input_address">Address *</label>
+                                <div class="input-group-lg">
+                                    <input type="text" class="form-control" id="input_address" placeholder="Address">
+                                </div>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label>Province *</label>
+                                <select id="province" name="province" class="form-control"></select>
+                            </div>
+                            <div class="form-group col-md-8">
+                                <label for="input_phone">Phone *</label>
+                                <div class="input-group-lg">
+                                    <input type="text" class="form-control" id="input_phone" placeholder="Phone">
+                                </div>
+                            </div>
+                            <div class="form-group col-md-4" style="margin-top: auto;">
+                                <button type="button" class="btn btn-info btn-lg" id="check_customer">Check Information</button>
+                            </div>
+                            <hr>
+                            <br>
+                            <div class="form-group col-md-8">
+                                <label for="input_vehicle">Name Vehicle *</label>
+                                <div class="input-group-lg">
+                                    <input type="text" class="form-control" id="input_vehicle" placeholder="Name">
+                                </div>
+                            </div>
+                            <div class="form-group col-md-4"></div>
+                            <div class="form-group col-md-4">
+                                <label for="input_brand">Brand *</label>
+                                <select id="input_brand" class="form-control"></select>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label for="input_color">Color *</label>
+                                <select id="input_color" class="form-control"></select>
+                            </div>
+                            <div class="form-group col-md-4"></div>
+                            <div class="form-group col-md-4">
+                                <label for="input_engine_num">Engine Number *</label>
+                                <div class="input-group-lg">
+                                    <input type="text" class="form-control" id="input_engine_num" placeholder="Engine Number">
+                                </div>
+                            </div>
 
-                <div class="content">
-                    <h1>Basic Demo</h1>
-                    <div id="wizard">
-                        <h2>First Step</h2>
-                        <section>
-                            <p>1</p>
-                        </section>
+                            <div class="form-group col-md-4">
+                                <label for="input_chassis_num">Chassis Number *</label>
+                                <div class="input-group-lg">
+                                    <input type="text" class="form-control" id="input_chassis_num" placeholder="Chassis Number">
+                                </div>
+                            </div>
 
-                        <h2>Second Step</h2>
-                        <section>
-                            <p>2</p>
-                        </section>
-
-                        <h2>Third Step</h2>
-                        <section>
-                            <p>3</p>
-                        </section>
-
-                        <h2>Forth Step</h2>
-                        <section>
-                            <p>4</p>
-                        </section>
+                            <div class="form-group col-md-4" style="margin-top: auto;">
+                                <button type="button" class="btn btn-info btn-lg" id="check_vehicle">Check Information</button>
+                            </div>
+                            <div class="form-group col-md-4"></div>
+                            <div class="form-group col-md-4">
+                                <button type="submit" class="btn btn-primary btn-lg btn-block" id="create">CREATE</button>
+                            </div>
+                            <div class="form-group col-md-4"></div>
+                        </div>
                     </div>
-                </div>
+                </form>
 
             </div>
 
@@ -126,6 +178,9 @@
     <script src="vendor/jquery-cookie/jquery.cookie-1.3.1.js"></script>
     <script src="vendor/jquery.steps-1.1.0/jquery.steps.js"></script>
     <script src="ajax/index.js"></script>
+    <script src="ajax/extraBoard.js"></script>
+    <script src="ajax/province.js"></script>
+    <script src="ajax/customer.js"></script>
 
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/5.4.0/bootbox.min.js"></script>
