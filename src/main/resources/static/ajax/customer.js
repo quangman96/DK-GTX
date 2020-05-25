@@ -51,6 +51,7 @@ customers.initProvince = function(){
     })
 };
 
+
 customers.get = function(id){
     $.ajax({
         url : "api/customers/" + id,

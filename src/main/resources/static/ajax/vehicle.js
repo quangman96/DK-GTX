@@ -32,14 +32,46 @@ vehicles.iniTable = function(){
     });
 };
 
+vehicles.initBrand = function(){
+    $.ajax({
+        url : "api/brands",
+        method : "GET",
+        dataType : "json",
+        success: function (data) {
+            $('#brand').empty();
+            $.each(data,function (i,v) {
+                $('#brand').append(
+                    "<option value='"+ v.id +"'>"+ v.name +"</option>"
+                );
+            })
+        }
+    })
+};
+
+vehicles.initColor = function(){
+    $.ajax({
+        url : "api/colors",
+        method : "GET",
+        dataType : "json",
+        success: function (data) {
+            $('#color').empty();
+            $.each(data,function (i,v) {
+                $('#color').append(
+                    "<option value='"+ v.id +"'>"+ v.name +"</option>"
+                );
+            })
+        }
+    })
+};
+
 vehicles.get = function(){};
 vehicles.delete = function(){};
 vehicles.save = function(){};
+
 vehicles.init = function(){
     vehicles.iniTable();
-    // vehicles.initCustomer();
-    // vehicles.initBrand();
-    // vehicles.initColor();
+    vehicles.initBrand();
+    vehicles.initColor();
 };
 $(document).ready(function () {
     vehicles.init();
