@@ -23,6 +23,9 @@ public class CustomerController {
         return customerService.findById(id);
     }
 
+    @GetMapping("/customers/identity/{identity}")
+    public Customer findCustomerByIdentity(@PathVariable String identity){ return customerService.findByIdentity(identity);}
+
     @PostMapping("/customers")
     public Customer createNewCustomer(@RequestBody Customer customer){
         customerService.save(customer);
