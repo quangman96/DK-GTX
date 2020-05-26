@@ -191,4 +191,80 @@ index.resetAll = function () {
     customer_status = null;
     existCustomer_id = null;
 
-}
+};
+
+index.initValidation = function () {
+    $('#form_create').validate({
+        rules:{
+            input_name:{
+                required:true,
+                maxlength: 50
+            },
+            input_address:{
+                required:true,
+                maxlength: 100
+            },
+            input_phone:{
+                required:true,
+                maxLength: 50
+            },
+            input_identity:{
+                required:true,
+                maxlength:13,
+                minLength:8
+            },
+            input_vehicle:{
+                required:true,
+                maxLength: 50
+            },
+            input_engine_num:{
+                required:true,
+                maxlength: 50
+            },
+            input_chassis_num:{
+                required:true
+            }
+        },
+        message:{
+            input_name:{
+                required: "Please input name!",
+                maxLength: "Max length 50"
+            },
+            input_address:{
+                required: "Please input address!",
+                maxLength: "Max length 100"
+            },
+            input_phone:{
+                required: "Please input phone!",
+                maxLength: "Max length 50",
+            },
+            input_identity:{
+                required: "Input identity!",
+                maxLength: "Max length 13",
+                minLength: "8",
+            },
+            input_vehicle:{
+                required: "Please input vehicle!",
+                maxLength: "Max length 50",
+            },
+            input_engine_num:{
+                required: "Please input engine number!",
+                maxLength: "Max length 50",
+            },
+            input_chassis_num:{
+                required: "Please input chassis number!",
+                maxLength: "Max length 50",
+            },
+        }
+    })
+};
+
+$("#create_form").submit(function (event) {
+    event.preventDefault();
+    index.createForm();
+});
+
+
+$(document).ready(function () {
+    index.initValidation();
+});
