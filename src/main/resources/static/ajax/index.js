@@ -1,12 +1,13 @@
 let index = {} || index;
 let formObjCustomer = {};
 let formObjVehicle = {};
+let customer_status;
+let existCustomer_id;
 
 index.checkInformation = function () {
     let identity =$('#input_identity').val();
 
     if(identity == ""){
-        console.log("xu ly null");
         swal("Please input identity!","", "error");
     } else {
         $.ajax({
@@ -14,9 +15,9 @@ index.checkInformation = function () {
             method : "GET",
             dataType : "json",
             success: function (data) {
-                console.log(data);
+                customer_status = true;
                 swal("Found customer in system, auto fill!");
-
+                existCustomer_id = (data.id);
                 $('#input_name').val(data.name);
                 $('#input_address').val(data.address);
                 $('#input_phone').val(data.phone);
@@ -34,7 +35,7 @@ index.checkInformation = function () {
                 $('#input_engine_num').prop("disabled", false);
             },
             error: function () {
-                console.log("khong co cmnd nay`");
+                customer_status = false;
                 swal("create new customer with identity: "+identity);
                 $('#input_identity').prop("disabled", true);
                 $('#province').prop("disabled",false);
@@ -60,7 +61,43 @@ index.checkVehicle = function () {
 
 };
 
-index.createForm = function () {
+index.createForm = function(){
+    if(customer_status){
+        index.createNewVehicleWithExistCustomer();
+    }
+    else {
+        index.createNewCustomerAndVehicle();
+    }
+};
+
+index.createNewVehicleWithExistCustomer = function() {
+    console.log("OK");
+
+    formObjVehicle.customer_id = existCustomer_id;
+    formObjVehicle.vehicle_name = $('#input_vehicle').val();
+    formObjVehicle.brand_id = $('#brand').val();
+    formObjVehicle.color_id = $('#color').val();
+    formObjVehicle.engine_num = $('#input_engine_num').val();
+    formObjVehicle.chassis_num = $('#input_chassis_num').val();
+
+    $.ajax({
+        url : "api/vehicles",
+        method: "POST",
+        dataType: "JSON",
+        contentType: "application/json",
+        data: JSON.stringify(formObjVehicle),
+        success: function (data) {
+            console.log("oke ");
+            swal("Done!", "Create success!", "success");
+            index.resetAll();
+        },
+        error: function () {
+            console.log("error vehicles");
+        }
+    });
+};
+
+index.createNewCustomerAndVehicle = function () {
     formObjCustomer.name = $('#input_name').val();
     formObjCustomer.address = $('#input_address').val();
     formObjCustomer.phone = $('#input_phone').val();
@@ -99,6 +136,8 @@ index.createForm = function () {
                         data: JSON.stringify(formObjVehicle),
                         success: function (data) {
                             console.log("create vehicles");
+                            swal("Done!", "Create success!", "success");
+                            index.resetAll();
                         },
                         error: function () {
                             console.log("error vehicles");
@@ -117,3 +156,14 @@ index.createForm = function () {
         }
     });
 };
+
+index.resetAll = function () {
+    $('#form_create')[0].reset();
+    $('#input_name').prop("disabled", false);
+    $('#input_identity').prop("disabled", false);
+    formObjCustomer = {};
+    formObjVehicle = {};
+    customer_status = null;
+    existCustomer_id = null;
+
+}
