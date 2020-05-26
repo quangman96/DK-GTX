@@ -1,5 +1,6 @@
 let index = {} || index;
-let formObj = {};
+let formObjCustomer = {};
+let formObjVehicle = {};
 
 index.checkInformation = function () {
     let identity =$('#input_identity').val();
@@ -16,21 +17,14 @@ index.checkInformation = function () {
                 console.log(data);
                 swal("Found customer in system, auto fill!");
 
-                formObj.id = data.id;
-                formObj.name = data.name;
-                formObj.address = data.address;
-                formObj.phone = data.phone;
-                formObj.identity = data.identity;
-
-
                 $('#input_name').val(data.name);
                 $('#input_address').val(data.address);
                 $('#input_phone').val(data.phone);
                 $('#input_identity').val(data.identity);
                 $('#province').html("<option value='"+ data.province_id +"'>"+ data.province_name +"</option>");
+
                 $('#input_name').prop("disabled", true);
                 $('#input_identity').prop("disabled", true);
-
                 $('#engine_num').prop("disabled", false);
                 $('#chassis_num').prop("disabled", false);
                 $('#brand').prop("disabled", false);
@@ -62,5 +56,64 @@ index.checkInformation = function () {
 };
 
 index.checkVehicle = function () {
+    console.log("man");
 
+};
+
+index.createForm = function () {
+    formObjCustomer.name = $('#input_name').val();
+    formObjCustomer.address = $('#input_address').val();
+    formObjCustomer.phone = $('#input_phone').val();
+    formObjCustomer.identity = $('#input_identity').val();
+    formObjCustomer.province_id = $('#province').val();
+    formObjVehicle.vehicle_name = $('#input_vehicle').val();
+    formObjVehicle.brand_id = $('#brand').val();
+    formObjVehicle.color_id = $('#color').val();
+    formObjVehicle.engine_num = $('#input_engine_num').val();
+    formObjVehicle.chassis_num = $('#input_chassis_num').val();
+
+
+    $.ajax({
+        url : "api/customers",
+        method: "POST",
+        dataType: "JSON",
+        contentType: "application/json",
+        data: JSON.stringify(formObjCustomer),
+        success: function (data) {
+            console.log("create customer");
+
+            $.ajax({
+                url : "api/customers/identity/" + formObjCustomer.identity,
+                method : "GET",
+                dataType : "json",
+                contentType: "application/json",
+                success: function (data) {
+                    formObjVehicle.customer_id = data.id;
+                    console.log(formObjVehicle.customer_id);
+
+                    $.ajax({
+                        url : "api/vehicles",
+                        method: "POST",
+                        dataType: "JSON",
+                        contentType: "application/json",
+                        data: JSON.stringify(formObjVehicle),
+                        success: function (data) {
+                            console.log("create vehicles");
+                        },
+                        error: function () {
+                            console.log("error vehicles");
+                        }
+                    });
+
+                },
+                error: function () {
+                    console.log("get loi~");
+                }
+            });
+            console.log(formObjVehicle);
+        },
+        error: function () {
+            console.log("error");
+        }
+    });
 };

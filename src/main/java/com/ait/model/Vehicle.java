@@ -2,6 +2,7 @@ package com.ait.model;
 
 public class Vehicle {
     private Long id;
+    private String vehicle_name;
     private String engine_num;
     private String chassis_num;
     private Integer isDelete;
@@ -15,8 +16,9 @@ public class Vehicle {
     private Long color_id;
     private String color_name;
 
-    public Vehicle(Long id, String engine_num, String chassis_num, Integer isDelete, Long customer_id, String customer_name, Long brand_id, String brand_name, Long color_id, String color_name) {
+    public Vehicle(Long id, String vehicle_name, String engine_num, String chassis_num, Integer isDelete, Long customer_id, String customer_name, Long brand_id, String brand_name, Long color_id, String color_name) {
         this.id = id;
+        this.vehicle_name = vehicle_name;
         this.engine_num = engine_num;
         this.chassis_num = chassis_num;
         this.isDelete = isDelete;
@@ -34,6 +36,14 @@ public class Vehicle {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getVehicle_name() {
+        return vehicle_name;
+    }
+
+    public void setVehicle_name(String vehicle_name) {
+        this.vehicle_name = vehicle_name;
     }
 
     public String getEngine_num() {

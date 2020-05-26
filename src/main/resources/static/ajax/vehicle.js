@@ -9,6 +9,7 @@ vehicles.iniTable = function(){
                 destroy:true,
                 data:data,
                 columns:[
+                    {'data':'vehicle_name'},
                     {'data':'customer_name'},
                     {'data':'brand_name'},
                     {'data':'color_name'},

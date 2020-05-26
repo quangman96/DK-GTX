@@ -16,22 +16,22 @@ import java.util.List;
 public class VehicleJDBC implements BaseService<Vehicle> {
     Connection connection = DatabaseConnection.getConnection();
 
-    private String SELECT_ALL_VEHICLES = "SELECT vehicle.id, vehicle.engine_num, vehicle.chassis_num, vehicle.customer_id, vehicle.brand_id, vehicle.color_id, vehicle.isDelete, " +
+    private String SELECT_ALL_VEHICLES = "SELECT vehicle.id, vehicle.vehicle_name, vehicle.engine_num, vehicle.chassis_num, vehicle.customer_id, vehicle.brand_id, vehicle.color_id, vehicle.isDelete, " +
         "customer.name AS customer, brand.name AS brand, color.name AS color FROM vehicle " +
         "INNER JOIN customer ON customer.id = vehicle.customer_id INNER JOIN brand ON brand.id = vehicle.brand_id " +
         "INNER JOIN color ON color.id = vehicle.color_id WHERE (vehicle.isDelete= 0 AND customer.isDelete=0 " +
         "AND brand.isDelete = 0 AND color.isDelete =0);";
 
-    private String SELECT_VEHICLE_BY_ID  = "SELECT vehicle.id, vehicle.engine_num, vehicle.chassis_num, vehicle.customer_id, vehicle.brand_id, vehicle.color_id, vehicle.isDelete, " +
+    private String SELECT_VEHICLE_BY_ID  = "SELECT vehicle.id, vehicle.vehicle_name, vehicle.engine_num, vehicle.chassis_num, vehicle.customer_id, vehicle.brand_id, vehicle.color_id, vehicle.isDelete, " +
             "customer.name AS customer, brand.name AS brand, color.name AS color FROM vehicle " +
             "INNER JOIN customer ON customer.id = vehicle.customer_id INNER JOIN brand ON brand.id = vehicle.brand_id " +
             "INNER JOIN color ON color.id = vehicle.color_id WHERE (vehicle.isDelete= 0 AND customer.isDelete=0 " +
             "AND brand.isDelete = 0 AND color.isDelete =0 AND vehicle.id=?);";
 
-    private String INSERT_VEHICLE = "INSERT INTO vehicle "+" (engine_num,chassis_num,customer_id,brand_id,color_id)" +
-            " VALUES "+ "(?,?,?,?,?);";
+    private String INSERT_VEHICLE = "INSERT INTO vehicle "+" (vehicle_name,engine_num,chassis_num,customer_id,brand_id,color_id)" +
+            " VALUES "+ "(?,?,?,?,?,?);";
 
-    private String UPDATE_VEHICLE = "UPDATE vehicle SET engine_num=?, chassis_num=?, customer_id=?, brand_id=?," +
+    private String UPDATE_VEHICLE = "UPDATE vehicle SET vehicle_name=?, engine_num=?, chassis_num=?, customer_id=?, brand_id=?," +
             " color_id=? WHERE id=?;";
 
     private String REMOVE_VEHICLE = "UPDATE vehicle SET isDelete = 1 WHERE id=?;";
@@ -45,6 +45,7 @@ public class VehicleJDBC implements BaseService<Vehicle> {
             ResultSet rs = preparedStatement.executeQuery();
             while (rs.next()){
                 Long id =rs.getLong("id");
+                String vehicle_name = rs.getString("vehicle_name");
                 String engine_num = rs.getString("engine_num");
                 String chassis_num = rs.getString("chassis_num");
                 Long customer_id = rs.getLong("customer_id");
@@ -54,7 +55,7 @@ public class VehicleJDBC implements BaseService<Vehicle> {
                 Long color_id = rs.getLong("color_id");
                 String color = rs.getString("color");
                 Integer isDelete = rs.getInt("isDelete");
-                vehicles.add(new Vehicle(id,engine_num,chassis_num,isDelete,customer_id,customer,brand_id,brand,color_id,color));
+                vehicles.add(new Vehicle(id,vehicle_name,engine_num,chassis_num,isDelete,customer_id,customer,brand_id,brand,color_id,color));
             }
         } catch (SQLException e) {
         }
@@ -72,6 +73,7 @@ public class VehicleJDBC implements BaseService<Vehicle> {
 
             while (rs.next()) {
                 Long id =rs.getLong("id");
+                String vehicle_name = rs.getString("vehicle_name");
                 String engine_num = rs.getString("engine_num");
                 String chassis_num = rs.getString("chassis_num");
                 Long customer_id = rs.getLong("customer_id");
@@ -81,7 +83,7 @@ public class VehicleJDBC implements BaseService<Vehicle> {
                 Long color_id = rs.getLong("color_id");
                 String color = rs.getString("color");
                 Integer isDelete = rs.getInt("isDelete");
-                vehicle = (new Vehicle(id,engine_num,chassis_num,isDelete,customer_id,customer,brand_id,brand,color_id,color));
+                vehicle = (new Vehicle(id,vehicle_name,engine_num,chassis_num,isDelete,customer_id,customer,brand_id,brand,color_id,color));
             }
         } catch (SQLException e) {
         }
@@ -92,11 +94,12 @@ public class VehicleJDBC implements BaseService<Vehicle> {
     @Override
     public void save(Vehicle vehicle) {
         try (PreparedStatement preparedStatement = connection.prepareStatement(INSERT_VEHICLE)) {
-            preparedStatement.setString(1,vehicle.getEngine_num());
-            preparedStatement.setString(2,vehicle.getChassis_num());
-            preparedStatement.setLong(3,vehicle.getCustomer_id());
-            preparedStatement.setLong(4,vehicle.getBrand_id());
-            preparedStatement.setLong(5,vehicle.getColor_id());
+            preparedStatement.setString(1,vehicle.getVehicle_name());
+            preparedStatement.setString(2,vehicle.getEngine_num());
+            preparedStatement.setString(3,vehicle.getChassis_num());
+            preparedStatement.setLong(4,vehicle.getCustomer_id());
+            preparedStatement.setLong(5,vehicle.getBrand_id());
+            preparedStatement.setLong(6,vehicle.getColor_id());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             printSQLException(e);
@@ -106,12 +109,13 @@ public class VehicleJDBC implements BaseService<Vehicle> {
     @Override
     public void update(Vehicle vehicle) {
         try (PreparedStatement statement = connection.prepareStatement(UPDATE_VEHICLE)) {
-            statement.setString(1, vehicle.getEngine_num());
-            statement.setString(2,vehicle.getChassis_num());
-            statement.setLong(3,vehicle.getCustomer_id());
-            statement.setLong(4,vehicle.getBrand_id());
-            statement.setLong(5,vehicle.getColor_id());
-            statement.setLong(6, vehicle.getId());
+            statement.setString(1,vehicle.getVehicle_name());
+            statement.setString(2, vehicle.getEngine_num());
+            statement.setString(3,vehicle.getChassis_num());
+            statement.setLong(4,vehicle.getCustomer_id());
+            statement.setLong(5,vehicle.getBrand_id());
+            statement.setLong(6,vehicle.getColor_id());
+            statement.setLong(7, vehicle.getId());
             statement.executeUpdate();
         } catch (SQLException e) {
             printSQLException(e);
