@@ -46,6 +46,11 @@ public class VehicleController {
     public void removeVehicle(@PathVariable Long id){
         vehicleService.remove(id);
     }
+
+    @GetMapping("/vehicles/check/{engine}/{chassis}")
+    public Vehicle findByEngineOrChassisNumber(@PathVariable String engine, @PathVariable String chassis){
+        return vehicleService.findByEngineOrChassisNumber(engine,chassis);
+    }
 }
 
 

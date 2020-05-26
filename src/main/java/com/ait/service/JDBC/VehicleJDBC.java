@@ -1,8 +1,10 @@
 package com.ait.service.JDBC;
 
+import com.ait.model.Customer;
 import com.ait.model.Vehicle;
 import com.ait.service.BaseService;
 import com.ait.service.DatabaseConnection;
+import com.ait.service.VehicleService;
 import org.springframework.stereotype.Service;
 
 import java.sql.Connection;
@@ -13,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class VehicleJDBC implements BaseService<Vehicle> {
+public class VehicleJDBC implements VehicleService {
     Connection connection = DatabaseConnection.getConnection();
 
     private String SELECT_ALL_VEHICLES = "SELECT vehicle.id, vehicle.vehicle_name, vehicle.engine_num, vehicle.chassis_num, vehicle.customer_id, vehicle.brand_id, vehicle.color_id, vehicle.isDelete, " +
@@ -27,6 +29,11 @@ public class VehicleJDBC implements BaseService<Vehicle> {
             "INNER JOIN customer ON customer.id = vehicle.customer_id INNER JOIN brand ON brand.id = vehicle.brand_id " +
             "INNER JOIN color ON color.id = vehicle.color_id WHERE (vehicle.isDelete= 0 AND customer.isDelete=0 " +
             "AND brand.isDelete = 0 AND color.isDelete =0 AND vehicle.id=?);";
+
+    private String SELECT_VEHICLE_BY_ENGINE_OR_CHASSIS_NUMBER = "SELECT vehicle.id, vehicle.vehicle_name, vehicle.engine_num, vehicle.chassis_num, vehicle.customer_id, vehicle.brand_id, vehicle.color_id, vehicle.isDelete, " +
+            "customer.name AS customer, brand.name AS brand, color.name AS color FROM vehicle " +
+            "INNER JOIN customer ON customer.id = vehicle.customer_id INNER JOIN brand ON brand.id = vehicle.brand_id " +
+            "INNER JOIN color ON color.id = vehicle.color_id WHERE (vehicle.isDelete = 0 AND (vehicle.engine_num = ? OR vehicle.chassis_num = ?))";
 
     private String INSERT_VEHICLE = "INSERT INTO vehicle "+" (vehicle_name,engine_num,chassis_num,customer_id,brand_id,color_id)" +
             " VALUES "+ "(?,?,?,?,?,?);";
@@ -132,6 +139,32 @@ public class VehicleJDBC implements BaseService<Vehicle> {
         catch (SQLException e) {
             printSQLException(e);
         }
+    }
+
+    @Override
+    public Vehicle findByEngineOrChassisNumber(String engine, String chassis) {
+     Vehicle vehicle = null;
+        try (PreparedStatement preparedStatement = connection.prepareStatement(SELECT_VEHICLE_BY_ENGINE_OR_CHASSIS_NUMBER);) {
+            preparedStatement.setString(1, engine);
+            preparedStatement.setString(2,chassis);
+            ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next()){
+                Long id =rs.getLong("id");
+                String vehicle_name = rs.getString("vehicle_name");
+                String engine_num = rs.getString("engine_num");
+                String chassis_num = rs.getString("chassis_num");
+                Long customer_id = rs.getLong("customer_id");
+                String customer = rs.getString("customer");
+                Long brand_id = rs.getLong("brand_id");
+                String brand = rs.getString("brand");
+                Long color_id = rs.getLong("color_id");
+                String color = rs.getString("color");
+                Integer isDelete = rs.getInt("isDelete");
+                vehicle = (new Vehicle(id,vehicle_name,engine_num,chassis_num,isDelete,customer_id,customer,brand_id,brand,color_id,color));
+            }
+        } catch (SQLException e) {
+        }
+        return vehicle;
     }
 
     private void printSQLException(SQLException ex) {

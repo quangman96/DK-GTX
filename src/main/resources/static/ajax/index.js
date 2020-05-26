@@ -4,6 +4,33 @@ let formObjVehicle = {};
 let customer_status;
 let existCustomer_id;
 
+index.checkVehicle = function() {
+  let engine = $('#input_engine_num').val();
+  let chassis = $('#input_chassis_num').val();
+
+  if(engine == "" || chassis == ""){
+      swal("Please input engine number or chassis number","","error");
+  }
+  else {
+      $.ajax({
+          url: "api/vehicles/check/" + engine +"/" +chassis,
+          method: "GET",
+          dataType: "json",
+          success: function () {
+            console.log("co");
+            swal("Number exits in system! Please try again!","","warning");
+              $('#input_engine_num').val("");
+              $('#input_chassis_num').val("");
+          },
+          error: function () {
+              console.log("ko");
+            swal("Oke la!");
+              $('#create_form').prop("disabled", false);
+          }
+      })
+  }
+};
+
 index.checkInformation = function () {
     let identity =$('#input_identity').val();
 
@@ -11,7 +38,7 @@ index.checkInformation = function () {
         swal("Please input identity!","", "error");
     } else {
         $.ajax({
-            url : "api/customers/identity/" + identity,
+            url : "api/customers/check/" + identity,
             method : "GET",
             dataType : "json",
             success: function (data) {
@@ -33,6 +60,8 @@ index.checkInformation = function () {
                 $('#input_vehicle').prop("disabled", false);
                 $('#input_chassis_num').prop("disabled", false);
                 $('#input_engine_num').prop("disabled", false);
+                $('#check_identity').prop("disabled", false);
+
             },
             error: function () {
                 customer_status = false;
@@ -50,16 +79,12 @@ index.checkInformation = function () {
                 $('#input_vehicle').prop("disabled", false);
                 $('#input_chassis_num').prop("disabled", false);
                 $('#input_engine_num').prop("disabled", false);
-
+                $('#check_identity').prop("disabled", false);
             }
         })
     }
 };
 
-index.checkVehicle = function () {
-    console.log("man");
-
-};
 
 index.createForm = function(){
     if(customer_status){
@@ -120,7 +145,7 @@ index.createNewCustomerAndVehicle = function () {
             console.log("create customer");
 
             $.ajax({
-                url : "api/customers/identity/" + formObjCustomer.identity,
+                url : "api/customers/check/" + formObjCustomer.identity,
                 method : "GET",
                 dataType : "json",
                 contentType: "application/json",
