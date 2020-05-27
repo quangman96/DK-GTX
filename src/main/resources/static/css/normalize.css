@@ -545,3 +545,8 @@ table {
     -moz-border-radius: 5px;
     border-radius: 5px;
 }
+
+.error {
+    color: #F00;
+    font-size: large;
+}

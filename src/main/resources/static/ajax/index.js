@@ -4,39 +4,32 @@ let formObjVehicle = {};
 let customer_status;
 let existCustomer_id;
 
-index.checkVehicle = function() {
-  let engine = $('#input_engine_num').val();
-  let chassis = $('#input_chassis_num').val();
+index.checkVehicle = function () {
+    if (($('#input_engine_num').valid())&&($('#input_chassis_num').valid())){
+        let engine = $('#input_engine_num').val();
+        let chassis = $('#input_chassis_num').val();
 
-  if(engine == "" || chassis == ""){
-      swal("Please input engine number or chassis number","","error");
-  }
-  else {
-      $.ajax({
-          url: "api/vehicles/check/" + engine +"/" +chassis,
-          method: "GET",
-          dataType: "json",
-          success: function () {
-            console.log("co");
-            swal("Number exits in system! Please try again!","","warning");
-              $('#input_engine_num').val("");
-              $('#input_chassis_num').val("");
-          },
-          error: function () {
-              console.log("ko");
-            swal("Oke la!");
-              $('#create_form').prop("disabled", false);
-          }
-      })
-  }
+        $.ajax({
+            url: "api/vehicles/check/" + engine +"/" +chassis,
+            method: "GET",
+            dataType: "json",
+            success: function () {
+                swal("Number exits in system! Please try again!","","warning");
+                $('#input_engine_num').val("");
+                $('#input_chassis_num').val("");
+            },
+            error: function () {
+                swal("Oke la!");
+                $('#create_form').prop("disabled", false);
+            }
+        })
+    }
 };
 
 index.checkInformation = function () {
-    let identity =$('#input_identity').val();
+    if ($('#input_identity').valid()){
+        let identity =$('#input_identity').val();
 
-    if(identity == ""){
-        swal("Please input identity!","", "error");
-    } else {
         $.ajax({
             url : "api/customers/check/" + identity,
             method : "GET",
@@ -61,7 +54,6 @@ index.checkInformation = function () {
                 $('#input_chassis_num').prop("disabled", false);
                 $('#input_engine_num').prop("disabled", false);
                 $('#check_identity').prop("disabled", false);
-
             },
             error: function () {
                 customer_status = false;
@@ -85,18 +77,20 @@ index.checkInformation = function () {
     }
 };
 
-
 index.createForm = function(){
-    if(customer_status){
-        index.createNewVehicleWithExistCustomer();
-    }
-    else {
-        index.createNewCustomerAndVehicle();
+    if ($('#form_create').valid()){
+        if(customer_status){
+            index.createNewVehicleWithExistCustomer();
+        }
+        else {
+            index.createNewCustomerAndVehicle();
+        }
+    } else {
+        console.log("3");
     }
 };
 
 index.createNewVehicleWithExistCustomer = function() {
-    console.log("OK");
 
     formObjVehicle.customer_id = existCustomer_id;
     formObjVehicle.vehicle_name = $('#input_vehicle').val();
@@ -190,80 +184,65 @@ index.resetAll = function () {
     formObjVehicle = {};
     customer_status = null;
     existCustomer_id = null;
-
 };
 
 index.initValidation = function () {
     $('#form_create').validate({
         rules:{
             input_name:{
-                required:true,
-                maxlength: 50
+                required:true
+
             },
             input_address:{
-                required:true,
-                maxlength: 100
+                required:true
             },
             input_phone:{
-                required:true,
-                maxLength: 50
+                required:true
             },
             input_identity:{
                 required:true,
-                maxlength:13,
-                minLength:8
+                digits:true,
             },
             input_vehicle:{
-                required:true,
-                maxLength: 50
+                required:true
             },
             input_engine_num:{
                 required:true,
-                maxlength: 50
+                digits:true,
             },
             input_chassis_num:{
-                required:true
+                required:true,
+                digits:true,
             }
         },
-        message:{
+        messages:{
             input_name:{
-                required: "Please input name!",
-                maxLength: "Max length 50"
+                required: "Please input name!"
             },
             input_address:{
-                required: "Please input address!",
-                maxLength: "Max length 100"
+                required: "Please input address!"
             },
             input_phone:{
-                required: "Please input phone!",
-                maxLength: "Max length 50",
+                required: "Please input phone!"
             },
             input_identity:{
                 required: "Input identity!",
-                maxLength: "Max length 13",
-                minLength: "8",
+                digits:"only number"
             },
             input_vehicle:{
-                required: "Please input vehicle!",
-                maxLength: "Max length 50",
+                required: "Please input vehicle!"
             },
             input_engine_num:{
                 required: "Please input engine number!",
-                maxLength: "Max length 50",
+                digits:"only number"
             },
             input_chassis_num:{
                 required: "Please input chassis number!",
-                maxLength: "Max length 50",
+                digits:"only number"
             },
         }
     })
 };
-
-$("#create_form").submit(function (event) {
-    event.preventDefault();
-    index.createForm();
-});
-
 
 $(document).ready(function () {
     index.initValidation();
