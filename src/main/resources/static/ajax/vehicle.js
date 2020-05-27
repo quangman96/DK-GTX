@@ -19,13 +19,13 @@ vehicles.iniTable = function(){
                     {
                         data: 'id',
                         render: function (data, type, row, meta) {
-                            return "<a href='javascript:void(0);' class='edit' onclick='vehicles.get("+data+")' ><i class=\"fas fa-pen-square fa-3x\" ></i></a>"
+                            return "<a href='javascript:void(0);' class='edit' onclick='vehicles.get("+data+")' ><i class=\"fas fa-pen-square fa-2x\" ></i></a>"
                         }
                     },
                     {
                         data: 'id',
                         render: function (data, type, row, meta) {
-                            return "<a href='javascript:void(0);' class='delete' onclick='vehicles.delete("+data+")' ><i class=\"fas fa-trash-alt fa-3x\" ></i></a>"
+                            return "<a href='javascript:void(0);' class='delete' onclick='vehicles.delete("+data+")' ><i class=\"fas fa-trash-alt fa-2x\" ></i></a>"
                         }
                     },
                 ]
