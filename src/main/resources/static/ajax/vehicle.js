@@ -66,7 +66,36 @@ vehicles.initColor = function(){
 };
 
 vehicles.get = function(){};
-vehicles.delete = function(){};
+
+vehicles.delete = function(id){
+    swal({
+        title: "Do you want to remove this vehicle?",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+        allowOutsideClick: false,
+    })
+        .then((willDelete) => {
+            if (willDelete) {
+                $.ajax({
+                    url: "api/vehicles/delete/" +id,
+                    method: "PUT",
+                    // dataType: "JSON",
+                    success: function () {
+                        swal("Done!", "It was deleted!", "success");
+                        vehicles.iniTable();
+                    },
+                    error: function () {
+                        swal("Error deleting!", "Please try again", "error");
+                    }
+                });
+            } else {
+                swal("Your data is safe!");
+            }
+        });
+
+};
+
 vehicles.save = function(){};
 
 vehicles.init = function(){
