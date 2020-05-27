@@ -32,6 +32,7 @@ public class VehicleController {
     @PutMapping("/vehicles/{id}")
     public Vehicle updateVehicle(@PathVariable Long id, @RequestBody Vehicle vehicle){
         Vehicle vehicle1 = vehicleService.findById(id);
+        vehicle1.setVehicle_name(vehicle.getVehicle_name());
         vehicle1.setEngine_num(vehicle.getEngine_num());
         vehicle1.setChassis_num(vehicle.getChassis_num());
         vehicle1.setCustomer_id(vehicle.getCustomer_id());

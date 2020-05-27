@@ -1,11 +1,14 @@
 package com.ait.model;
 
+import java.util.Date;
+
 public class Vehicle {
     private Long id;
     private String vehicle_name;
     private String engine_num;
     private String chassis_num;
     private Integer isDelete;
+    private Date create_date;
 
     private Long customer_id;
     private String customer_name;
@@ -16,7 +19,7 @@ public class Vehicle {
     private Long color_id;
     private String color_name;
 
-    public Vehicle(Long id, String vehicle_name, String engine_num, String chassis_num, Integer isDelete, Long customer_id, String customer_name, Long brand_id, String brand_name, Long color_id, String color_name) {
+    public Vehicle(Long id, String vehicle_name, String engine_num, String chassis_num, Integer isDelete, Long customer_id, String customer_name, Long brand_id, String brand_name, Long color_id, String color_name,Date create_date) {
         this.id = id;
         this.vehicle_name = vehicle_name;
         this.engine_num = engine_num;
@@ -28,6 +31,7 @@ public class Vehicle {
         this.brand_name = brand_name;
         this.color_id = color_id;
         this.color_name = color_name;
+        this.create_date = create_date;
     }
 
     public Long getId() {
@@ -116,5 +120,13 @@ public class Vehicle {
 
     public void setColor_name(String color_name) {
         this.color_name = color_name;
+    }
+
+    public Date getCreate_date() {
+        return create_date;
+    }
+
+    public void setCreate_date(Date create_date) {
+        this.create_date = create_date;
     }
 }

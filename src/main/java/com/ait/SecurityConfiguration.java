@@ -28,6 +28,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                                                             "/brandColor/**","/chart/**").hasRole("ADMIN")
                 .and()
                 .formLogin()
+//                .loginPage("/login")
                 .defaultSuccessUrl("/chart")
                 .failureUrl("/login?error=true")
                 .permitAll()

@@ -11,15 +11,16 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Service
 public class CustomerJDBC implements CustomerService {
     Connection connection = DatabaseConnection.getConnection();
 
-    private String SELECT_ALL_CUSTOMERS = "SELECT customer.id, customer.name, customer.address, customer.phone, customer.identity, customer.province_id, customer.isDelete, province.name AS province FROM customer INNER JOIN province ON province.id = customer.province_id WHERE (customer.isDelete=0 AND province.isdelete=0);";
-    private String SELECT_CUSTOMER_BY_ID = "SELECT customer.id, customer.name, customer.address, customer.phone, customer.identity, customer.province_id, customer.isDelete, province.name AS province FROM customer INNER JOIN province ON province.id = customer.province_id WHERE (customer.isDelete=0 AND province.isdelete=0 AND customer.id = ?);";
-    private String SELECT_CUSTOMER_BY_IDENTITY = "SELECT customer.id, customer.name, customer.address, customer.phone, customer.identity, customer.province_id, customer.isDelete, province.name AS province FROM customer INNER JOIN province ON province.id = customer.province_id WHERE (customer.isDelete=0 AND province.isdelete=0 AND customer.identity = ?);";
+    private String SELECT_ALL_CUSTOMERS = "SELECT customer.id, customer.name, customer.address, customer.phone, customer.identity, customer.province_id, customer.isDelete, customer.create_date, province.name AS province FROM customer INNER JOIN province ON province.id = customer.province_id WHERE (customer.isDelete=0 AND province.isdelete=0);";
+    private String SELECT_CUSTOMER_BY_ID = "SELECT customer.id, customer.name, customer.address, customer.phone, customer.identity, customer.province_id, customer.isDelete, customer.create_date, province.name AS province FROM customer INNER JOIN province ON province.id = customer.province_id WHERE (customer.isDelete=0 AND province.isdelete=0 AND customer.id = ?);";
+    private String SELECT_CUSTOMER_BY_IDENTITY = "SELECT customer.id, customer.name, customer.address, customer.phone, customer.identity, customer.province_id, customer.isDelete, customer.create_date, province.name AS province FROM customer INNER JOIN province ON province.id = customer.province_id WHERE (customer.isDelete=0 AND province.isdelete=0 AND customer.identity = ?);";
     private String INSERT_CUSTOMER = "INSERT INTO customer "+" (name, address,phone,identity,province_id) VALUES "+ "(?,?,?,?,?);";
     private String UPDATE_CUSTOMER = "UPDATE customer SET name=?,address=? ,phone=? ,identity=? ,province_id=? WHERE id=?;";
     private String REMOVE_CUSTOMER = "UPDATE customer SET isDelete = 1 WHERE id=?;";
@@ -37,9 +38,9 @@ public class CustomerJDBC implements CustomerService {
                 String identity = rs.getString("identity");
                 Long province_id = rs.getLong("province_id");
                 String province_name = rs.getString("province");
-//                Date current_day = rs.getDate("current_day");
                 Integer isDelete = rs.getInt("isDelete");
-                customers.add(new Customer(id,name,address,phone,identity,province_id,province_name, isDelete));
+                Date create_date = rs.getDate("create_date");
+                customers.add(new Customer(id,name,address,phone,identity,province_id,province_name, isDelete,create_date));
             }
         } catch (SQLException e) {
         }
@@ -63,9 +64,9 @@ public class CustomerJDBC implements CustomerService {
                 String identity = rs.getString("identity");
                 Long province_id = rs.getLong("province_id");
                 String province_name = rs.getString("province");
-//                Date current_day = rs.getDate("current_day");
                 Integer isDelete = rs.getInt("isDelete");
-                customer =(new Customer(id,name,address,phone,identity,province_id,province_name, isDelete));
+                Date create_date = rs.getDate("create_date");
+                customer =(new Customer(id,name,address,phone,identity,province_id,province_name, isDelete,create_date));
             }
         } catch (SQLException e) {
         }
@@ -88,9 +89,9 @@ public class CustomerJDBC implements CustomerService {
                 String identity = rs.getString("identity");
                 Long province_id = rs.getLong("province_id");
                 String province_name = rs.getString("province");
-//                Date current_day = rs.getDate("current_day");
                 Integer isDelete = rs.getInt("isDelete");
-                customer =(new Customer(id,name,address,phone,identity,province_id,province_name, isDelete));
+                Date create_date = rs.getDate("create_date");
+                customer =(new Customer(id,name,address,phone,identity,province_id,province_name, isDelete,create_date));
             }
         } catch (SQLException e) {
         }

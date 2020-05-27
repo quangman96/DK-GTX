@@ -15,6 +15,7 @@ customers.iniTable = function(){
                     {'data':'phone'},
                     {'data':'identity'},
                     {'data':'province_name'},
+                    {'data':'create_date'},
                     {
                         data: 'id',
                         render: function (data, type, row, meta) {
@@ -76,16 +77,6 @@ customers.save = function(){
     if($('#formAddEdit').valid()){
         if($('#id').val()==0){
             console.log("error id = 0 ");
-            // let customerObj = {};
-            // customerObj.name = $('#name').val();
-            // customerObj.address = $('#address').val();
-            // customerObj.phone = $('#phone').val();
-            // customerObj.identity = $('#identity').val();
-            //
-            // let provinceObj = {};
-            // provinceObj.id = $('#province').val();
-            // provinceObj.name = $('#province option:selected').html();
-            // customerObj.province_name = provinceObj;
         }
         else{
             let customerObj = {};
@@ -99,7 +90,7 @@ customers.save = function(){
             provinceObj.id = $('#province').val();
             provinceObj.name = $('#province option:selected').html();
             customerObj.province_id = provinceObj.id;
-            console.log(customerObj);
+
 
             $.ajax({
                 url: "api/customers/" +customerObj.id,
@@ -147,10 +138,27 @@ customers.delete = function(id){
 
 };
 
+customers.initValidation = function(){
+    $("#formAddEdit").validate({
+        rules: {
+            name: "required",
+            address: "required",
+            phone: "required",
+            identity: "required",
+        },
+        messages: {
+            name: "Please enter your city name",
+            address: "Please enter your address",
+            phone: "Please enter your phone",
+            identity: "Please enter your identity",
+        }
+    });
+};
 
 customers.init = function(){
     customers.iniTable();
     customers.initProvince();
+    customers.initValidation();
 };
 
 $(document).ready(function () {

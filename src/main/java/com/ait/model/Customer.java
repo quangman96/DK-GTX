@@ -8,23 +8,24 @@ public class Customer {
     private String address;
     private String phone;
     private String identity;
-    private Date current_day;
+    private Date create_date;
     private Integer isDelete;
 
     private Long province_id;
     private String province_name;
 
     public Customer(Long id, String name, String address, String phone, String identity,
-                    Long province_id,String province_name, Integer isDelete ) {
+                    Long province_id,String province_name, Integer isDelete,Date create_date ) {
         this.id = id;
         this.name = name;
         this.address = address;
         this.phone = phone;
         this.identity = identity;
-//        this.current_day = current_day;
         this.isDelete = isDelete;
         this.province_id = province_id;
         this.province_name = province_name;
+        this.create_date = create_date;
+
     }
 
     public Long getId() {
@@ -49,14 +50,6 @@ public class Customer {
 
     public void setAddress(String address) {
         this.address = address;
-    }
-
-    public Date getCurrent_day() {
-        return current_day;
-    }
-
-    public void setCurrent_day(Date current_day) {
-        this.current_day = current_day;
     }
 
     public Integer getIsDelete() {
@@ -97,5 +90,13 @@ public class Customer {
 
     public void setIdentity(String identity) {
         this.identity = identity;
+    }
+
+    public Date getCreate_date() {
+        return create_date;
+    }
+
+    public void setCreate_date(Date create_date) {
+        this.create_date = create_date;
     }
 }

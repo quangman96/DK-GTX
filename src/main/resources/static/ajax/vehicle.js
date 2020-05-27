@@ -15,6 +15,7 @@ vehicles.iniTable = function(){
                     {'data':'color_name'},
                     {'data':'engine_num'},
                     {'data':'chassis_num'},
+                    {'data':'create_date'},
                     {
                         data: 'id',
                         render: function (data, type, row, meta) {
@@ -65,7 +66,27 @@ vehicles.initColor = function(){
     })
 };
 
-vehicles.get = function(){};
+vehicles.get = function(id){
+        $.ajax({
+            url : "api/vehicles/" + id,
+            method : "GET",
+            dataType : "json",
+            success: function (data) {
+                $('#formAddEdit')[0].reset();
+                $('#modalTitle').html("Edit vehicle");
+                $('#vehicle_name').val(data.vehicle_name);
+                $('#customer_name').val(data.customer_name);
+                $('#brand_name').val(data.brand);
+                $('#color_name').val(data.color);
+                $('#engine_num').val(data.engine_num);
+                $('#chassis_num').val(data.chassis_num);
+                $('#id').val(data.id);
+                $('#customer_id').val(data.customer_id);
+
+                $('#modalAddEdit').modal('show');
+            }
+        })
+    };
 
 vehicles.delete = function(id){
     swal({
@@ -96,12 +117,67 @@ vehicles.delete = function(id){
 
 };
 
-vehicles.save = function(){};
+vehicles.save = function(){
+    if($('#formAddEdit').valid()){
+        if($('#id').val()==0){
+        }
+        else{
+            let vehicleObj = {};
+            vehicleObj.vehicle_name = $('#vehicle_name').val();
+            vehicleObj.engine_num = $('#engine_num').val();
+            vehicleObj.chassis_num = $('#chassis_num').val();
+            vehicleObj.id = $('#id').val();
+            vehicleObj.customer_id = $('#customer_id').val();
+
+            let brandObj = {};
+            brandObj.id = $('#brand').val();
+            brandObj.name = $('#brand option:selected').html();
+            vehicleObj.brand_id = brandObj.id;
+
+            let colorObj = {};
+            colorObj.id = $('#color').val();
+            colorObj.name = $('#color option:selected').html();
+            vehicleObj.color_id = colorObj.id;
+
+            $.ajax({
+                url: "api/vehicles/" +vehicleObj.id,
+                method: "PUT",
+                dataType: "JSON",
+                contentType: "application/json",
+                data: JSON.stringify(vehicleObj),
+                success: function (data) {
+                    console.log(vehicleObj);
+                    $("#modalAddEdit").modal('hide');
+                    swal("Done!", "Vehicle was Updated!", "success");
+                    vehicles.iniTable();
+                }
+
+            });
+
+        }
+    }
+};
+
+vehicles.initValidation = function(){
+    $("#formAddEdit").validate({
+        rules: {
+            vehicle_name: "required",
+            engine_num: "required",
+            chassis_num: "required",
+        },
+        messages: {
+            vehicle_name: "Please enter vehicle name",
+            engine_num: "Please enter engine number",
+            chassis_num: "Please enter chassis number",
+        }
+    });
+};
 
 vehicles.init = function(){
     vehicles.iniTable();
     vehicles.initBrand();
     vehicles.initColor();
+    vehicles.initValidation();
 };
 $(document).ready(function () {
     vehicles.init();
