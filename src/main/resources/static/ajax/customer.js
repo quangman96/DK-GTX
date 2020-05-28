@@ -136,7 +136,6 @@ customers.delete = function(id){
                     }
                 });
             } else {
-                swal("Your data is safe!");
             }
         });
 

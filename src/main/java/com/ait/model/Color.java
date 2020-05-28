@@ -1,14 +1,18 @@
 package com.ait.model;
 
+import java.util.Date;
+
 public class Color {
     private Long id;
     private String name;
     private Integer isDelete;
+    private Date create_date;
 
-    public Color(Long id, String name, Integer isDelete) {
+    public Color(Long id, String name, Integer isDelete, Date create_date) {
         this.id = id;
         this.name = name;
         this.isDelete = isDelete;
+        this.create_date = create_date;
     }
 
     public Long getId() {
@@ -33,5 +37,13 @@ public class Color {
 
     public void setIsDelete(Integer isDelete) {
         this.isDelete = isDelete;
+    }
+
+    public Date getCreate_date() {
+        return create_date;
+    }
+
+    public void setCreate_date(Date create_date) {
+        this.create_date = create_date;
     }
 }

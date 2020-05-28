@@ -1,5 +1,7 @@
 package com.ait.model;
 
+import java.util.Date;
+
 public class Province {
     private Long id;
     private String name;
@@ -7,13 +9,15 @@ public class Province {
     private String telephone_code;
     private Integer quantity;
     private Integer isDelete;
+    private Date create_date;
 
-    public Province(Long id, String name, String province_code, String telephone_code, Integer isDelete) {
+    public Province(Long id, String name, String province_code, String telephone_code, Integer isDelete, Date create_date) {
         this.id = id;
         this.name = name;
         this.province_code = province_code;
         this.telephone_code = telephone_code;
         this.isDelete = isDelete;
+        this.create_date = create_date;
     }
 
     public Long getId() {
@@ -62,5 +66,13 @@ public class Province {
 
     public void setIsDelete(Integer isDelete) {
         this.isDelete = isDelete;
+    }
+
+    public Date getCreate_date() {
+        return create_date;
+    }
+
+    public void setCreate_date(Date create_date) {
+        this.create_date = create_date;
     }
 }

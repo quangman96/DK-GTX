@@ -10,6 +10,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -31,7 +32,8 @@ public class ColorJDBC implements BaseService<Color> {
                 Long id =rs.getLong("id");
                 String name = rs.getString("name");
                 Integer isDelete = rs.getInt("isDelete");
-                colors.add(new Color(id,name,isDelete));
+                Date create_date = rs.getDate("create_date");
+                colors.add(new Color(id,name,isDelete,create_date));
             }
         } catch (SQLException e) {
         }
@@ -50,8 +52,9 @@ public class ColorJDBC implements BaseService<Color> {
             while (rs.next()) {
                 String name = rs.getString("name");
                 Integer isDelete = rs.getInt("isDelete");
+                Date create_date = rs.getDate("create_date");
 
-                color =(new Color(id, name, isDelete));
+                color =(new Color(id, name, isDelete,create_date));
             }
         } catch (SQLException e) {
         }

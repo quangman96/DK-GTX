@@ -15,6 +15,7 @@ extraBoard.initBrand = function(){
                 data:data,
                 columns:[
                     {'data':'name'},
+                    {'data':'create_date'},
                     {
                         data: 'id',
                         render: function (data, type, row, meta) {
@@ -48,6 +49,7 @@ extraBoard.initColor = function(){
                 data:data,
                 columns:[
                     {'data':'name'},
+                    {'data':'create_date'},
                     {
                         data: 'id',
                         render: function (data, type, row, meta) {
@@ -109,7 +111,6 @@ extraBoard.delete = function(id,element){
                     }
                 });
             } else {
-                swal("Your data is safe!");
             }
         });
 };

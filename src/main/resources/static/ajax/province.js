@@ -13,6 +13,7 @@ provinces.iniTable = function(){
                     {'data':'name'},
                     {'data':'province_code'},
                     {'data':'telephone_code'},
+                    {'data':'create_date'},
                     {
                         data: 'id',
                         render: function (data, type, row, meta) {
@@ -72,7 +73,6 @@ provinces.delete = function(id){
                     }
                 });
             } else {
-                swal("Your data is safe!");
             }
         });
 

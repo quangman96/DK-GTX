@@ -10,6 +10,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -35,7 +36,8 @@ public class ProvinceJDBC implements BaseService<Province> {
                 String province_code = rs.getString("province_code");
                 String telephone_code = rs.getString("telephone_code");
                 Integer isDelete = rs.getInt("isDelete");
-                provinces.add(new Province(id,name,province_code,telephone_code,isDelete));
+                Date create_date = rs.getDate("create_date");
+                provinces.add(new Province(id,name,province_code,telephone_code,isDelete,create_date));
             }
         } catch (SQLException e) {
         }
@@ -56,8 +58,9 @@ public class ProvinceJDBC implements BaseService<Province> {
                 String province_code = rs.getString("province_code");
                 String telephone_code = rs.getString("telephone_code");
                 Integer isDelete = rs.getInt("isDelete");
+                Date create_date = rs.getDate("create_date");
 
-                province =(new Province(id,name,province_code,telephone_code,isDelete));
+                province =(new Province(id,name,province_code,telephone_code,isDelete,create_date));
             }
         } catch (SQLException e) {
         }

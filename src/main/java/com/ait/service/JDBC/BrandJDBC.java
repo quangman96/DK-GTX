@@ -10,6 +10,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -33,7 +34,8 @@ public class BrandJDBC implements BaseService<Brand> {
                 Long id =rs.getLong("id");
                 String name = rs.getString("name");
                 Integer isDelete = rs.getInt("isDelete");
-                brands.add(new Brand(id,name,isDelete));
+                Date create_date = rs.getDate("create_date");
+                brands.add(new Brand(id,name,isDelete,create_date));
             }
         } catch (SQLException e) {
         }
@@ -52,8 +54,9 @@ public class BrandJDBC implements BaseService<Brand> {
             while (rs.next()) {
                 String name = rs.getString("name");
                 Integer isDelete = rs.getInt("isDelete");
+                Date create_date = rs.getDate("create_date");
 
-                brand =(new Brand(id, name, isDelete));
+                brand =(new Brand(id, name, isDelete,create_date));
             }
         } catch (SQLException e) {
         }
