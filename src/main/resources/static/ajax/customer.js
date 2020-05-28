@@ -1,5 +1,6 @@
 let customers = {} || customers;
 let identityList = [];
+let identityExist;
 
 customers.iniTable = function(){
     $.ajax({
@@ -66,6 +67,7 @@ customers.get = function(id){
             $('#address').val(data.address);
             $('#phone').val(data.phone);
             $('#identity').val(data.identity);
+            identityExist =(data.identity);
             $('#province_name').val(data.province);
             $('#id').val(data.id);
 
@@ -77,7 +79,6 @@ customers.get = function(id){
 customers.save = function(){
     if($('#formAddEdit').valid()){
         if($('#id').val()==0){
-            console.log("error id = 0 ");
         }
         else{
             let customerObj = {};
@@ -102,7 +103,9 @@ customers.save = function(){
                 success: function (data) {
                     $("#modalAddEdit").modal('hide');
                     swal("Done!", "Vehicle was Updated!", "success");
+                    identityExist = null;
                     customers.iniTable();
+
                 }
 
             });
@@ -152,7 +155,16 @@ customers.initValidation = function(){
             identity:{
                 required:true,
                 checkIdentity:true,
-            }
+            },
+            chassis_num:{
+                required:true,
+                checkChassisNumber:true,
+            },
+            engine_num:{
+                required:true,
+                checkEngineNumber:true,
+            },
+
         },
         messages: {
             name: "Please enter your city name",
@@ -160,6 +172,12 @@ customers.initValidation = function(){
             phone: "Please enter your phone",
             identity:{
                 required:"Please enter your identity",
+            },
+            chassis_num: {
+                required:"chassis number not null",
+            },
+            engine_num: {
+                required:"engine number not null",
             }
         }
     });
@@ -180,12 +198,17 @@ customers.identityList = function() {
 };
 
 customers.checkIdentity = function(identity) {
-    for(let i=0; i<identityList.length; i++) {
-        if(identity == identityList[i]){
-            return false;
-        }
+    if(identity == identityExist){
+        return true;
     }
-    return true;
+    else{
+        for(let i=0; i<identityList.length; i++) {
+            if(identity == identityList[i]){
+                return false;
+            }
+        }
+        return true;
+}
 };
 
 

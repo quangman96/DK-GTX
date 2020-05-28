@@ -2,6 +2,8 @@ let vehicles = {} || vehicles;
 
 let engineNumberList = [];
 let chassisNumberList = [];
+let engineNumberExist;
+let chassisNumberExist;
 
 
 vehicles.iniTable = function(){
@@ -87,6 +89,8 @@ vehicles.get = function(id){
                 $('#chassis_num').val(data.chassis_num);
                 $('#id').val(data.id);
                 $('#customer_id').val(data.customer_id);
+                engineNumberExist = $('#engine_num').val();
+                chassisNumberExist = $('#chassis_num').val();
 
                 $('#modalAddEdit').modal('show');
             }
@@ -154,6 +158,8 @@ vehicles.save = function(){
                     console.log(vehicleObj);
                     $("#modalAddEdit").modal('hide');
                     swal("Done!", "Vehicle was Updated!", "success");
+                    engineNumberExist = null;
+                    chassisNumberExist = null;
                     vehicles.iniTable();
                 }
 
@@ -164,21 +170,29 @@ vehicles.save = function(){
 };
 
 vehicles.checkEngineNumber = function(engine_num){
-    for(let i=0; i<engineNumberList.length; i++) {
-        if(engine_num == engineNumberList[i]){
-            return false;
+    if(engine_num == engineNumberExist){
+        return true;
+    } else {
+        for(let i=0; i<engineNumberList.length; i++) {
+            if(engine_num == engineNumberList[i]){
+                return false;
+            }
         }
+        return true;
     }
-    return true;
 };
 
 vehicles.checkChassisNumber = function(chassis_num){
-    for(let i=0; i<chassisNumberList.length; i++) {
-        if(chassis_num == chassisNumberList[i]){
-            return false;
+    if(chassis_num == chassisNumberExist){
+        return true;
+    } else {
+        for(let i=0; i<chassisNumberList.length; i++) {
+            if(chassis_num == chassisNumberList[i]){
+                return false;
+            }
         }
+        return true;
     }
-    return true;
 };
 
 $.validator.addMethod('checkEngineNumber', function (value, element) {
@@ -189,26 +203,25 @@ $.validator.addMethod('checkChassisNumber', function (value, element) {
     return this.optional(element) || vehicles.checkChassisNumber(value)
 }, 'Error, chassis number exist in system');
 
+$("#formAddEdit").submit(function (event) {
+    event.preventDefault();
+    if (!$(this).valid()) return false;
+    console.log("error");
+});
+
 vehicles.initValidation = function(){
     $("#formAddEdit").validate({
         rules: {
             vehicle_name: "required",
-            engine_num:{
+            chassis_num:{
                 required:true,
                 checkEngineNumber:true,
-            },
-            chassis_num:{
-                required:true,
-                checkChassisNumber:true,
-            },
+            }
         },
         messages: {
-            vehicle_name: "Please enter vehicle name",
-            engine_num:{
-                required:"Please enter engine number",
-            },
+            vehicle_name: "Please enter your city vehicle name",
             chassis_num:{
-                required:"Please enter chassis number",
+                required:"Please enter your chassis_num",
             }
         }
     });
@@ -246,7 +259,7 @@ vehicles.init = function(){
     vehicles.iniTable();
     vehicles.initBrand();
     vehicles.initColor();
-    vehicles.initValidation();
+    customers.initValidation();
     vehicles.initEngineNumberList();
     vehicles.initChassisNumberList();
 };
