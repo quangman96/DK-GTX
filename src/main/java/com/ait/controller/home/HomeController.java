@@ -12,7 +12,7 @@ public class HomeController {
     }
 
     @GetMapping("/")
-    public String hello(Model model){ return "user/home";}
+    public String hello(Model model){ return "/user/home";}
 
     @GetMapping("customer")
     public String customer(Model model){return "admin/customer";}
