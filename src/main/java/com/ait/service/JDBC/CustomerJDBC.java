@@ -24,6 +24,7 @@ public class CustomerJDBC implements CustomerService {
     private String INSERT_CUSTOMER = "INSERT INTO customer "+" (name, address,phone,identity,province_id) VALUES "+ "(?,?,?,?,?);";
     private String UPDATE_CUSTOMER = "UPDATE customer SET name=?,address=? ,phone=? ,identity=? ,province_id=? WHERE id=?;";
     private String REMOVE_CUSTOMER = "UPDATE customer SET isDelete = 1 WHERE id=?;";
+    private String IDENTITY_LIST = "SELECT customer.identity FROM customer WHERE customer.isDelete =0;";
 
     @Override
     public List<Customer> findAll() {
@@ -47,6 +48,21 @@ public class CustomerJDBC implements CustomerService {
         return customers;
 
 
+    }
+
+    @Override
+    public List identityList() {
+        List customers = new ArrayList<>();
+        try(PreparedStatement statement = connection.prepareStatement(IDENTITY_LIST)) {
+            ResultSet rs = statement.executeQuery();
+            while (rs.next()){
+                String identity = rs.getString("identity");
+                customers.add(identity);
+            }
+        } catch (SQLException e) {
+            printSQLException(e);
+        }
+        return customers;
     }
 
     @Override

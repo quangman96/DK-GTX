@@ -28,8 +28,11 @@ public class DataExport {
 
             Row row = customerSheet.createRow(0);
             CellStyle headerCellStyle = workbook.createCellStyle();
-            headerCellStyle.setFillForegroundColor(IndexedColors.LAVENDER.getIndex());
-            headerCellStyle.setFillPattern(FillPatternType.THIN_BACKWARD_DIAG);
+            headerCellStyle.setFillForegroundColor(IndexedColors.GREY_25_PERCENT.getIndex());
+            headerCellStyle.setFillPattern(FillPatternType.BIG_SPOTS);
+
+
+
             // Creating header
             Cell cell = row.createCell(0);
             cell.setCellValue("id");

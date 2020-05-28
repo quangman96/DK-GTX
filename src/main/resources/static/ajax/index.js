@@ -4,6 +4,7 @@ let formObjVehicle = {};
 let customer_status;
 let existCustomer_id;
 
+
 index.checkVehicle = function () {
     if (($('#input_engine_num').valid())&&($('#input_chassis_num').valid())){
         let engine = $('#input_engine_num').val();
@@ -174,6 +175,14 @@ index.createNewCustomerAndVehicle = function () {
             console.log("error");
         }
     });
+};
+
+index.guide = function(){
+    // swal("Instructions for creating a new online vehicle registration!",
+    //     "First, fill out your identity card and check whether it exists in the system or not");
+    $('#guideTittle').html("Instructions for creating a new online vehicle registration! ");
+    $('#guide').modal('show');
+
 };
 
 index.resetAll = function () {

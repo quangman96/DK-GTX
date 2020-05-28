@@ -18,6 +18,12 @@ public class VehicleController {
         return vehicleService.findAll();
     }
 
+    @GetMapping("/engine_num")
+    public List engineNumberList() { return vehicleService.engineNumber();}
+
+    @GetMapping("/chassis_num")
+    public List chassisNumberList() { return vehicleService.chassisNumber();}
+
     @GetMapping("/vehicles/{id}")
     public Vehicle findVehicleById(@PathVariable Long id){
         return vehicleService.findById(id);

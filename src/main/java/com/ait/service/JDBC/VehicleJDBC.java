@@ -44,6 +44,10 @@ public class VehicleJDBC implements VehicleService {
 
     private String REMOVE_VEHICLE = "UPDATE vehicle SET isDelete = 1 WHERE id=?;";
 
+    private String ENGINE_NUMBER_LIST = "SELECT vehicle.engine_num FROM vehicle WHERE vehicle.isDelete =0;";
+
+    private String CHASSIS_NUMBER_LIST = "SELECT vehicle.chassis_num FROM vehicle WHERE vehicle.isDelete =0;";
+
 
 
     @Override
@@ -71,6 +75,36 @@ public class VehicleJDBC implements VehicleService {
         return vehicles;
 
 
+    }
+
+    @Override
+    public List engineNumber() {
+        List engineNumList = new ArrayList<>();
+        try(PreparedStatement statement = connection.prepareStatement(ENGINE_NUMBER_LIST)) {
+            ResultSet rs = statement.executeQuery();
+            while (rs.next()){
+                String engine_num = rs.getString("engine_num");
+                engineNumList.add(engine_num);
+            }
+        } catch (SQLException e) {
+            printSQLException(e);
+        }
+        return engineNumList;
+    }
+
+    @Override
+    public List chassisNumber() {
+        List chassisNumList = new ArrayList<>();
+        try(PreparedStatement statement = connection.prepareStatement(CHASSIS_NUMBER_LIST)) {
+            ResultSet rs = statement.executeQuery();
+            while (rs.next()){
+                String chassis_num = rs.getString("chassis_num");
+                chassisNumList.add(chassis_num);
+            }
+        } catch (SQLException e) {
+            printSQLException(e);
+        }
+        return chassisNumList;
     }
 
     @Override

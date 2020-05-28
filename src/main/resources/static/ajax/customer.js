@@ -1,4 +1,5 @@
 let customers = {} || customers;
+let identityList = [];
 
 customers.iniTable = function(){
     $.ajax({
@@ -138,27 +139,61 @@ customers.delete = function(id){
 
 };
 
+$.validator.addMethod('checkIdentity', function (value, element) {
+    return this.optional(element) || customers.checkIdentity(value)
+}, 'Cmnd da co trong he thong');
+
 customers.initValidation = function(){
     $("#formAddEdit").validate({
         rules: {
             name: "required",
             address: "required",
             phone: "required",
-            identity: "required",
+            identity:{
+                required:true,
+                checkIdentity:true,
+            }
         },
         messages: {
             name: "Please enter your city name",
             address: "Please enter your address",
             phone: "Please enter your phone",
-            identity: "Please enter your identity",
+            identity:{
+                required:"Please enter your identity",
+            }
         }
     });
 };
+
+customers.identityList = function() {
+    $.ajax({
+        url: "api/identity",
+        method: "GET",
+        dataType: "JSON",
+        success: function (data) {
+            identityList = data;
+        },
+        error: function () {
+            console.log("loi~");
+        }
+    });
+};
+
+customers.checkIdentity = function(identity) {
+    for(let i=0; i<identityList.length; i++) {
+        if(identity == identityList[i]){
+            return false;
+        }
+    }
+    return true;
+};
+
 
 customers.init = function(){
     customers.iniTable();
     customers.initProvince();
     customers.initValidation();
+    customers.identityList();
 };
 
 $(document).ready(function () {

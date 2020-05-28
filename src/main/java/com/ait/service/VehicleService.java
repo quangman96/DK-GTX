@@ -12,4 +12,6 @@ public interface VehicleService {
     void update( Vehicle vehicle);
     void remove(Long id);
     Vehicle findByEngineOrChassisNumber(String engine_num, String chassis_num);
+    List engineNumber();
+    List chassisNumber();
 }

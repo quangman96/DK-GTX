@@ -1,4 +1,9 @@
 let vehicles = {} || vehicles;
+
+let engineNumberList = [];
+let chassisNumberList = [];
+
+
 vehicles.iniTable = function(){
     $.ajax({
         url: "api/vehicles",
@@ -158,17 +163,81 @@ vehicles.save = function(){
     }
 };
 
+vehicles.checkEngineNumber = function(engine_num){
+    for(let i=0; i<engineNumberList.length; i++) {
+        if(engine_num == engineNumberList[i]){
+            return false;
+        }
+    }
+    return true;
+};
+
+vehicles.checkChassisNumber = function(chassis_num){
+    for(let i=0; i<chassisNumberList.length; i++) {
+        if(chassis_num == chassisNumberList[i]){
+            return false;
+        }
+    }
+    return true;
+};
+
+$.validator.addMethod('checkEngineNumber', function (value, element) {
+    return this.optional(element) || vehicles.checkEngineNumber(value)
+}, 'Error, engine number exist in system');
+
+$.validator.addMethod('checkChassisNumber', function (value, element) {
+    return this.optional(element) || vehicles.checkChassisNumber(value)
+}, 'Error, chassis number exist in system');
+
 vehicles.initValidation = function(){
     $("#formAddEdit").validate({
         rules: {
             vehicle_name: "required",
-            engine_num: "required",
-            chassis_num: "required",
+            engine_num:{
+                required:true,
+                checkEngineNumber:true,
+            },
+            chassis_num:{
+                required:true,
+                checkChassisNumber:true,
+            },
         },
         messages: {
             vehicle_name: "Please enter vehicle name",
-            engine_num: "Please enter engine number",
-            chassis_num: "Please enter chassis number",
+            engine_num:{
+                required:"Please enter engine number",
+            },
+            chassis_num:{
+                required:"Please enter chassis number",
+            }
+        }
+    });
+};
+
+vehicles.initEngineNumberList = function(){
+    $.ajax({
+        url: "api/engine_num",
+        method: "GET",
+        dataType: "JSON",
+        success: function (data) {
+            engineNumberList = data;
+        },
+        error: function () {
+            console.log("loi~");
+        }
+    });
+};
+
+vehicles.initChassisNumberList = function(){
+    $.ajax({
+        url: "api/chassis_num",
+        method: "GET",
+        dataType: "JSON",
+        success: function (data) {
+            chassisNumberList = data;
+        },
+        error: function () {
+            console.log("loi~");
         }
     });
 };
@@ -178,6 +247,8 @@ vehicles.init = function(){
     vehicles.initBrand();
     vehicles.initColor();
     vehicles.initValidation();
+    vehicles.initEngineNumberList();
+    vehicles.initChassisNumberList();
 };
 $(document).ready(function () {
     vehicles.init();
