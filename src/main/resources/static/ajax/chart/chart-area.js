@@ -20,11 +20,11 @@ areaCharts.initData = function () {
                         label:'a1',
                         data:[
                             data[0].amount,
-                            data[1].amount,
-                            data[2].amount,
-                            data[3].amount,
-                            data[4].amount,
-                            data[5].amount
+                            data[1].amount, 3, 5,2, 4
+                            // data[2].amount,
+                            // data[3].amount,
+                            // data[4].amount,
+                            // data[5].amount
                         ],
                         backgroundColor: 'rgba(54,162,235,0.6)',
                         borderWidth:3,

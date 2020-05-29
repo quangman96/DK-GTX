@@ -14,10 +14,16 @@ pieCharts.initData = function () {
             let pieChart = new Chart(ctx, {
                 type: 'pie',
                 data: {
-                    labels: [data[0].province_name, data[1].province_name, data[2].province_name, data[3].province_name, data[4].province_name, data[5].province_name],
+                    labels: [data[0].province_name, data[1].province_name,
+                        "a","b","c","d"
+                        // data[2].province_name, data[3].province_name, data[4].province_name, data[5].province_name
+                    ],
                     datasets: [{
                         label: 'a1',
-                        data: [data[0].amount, data[1].amount, data[2].amount, data[3].amount,data[4].amount, data[5].amount],
+                        data: [data[0].amount, data[1].amount,
+                            3,2,5,4,
+                            // data[2].amount, data[3].amount,data[4].amount, data[5].amount
+                        ],
                         backgroundColor: [
                             'rgba(255,99,132,0.6)',
                             'rgba(54,162,235,0.6)',
