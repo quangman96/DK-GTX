@@ -12,6 +12,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 @Service
@@ -25,6 +26,7 @@ public class CustomerJDBC implements CustomerService {
     private String UPDATE_CUSTOMER = "UPDATE customer SET name=?,address=? ,phone=? ,identity=? ,province_id=? WHERE id=?;";
     private String REMOVE_CUSTOMER = "UPDATE customer SET isDelete = 1 WHERE id=?;";
     private String IDENTITY_LIST = "SELECT customer.identity FROM customer WHERE customer.isDelete =0;";
+    private String STATISTICS_BY_PROVINCE = "SELECT province.name AS province, COUNT(province_id) AS amount FROM customer INNER JOIN province ON province.id = customer.province_id WHERE (customer.isDelete =0 AND province.isDelete =0) GROUP BY province.name;";
 
     @Override
     public List<Customer> findAll() {
@@ -49,6 +51,23 @@ public class CustomerJDBC implements CustomerService {
 
 
     }
+
+    @Override
+    public List<Customer> statisticsByProvince() {
+        List<Customer> customers = new ArrayList<>();
+        try(PreparedStatement statement = connection.prepareStatement(STATISTICS_BY_PROVINCE)) {
+            ResultSet rs = statement.executeQuery();
+            while (rs.next()){
+                String province = rs.getString("province");
+                Long amount = rs.getLong("amount");
+                customers.add(new Customer(province,amount));
+            }
+        } catch (SQLException e) {
+            printSQLException(e);
+        }
+        return customers;
+    }
+
 
     @Override
     public List identityList() {

@@ -1,7 +1,10 @@
 package com.ait.model;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 import java.util.Date;
 
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Vehicle {
     private Long id;
     private String vehicle_name;
@@ -12,6 +15,7 @@ public class Vehicle {
 
     private Long customer_id;
     private String customer_name;
+    private String customer_identity;
 
     private Long brand_id;
     private String brand_name;
@@ -19,7 +23,9 @@ public class Vehicle {
     private Long color_id;
     private String color_name;
 
-    public Vehicle(Long id, String vehicle_name, String engine_num, String chassis_num, Integer isDelete, Long customer_id, String customer_name, Long brand_id, String brand_name, Long color_id, String color_name,Date create_date) {
+    private Long amount;
+
+    public Vehicle(Long id, String vehicle_name, String engine_num, String chassis_num, Integer isDelete, Long customer_id, String customer_name,String customer_identity, Long brand_id, String brand_name, Long color_id, String color_name,Date create_date) {
         this.id = id;
         this.vehicle_name = vehicle_name;
         this.engine_num = engine_num;
@@ -32,7 +38,15 @@ public class Vehicle {
         this.color_id = color_id;
         this.color_name = color_name;
         this.create_date = create_date;
+        this.customer_identity = customer_identity;
+
     }
+
+    public Vehicle(String brand_name, Long amount) {
+        this.brand_name = brand_name;
+        this.amount = amount;
+    }
+
 
     public Long getId() {
         return id;
@@ -128,5 +142,21 @@ public class Vehicle {
 
     public void setCreate_date(Date create_date) {
         this.create_date = create_date;
+    }
+
+    public String getCustomer_identity() {
+        return customer_identity;
+    }
+
+    public void setCustomer_identity(String customer_identity) {
+        this.customer_identity = customer_identity;
+    }
+
+    public Long getAmount() {
+        return amount;
+    }
+
+    public void setAmount(Long amount) {
+        this.amount = amount;
     }
 }

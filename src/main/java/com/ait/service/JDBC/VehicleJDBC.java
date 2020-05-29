@@ -20,19 +20,19 @@ public class VehicleJDBC implements VehicleService {
     Connection connection = DatabaseConnection.getConnection();
 
     private String SELECT_ALL_VEHICLES = "SELECT vehicle.id, vehicle.vehicle_name, vehicle.engine_num, vehicle.chassis_num, vehicle.customer_id, vehicle.brand_id, vehicle.color_id, vehicle.isDelete, vehicle.create_date, " +
-        "customer.name AS customer, brand.name AS brand, color.name AS color FROM vehicle " +
+        "customer.name AS customer, customer.identity AS customer_identity, brand.name AS brand, color.name AS color FROM vehicle " +
         "INNER JOIN customer ON customer.id = vehicle.customer_id INNER JOIN brand ON brand.id = vehicle.brand_id " +
         "INNER JOIN color ON color.id = vehicle.color_id WHERE (vehicle.isDelete= 0 AND customer.isDelete=0 " +
         "AND brand.isDelete = 0 AND color.isDelete =0);";
 
     private String SELECT_VEHICLE_BY_ID  = "SELECT vehicle.id, vehicle.vehicle_name, vehicle.engine_num, vehicle.chassis_num, vehicle.customer_id, vehicle.brand_id, vehicle.color_id, vehicle.isDelete, vehicle.create_date, " +
-            "customer.name AS customer, brand.name AS brand, color.name AS color FROM vehicle " +
+            "customer.name AS customer, customer.identity AS customer_identity, brand.name AS brand, color.name AS color FROM vehicle " +
             "INNER JOIN customer ON customer.id = vehicle.customer_id INNER JOIN brand ON brand.id = vehicle.brand_id " +
             "INNER JOIN color ON color.id = vehicle.color_id WHERE (vehicle.isDelete= 0 AND customer.isDelete=0 " +
             "AND brand.isDelete = 0 AND color.isDelete =0 AND vehicle.id=?);";
 
     private String SELECT_VEHICLE_BY_ENGINE_OR_CHASSIS_NUMBER = "SELECT vehicle.id, vehicle.vehicle_name, vehicle.engine_num, vehicle.chassis_num, vehicle.customer_id, vehicle.brand_id, vehicle.color_id, vehicle.isDelete, vehicle.create_date, " +
-            "customer.name AS customer, brand.name AS brand, color.name AS color FROM vehicle " +
+            "customer.name AS customer, customer.identity AS customer_identity, brand.name AS brand, color.name AS color FROM vehicle " +
             "INNER JOIN customer ON customer.id = vehicle.customer_id INNER JOIN brand ON brand.id = vehicle.brand_id " +
             "INNER JOIN color ON color.id = vehicle.color_id WHERE (vehicle.isDelete = 0 AND (vehicle.engine_num = ? OR vehicle.chassis_num = ?))";
 
@@ -48,7 +48,9 @@ public class VehicleJDBC implements VehicleService {
 
     private String CHASSIS_NUMBER_LIST = "SELECT vehicle.chassis_num FROM vehicle WHERE vehicle.isDelete =0;";
 
+    private String STATISTICS_BY_BRAND = "SELECT brand.name AS brand, COUNT(brand_id) AS amount FROM vehicle INNER JOIN brand ON brand.id = vehicle.brand_id WHERE(brand.isDelete =0 AND vehicle.isDelete =0) GROUP BY brand.name ORDER BY brand.name DESC limit 6;";
 
+    private String STATISTICS_BY_MONTH = "SELECT to_char(date_trunc('month', create_date),'yyyy-MM') year_month, COUNT (EXTRACT(MONTH FROM create_date)) AS amount FROM customer WHERE isDelete = 0 GROUP BY year_month ORDER BY year_month;";
 
     @Override
     public List<Vehicle> findAll() {
@@ -68,7 +70,8 @@ public class VehicleJDBC implements VehicleService {
                 String color = rs.getString("color");
                 Integer isDelete = rs.getInt("isDelete");
                 Date create_date = rs.getDate("create_date");
-                vehicles.add(new Vehicle(id,vehicle_name,engine_num,chassis_num,isDelete,customer_id,customer,brand_id,brand,color_id,color,create_date));
+                String customer_identity = rs.getString("customer_identity");
+                vehicles.add(new Vehicle(id,vehicle_name,engine_num,chassis_num,isDelete,customer_id,customer,customer_identity,brand_id,brand,color_id,color,create_date));
             }
         } catch (SQLException e) {
         }
@@ -108,6 +111,38 @@ public class VehicleJDBC implements VehicleService {
     }
 
     @Override
+    public List<Vehicle> statisticsByMonth() {
+        List<Vehicle> vehicles = new ArrayList<>();
+        try(PreparedStatement statement = connection.prepareStatement(STATISTICS_BY_MONTH)) {
+            ResultSet rs = statement.executeQuery();
+            while (rs.next()){
+                String year_month = rs.getString("year_month");
+                Long amount = rs.getLong("amount");
+                vehicles.add(new Vehicle(year_month,amount));
+            }
+        } catch (SQLException e) {
+            printSQLException(e);
+        }
+        return vehicles;
+    }
+
+    @Override
+    public List<Vehicle> statisticsByBrand() {
+        List<Vehicle> vehicles = new ArrayList<>();
+        try(PreparedStatement statement = connection.prepareStatement(STATISTICS_BY_BRAND)) {
+            ResultSet rs = statement.executeQuery();
+            while (rs.next()){
+                String brand = rs.getString("brand");
+                Long amount = rs.getLong("amount");
+                vehicles.add(new Vehicle(brand,amount));
+            }
+        } catch (SQLException e) {
+            printSQLException(e);
+        }
+        return vehicles;
+    }
+
+    @Override
     public Vehicle findById(Long vehicle_id) {
         Vehicle vehicle = null;
         try (PreparedStatement preparedStatement = connection.prepareStatement(SELECT_VEHICLE_BY_ID);) {
@@ -127,7 +162,8 @@ public class VehicleJDBC implements VehicleService {
                 String color = rs.getString("color");
                 Integer isDelete = rs.getInt("isDelete");
                 Date create_date = rs.getDate("create_date");
-                vehicle = (new Vehicle(id,vehicle_name,engine_num,chassis_num,isDelete,customer_id,customer,brand_id,brand,color_id,color,create_date));
+                String customer_identity = rs.getString("customer_identity");
+                vehicle = (new Vehicle(id,vehicle_name,engine_num,chassis_num,isDelete,customer_id,customer,customer_identity,brand_id,brand,color_id,color,create_date));
             }
         } catch (SQLException e) {
         }
@@ -198,7 +234,8 @@ public class VehicleJDBC implements VehicleService {
                 String color = rs.getString("color");
                 Integer isDelete = rs.getInt("isDelete");
                 Date create_date = rs.getDate("create_date");
-                vehicle = (new Vehicle(id,vehicle_name,engine_num,chassis_num,isDelete,customer_id,customer,brand_id,brand,color_id,color,create_date));
+                String customer_identity = rs.getString("customer_identity");
+                vehicle = (new Vehicle(id,vehicle_name,engine_num,chassis_num,isDelete,customer_id,customer,customer_identity,brand_id,brand,color_id,color,create_date));
             }
         } catch (SQLException e) {
         }

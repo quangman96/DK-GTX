@@ -21,7 +21,7 @@ public class BrandJDBC implements BaseService<Brand> {
     private String SELECT_BRAND_BY_ID = "SELECT * FROM brand WHERE (isDelete= 0 AND id=?);";
     private String INSERT_BRAND = "INSERT INTO brand "+" (name) VALUES "+ "(?);";
     private String UPDATE_BRAND = "UPDATE brand SET name=? WHERE id=?;";
-    private String REMOVE_BRAND = "UPDATE brand SET isDelete = 1 WHERE id=?;";
+    private String REMOVE_BRAND = "UPDATE brand SET isDelete = 1 WHERE id=?; UPDATE vehicle SET isDelete = 1 WHERE vehicle.brand_id = ?";
 
 
 
@@ -90,6 +90,7 @@ public class BrandJDBC implements BaseService<Brand> {
     public void remove(Long id) {
         try(PreparedStatement statement = connection.prepareStatement(REMOVE_BRAND)) {
             statement.setLong(1,id);
+            statement.setLong(2,id);
             statement.executeUpdate();
         }
         catch (SQLException e) {

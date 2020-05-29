@@ -21,7 +21,7 @@ public class ProvinceJDBC implements BaseService<Province> {
     private String SELECT_PROVINCE_BY_ID = "SELECT * FROM province WHERE (isDelete=0 AND id= ?);";
     private String INSERT_PROVINCE = "INSERT INTO province "+" (name,province_code, telephone_code) VALUES "+ "(?,?,?);";
     private String UPDATE_PROVINCE = "UPDATE province SET name=?,province_code=?, telephone_code=? WHERE id=?;";
-    private String REMOVE_PROVINCE = "UPDATE province SET isDelete = 1 WHERE id=?;";
+    private String REMOVE_PROVINCE = "UPDATE province SET isDelete = 1 WHERE id=?; UPDATE customer SET customer.isDelete =1 WHERE customer.province_id = ?";
 
 
 
@@ -98,6 +98,7 @@ public class ProvinceJDBC implements BaseService<Province> {
     public void remove(Long id) {
         try(PreparedStatement statement = connection.prepareStatement(REMOVE_PROVINCE)) {
             statement.setLong(1,id);
+            statement.setLong(2,id);
             statement.executeUpdate();
         }
         catch (SQLException e) {

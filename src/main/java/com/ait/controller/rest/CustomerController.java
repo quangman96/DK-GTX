@@ -5,6 +5,7 @@ import com.ait.service.JDBC.CustomerJDBC;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
 
 @RestController
@@ -25,6 +26,9 @@ public class CustomerController {
 
     @GetMapping("/identity")
     public List identityList() { return customerService.identityList();}
+
+    @GetMapping("/statistics/province")
+    public List<Customer> statisticsByProvince() { return customerService.statisticsByProvince();}
 
     @GetMapping("/customers/check/{identity}")
     public Customer findCustomerByIdentity(@PathVariable String identity){ return customerService.findByIdentity(identity);}

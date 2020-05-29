@@ -52,7 +52,7 @@ provinces.get = function(id){
 
 provinces.delete = function(id){
     swal({
-        title: "Do you want to remove this province?",
+        title: "Bạn có chắc muốn xóa dữ liệu tỉnh thành này?",
         icon: "warning",
         buttons: true,
         dangerMode: true,
@@ -65,11 +65,11 @@ provinces.delete = function(id){
                     method: "PUT",
                     // dataType: "JSON",
                     success: function () {
-                        swal("Done!", "It was deleted!", "success");
+                        swal("Thành công!", "Dữ liệu đã xóa!", "success");
                         provinces.iniTable();
                     },
                     error: function () {
-                        swal("Error deleting!", "Please try again", "error");
+                        swal("Xóa thất bại!", "Vui lòng thử lại!", "error");
                     }
                 });
             } else {
@@ -81,7 +81,6 @@ provinces.delete = function(id){
 provinces.save = function(){
     if($('#formAddEdit').valid()){
         if($('#id').val()==0){
-            console.log("post ");
             let provinceObj = {};
             provinceObj.name = $('#name').val();
             provinceObj.province_code = $('#province_code').val();
@@ -96,7 +95,7 @@ provinces.save = function(){
                 data: JSON.stringify(provinceObj),
                 success: function (data) {
                     $("#modalAddEdit").modal('hide');
-                    swal("Done!", "Create success!", "success");
+                    swal("Thành công!", "Dữ liệu đã được tạo!", "success");
                     provinces.iniTable();
                 }
             });
@@ -118,7 +117,7 @@ provinces.save = function(){
                 data: JSON.stringify(provinceObj),
                 success: function (data) {
                     $("#modalAddEdit").modal('hide');
-                    swal("Done!", "Province was Updated!", "success");
+                    swal("Thành công!", "Dữ liệu đã được cập nhật!", "success");
                     provinces.iniTable();
                 }
             });
@@ -127,7 +126,7 @@ provinces.save = function(){
 };
 
 provinces.addNew = function(){
-    $('#modalTitle').html("Create new province");
+    $('#modalTitle').html("Tạo mới tỉnh thành");
     provinces.resetFrom();
     $('#modalAddEdit').modal('show');
     console.log($('#id').val());

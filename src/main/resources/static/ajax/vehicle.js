@@ -1,10 +1,8 @@
 let vehicles = {} || vehicles;
-
 let engineNumberList = [];
 let chassisNumberList = [];
 let engineNumberExist;
 let chassisNumberExist;
-
 
 vehicles.iniTable = function(){
     $.ajax({
@@ -17,7 +15,7 @@ vehicles.iniTable = function(){
                 data:data,
                 columns:[
                     {'data':'vehicle_name'},
-                    {'data':'customer_name'},
+                    {'data':'customer_identity'},
                     {'data':'brand_name'},
                     {'data':'color_name'},
                     {'data':'engine_num'},
@@ -99,7 +97,7 @@ vehicles.get = function(id){
 
 vehicles.delete = function(id){
     swal({
-        title: "Do you want to remove this vehicle?",
+        title: "Bạn có chắc muốn xóa dữ liệu này?",
         icon: "warning",
         buttons: true,
         dangerMode: true,
@@ -112,11 +110,11 @@ vehicles.delete = function(id){
                     method: "PUT",
                     // dataType: "JSON",
                     success: function () {
-                        swal("Done!", "It was deleted!", "success");
+                        swal("Thành công!", "Dữ liệu đã xóa!", "success");
                         vehicles.iniTable();
                     },
                     error: function () {
-                        swal("Error deleting!", "Please try again", "error");
+                        swal("Xóa thất bại!", "Vui lòng thử lại!", "error");
                     }
                 });
             } else {
@@ -157,7 +155,7 @@ vehicles.save = function(){
                 success: function (data) {
                     console.log(vehicleObj);
                     $("#modalAddEdit").modal('hide');
-                    swal("Done!", "Vehicle was Updated!", "success");
+                    swal("Thành công!", "Dữ liệu đã được cập nhật!", "success");
                     engineNumberExist = null;
                     chassisNumberExist = null;
                     vehicles.iniTable();
@@ -197,11 +195,11 @@ vehicles.checkChassisNumber = function(chassis_num){
 
 $.validator.addMethod('checkEngineNumber', function (value, element) {
     return this.optional(element) || vehicles.checkEngineNumber(value)
-}, 'Error, engine number exist in system');
+}, 'Lỗi, số máy đã tồn tại trong hệ thống.');
 
 $.validator.addMethod('checkChassisNumber', function (value, element) {
     return this.optional(element) || vehicles.checkChassisNumber(value)
-}, 'Error, chassis number exist in system');
+}, 'Lỗi, số khung đã tồn tại trong hệ thống.');
 
 $("#formAddEdit").submit(function (event) {
     event.preventDefault();
@@ -236,7 +234,6 @@ vehicles.initEngineNumberList = function(){
             engineNumberList = data;
         },
         error: function () {
-            console.log("loi~");
         }
     });
 };
@@ -250,7 +247,6 @@ vehicles.initChassisNumberList = function(){
             chassisNumberList = data;
         },
         error: function () {
-            console.log("loi~");
         }
     });
 };

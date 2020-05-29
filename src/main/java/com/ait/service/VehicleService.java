@@ -1,5 +1,6 @@
 package com.ait.service;
 
+import com.ait.model.Customer;
 import com.ait.model.Vehicle;
 import org.springframework.stereotype.Component;
 
@@ -14,4 +15,6 @@ public interface VehicleService {
     Vehicle findByEngineOrChassisNumber(String engine_num, String chassis_num);
     List engineNumber();
     List chassisNumber();
+    List<Vehicle> statisticsByMonth();
+    List<Vehicle> statisticsByBrand();
 }

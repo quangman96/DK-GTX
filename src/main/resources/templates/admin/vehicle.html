@@ -38,34 +38,34 @@
         <li class="nav-item active">
             <a class="nav-link" href="/">
                 <i class="fas fa-fw fa-tachometer-alt"></i>
-                <span>Create The Form</span>
+                <span>Tạo biểu mẫu</span>
             </a>
         </li>
         <li class="nav-item active">
             <a class="nav-link" href="/chart">
                 <i class="fas fa-fw fa-chart-area"></i>
-                <span>Charts</span>
+                <span>Thống kê, biểu đồ</span>
             </a>
         </li>
         <li class="nav-item active">
             <a class="nav-link" href="/customer">
                 <i class="fas fa-fw fa-folder"></i>
-                <span>Customer </span></a>
+                <span>Người đăng ký </span></a>
         </li>
         <li class="nav-item active">
             <a class="nav-link" href="/vehicle">
                 <i class="fas fa-fw fa-folder"></i>
-                <span>Vehicle </span></a>
+                <span>Phương tiện </span></a>
         </li>
         <li class="nav-item active">
             <a class="nav-link" href="/province">
                 <i class="fas fa-fw fa-folder"></i>
-                <span>Province </span></a>
+                <span>Tỉnh thành </span></a>
         </li>
         <li class="nav-item active">
             <a class="nav-link" href="/brandColor">
                 <i class="fas fa-fw fa-table"></i>
-                <span>Extra Board</span></a>
+                <span>Hãng xe và màu sắc</span></a>
         </li>
     </ul>
 
@@ -77,37 +77,37 @@
             <div class="card mb-3">
                 <div class="card-header">
                     <i class="fas fa-table"></i>
-                    Vehicle Data
-                    <button type="button" class="btn btn-success btn-lg float-right" onclick="location.href='excel/data'">Export Data to Excel</button>
+                    Dữ liệu phương tiện đã đăng ký.
+                    <button type="button" class="btn btn-success btn-lg float-right" onclick="location.href='excel/data'">Xuất dữ liệu Excel</button>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
                         <table class="table table table-striped table-bordered" width="100%" cellspacing="0" id="tblVehicle" name="tblVehicle">
                             <thead>
                             <tr>
-                                <th>Name</th>
-                                <th>Owner</th>
-                                <th>Brand</th>
-                                <th>Color</th>
-                                <th>Engine number</th>
-                                <th>Chassis number</th>
-                                <th>Create Date</th>
-                                <th>Edit</th>
-                                <th>Delete</th>
+                                <th>Tên phương tiện</th>
+                                <th>CMND chủ sở hữu</th>
+                                <th>Hãng xe</th>
+                                <th>Màu sắc</th>
+                                <th>Số máy</th>
+                                <th>Số khung</th>
+                                <th>Ngày tạo</th>
+                                <th>Sửa</th>
+                                <th>Xóa</th>
                             </tr>
                             </thead>
                             <tfoot>
                             <tr>
                             <tr>
-                                <th>Name</th>
-                                <th>Owner</th>
-                                <th>Brand</th>
-                                <th>Color</th>
-                                <th>Engine number</th>
-                                <th>Chassis number</th>
-                                <th>Create Date</th>
-                                <th>Edit</th>
-                                <th>Delete</th>
+                                <th>Tên phương tiện</th>
+                                <th>CMND chủ sở hữu</th>
+                                <th>Hãng xe</th>
+                                <th>Màu sắc</th>
+                                <th>Số máy</th>
+                                <th>Số khung</th>
+                                <th>Ngày tạo</th>
+                                <th>Sửa</th>
+                                <th>Xóa</th>
                             </tr>
                             </tr>
                             </tfoot>
@@ -122,7 +122,7 @@
             </div>
 
             <p class="small text-center text-muted my-5">
-                <em>Vehicle registration online ..</em>
+                <em>Hệ thống đăng ký giấy tờ xe trực tuyến ..</em>
             </p>
 
         </div>
@@ -167,7 +167,7 @@
                     <input hidden name="customer_id" id="customer_id">
                     <div class="row form-group">
                         <div class="col-3">
-                            <label>Vehicle name</label>
+                            <label>Tên phương tiện</label>
                         </div>
                         <div class="col-9">
                             <input class="form-control" type="text"
@@ -177,7 +177,7 @@
                     </div>
                     <div class="row form-group">
                         <div class="col-3">
-                            <label>Customer name</label>
+                            <label>Chủ sở hữu</label>
                         </div>
                         <div class="col-9">
                             <input class="form-control" type="text"
@@ -187,7 +187,7 @@
                     </div>
                     <div class="row form-group">
                         <div class="col-3">
-                            <label>Engine number</label>
+                            <label>Số máy</label>
                         </div>
                         <div class="col-9">
                             <input class="form-control" type="text"
@@ -198,7 +198,7 @@
 
                     <div class="row form-group">
                         <div class="col-3">
-                            <label>Chassis number</label>
+                            <label>Số khung</label>
                         </div>
                         <div class="col-9">
                             <input class="form-control" type="text"
@@ -209,7 +209,7 @@
 
                     <div class="row form-group">
                         <div class="col-3">
-                            <label>Brand</label>
+                            <label>Hãng xe</label>
                         </div>
                         <div class="col-9">
                             <select class="form-control" name="brand" id="brand"></select>
@@ -218,7 +218,7 @@
 
                     <div class="row form-group">
                         <div class="col-3">
-                            <label>Color</label>
+                            <label>Màu sắc</label>
                         </div>
                         <div class="col-9">
                             <select class="form-control" name="color" id="color"></select>
@@ -231,9 +231,9 @@
             <!-- Modal footer -->
             <div class="modal-footer">
                 <a href="javascript:;" class="btn btn-primary"
-                   onclick="vehicles.save()">Save</a>
+                   onclick="vehicles.save()">Lưu</a>
 
-                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Hủy</button>
             </div>
 
         </div>
@@ -245,12 +245,12 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Log out?</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Đăng xuất</h5>
                 <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">×</span>
                 </button>
             </div>
-            <div class="modal-body">Select "Logout" below if you are ready to leave.</div>
+            <div class="modal-body">Chọn "Logout" ở dưới để thoát hệ thống.</div>
             <div class="modal-footer">
                 <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
                 <a class="btn btn-danger" href="/logout">Logout</a>

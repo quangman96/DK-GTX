@@ -15,12 +15,12 @@ index.checkVehicle = function () {
             method: "GET",
             dataType: "json",
             success: function () {
-                swal("Number exits in system! Please try again!","","warning");
+                swal("Mã số đã tồn tại trong hệ thống! Xin thử lại","","warning");
                 $('#input_engine_num').val("");
                 $('#input_chassis_num').val("");
             },
             error: function () {
-                swal("Oke la!");
+                swal("Số khung và số máy hợp lệ!");
                 $('#create_form').prop("disabled", false);
             }
         })
@@ -37,7 +37,7 @@ index.checkInformation = function () {
             dataType : "json",
             success: function (data) {
                 customer_status = true;
-                swal("Found customer in system, auto fill!");
+                swal("Dữ liệu đã có trong hệ thống, tự động cập nhật!");
                 existCustomer_id = (data.id);
                 $('#input_name').val(data.name);
                 $('#input_address').val(data.address);
@@ -58,7 +58,7 @@ index.checkInformation = function () {
             },
             error: function () {
                 customer_status = false;
-                swal("create new customer with identity: "+identity);
+                swal("Tạo mới người đăng ký với số CMND/HC là:  "+identity);
                 $('#input_identity').prop("disabled", true);
                 $('#province').prop("disabled",false);
                 $('#input_name').prop("disabled", false);
@@ -87,7 +87,6 @@ index.createForm = function(){
             index.createNewCustomerAndVehicle();
         }
     } else {
-        console.log("3");
     }
 };
 
@@ -112,7 +111,7 @@ index.createNewVehicleWithExistCustomer = function() {
             index.resetAll();
         },
         error: function () {
-            console.log("error vehicles");
+            swal("Tạo mới thất bại!", "Vui lòng thử lại!", "error");
         }
     });
 };
@@ -160,13 +159,13 @@ index.createNewCustomerAndVehicle = function () {
                             index.resetAll();
                         },
                         error: function () {
-                            console.log("error vehicles");
+                            swal("Tạo mới thất bại!", "Vui lòng thử lại!", "error");
                         }
                     });
 
                 },
                 error: function () {
-                    console.log("get loi~");
+                    swal("Tạo mới thất bại!", "Vui lòng thử lại!", "error");
                 }
             });
             console.log(formObjVehicle);
@@ -178,9 +177,7 @@ index.createNewCustomerAndVehicle = function () {
 };
 
 index.guide = function(){
-    // swal("Instructions for creating a new online vehicle registration!",
-    //     "First, fill out your identity card and check whether it exists in the system or not");
-    $('#guideTittle').html("Instructions for creating a new online vehicle registration! ");
+    $('#guideTittle').html("Hướng dẫn tạo mới giấy đăng ký xe");
     $('#guide').modal('show');
 
 };
@@ -226,32 +223,33 @@ index.initValidation = function () {
         },
         messages:{
             input_name:{
-                required: "Please input name!"
+                required: "Không được để trống trường này!"
             },
             input_address:{
-                required: "Please input address!"
+                required: "Không được để trống trường này!"
             },
             input_phone:{
-                required: "Please input phone!"
+                required: "Không được để trống trường này!"
             },
             input_identity:{
-                required: "Input identity!",
-                digits:"only number"
+                required: "Không được để trống trường này!",
+                digits:"Dữ liệu phải là số"
             },
             input_vehicle:{
-                required: "Please input vehicle!"
+                required: "Không được để trống trường này!"
             },
             input_engine_num:{
-                required: "Please input engine number!",
-                digits:"only number"
+                required: "Không được để trống trường này!",
+                digits:"Dữ liệu phải là số"
             },
             input_chassis_num:{
-                required: "Please input chassis number!",
-                digits:"only number"
+                required: "Không được để trống trường này!",
+                digits:"Dữ liệu phải là số"
             },
         }
     })
 };
+
 
 $(document).ready(function () {
     index.initValidation();

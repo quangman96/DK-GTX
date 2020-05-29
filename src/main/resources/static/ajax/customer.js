@@ -62,7 +62,7 @@ customers.get = function(id){
         dataType : "json",
         success: function (data) {
             $('#formAddEdit')[0].reset();
-            $('#modalTitle').html("Edit customer");
+            $('#modalTitle').html("Chỉnh sửa dữ liệu");
             $('#name').val(data.name);
             $('#address').val(data.address);
             $('#phone').val(data.phone);
@@ -102,7 +102,7 @@ customers.save = function(){
                 data: JSON.stringify(customerObj),
                 success: function (data) {
                     $("#modalAddEdit").modal('hide');
-                    swal("Done!", "Vehicle was Updated!", "success");
+                    swal("Thành công!", "Dữ liệu đã được cập nhật!", "success");
                     identityExist = null;
                     customers.iniTable();
 
@@ -115,7 +115,7 @@ customers.save = function(){
 
 customers.delete = function(id){
     swal({
-        title: "Do you want to remove this customer?",
+        title: "Bạn có chắc muốn xóa dữ liệu này?",
         icon: "warning",
         buttons: true,
         dangerMode: true,
@@ -128,11 +128,11 @@ customers.delete = function(id){
                     method: "PUT",
                     // dataType: "JSON",
                     success: function () {
-                        swal("Done!", "It was deleted!", "success");
+                        swal("Thành công!", "Dữ liệu đã xóa!", "success");
                         customers.iniTable();
                     },
                     error: function () {
-                        swal("Error deleting!", "Please try again", "error");
+                        swal("Xóa thất bại!", "Vui lòng thử lại!", "error");
                     }
                 });
             } else {
@@ -143,7 +143,7 @@ customers.delete = function(id){
 
 $.validator.addMethod('checkIdentity', function (value, element) {
     return this.optional(element) || customers.checkIdentity(value)
-}, 'Cmnd da co trong he thong');
+}, 'Số CMND/HC đã tồn tại trong hệ thống.');
 
 customers.initValidation = function(){
     $("#formAddEdit").validate({
@@ -166,17 +166,17 @@ customers.initValidation = function(){
 
         },
         messages: {
-            name: "Please enter your city name",
-            address: "Please enter your address",
-            phone: "Please enter your phone",
+            name: "Không được để trống trường này!",
+            address: "Không được để trống trường này!",
+            phone: "Không được để trống trường này!",
             identity:{
-                required:"Please enter your identity",
+                required:"Không được để trống trường này!",
             },
             chassis_num: {
-                required:"chassis number not null",
+                required:"Không được để trống trường này!",
             },
             engine_num: {
-                required:"engine number not null",
+                required:"Không được để trống trường này!",
             }
         }
     });

@@ -2,6 +2,7 @@ package com.ait.service;
 
 import com.ait.model.Customer;
 
+import java.util.HashMap;
 import java.util.List;
 
 public interface CustomerService {
@@ -12,4 +13,6 @@ public interface CustomerService {
     void update(Customer customer);
     void remove(Long id);
     List identityList();
+    List<Customer> statisticsByProvince();
+
 }

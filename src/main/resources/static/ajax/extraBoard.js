@@ -30,7 +30,7 @@ extraBoard.initBrand = function(){
                     },
                 ]
             });
-            $("#tblBrand_wrapper .row:first-child .col-sm-12:first-child").prepend("<button type=\"button\" class=\"btn btn-secondary\" id='brands' onclick='extraBoard.addNew(this.id)'>Create new Brand</button>")
+            $("#tblBrand_wrapper .row:first-child .col-sm-12:first-child").prepend("<button type=\"button\" class=\"btn btn-secondary\" id='brands' onclick='extraBoard.addNew(this.id)'>Tạo mới Hãng xe</button>")
         }
     });
 };
@@ -64,7 +64,7 @@ extraBoard.initColor = function(){
                     },
                 ]
             });
-            $("#tblColor_wrapper .row:first-child .col-sm-12:first-child").prepend("<button type=\"button\" class=\"btn btn-secondary\" id='colors' onclick='extraBoard.addNew(this.id)'>Create new Color</button>")
+            $("#tblColor_wrapper .row:first-child .col-sm-12:first-child").prepend("<button type=\"button\" class=\"btn btn-secondary\" id='colors' onclick='extraBoard.addNew(this.id)'>Tạo mới màu xe</button>")
         }
     });
 };
@@ -81,7 +81,6 @@ extraBoard.get = function(id,element){
             $('#id').val(data.id);
             $('#modalAddEdit').modal('show');
             elementName = element;
-            console.log($('#id').val()+"edit");
         }
     });
 };
@@ -90,7 +89,7 @@ extraBoard.delete = function(id,element){
     console.log(id);
     console.log(element);
     swal({
-        title: "Are you sure?",
+        title: "Bạn có chắc muốn xóa dữ liệu này?",
         icon: "warning",
         buttons: true,
         dangerMode: true,
@@ -102,12 +101,12 @@ extraBoard.delete = function(id,element){
                     url: "api/"+element+"/delete/" +id,
                     method: "PUT",
                     success: function () {
-                        swal("Done!", "It was deleted!", "success");
+                        swal("Thành công!", "Dữ liệu đã xóa!", "success");
                         extraBoard.init();
                     },
                     error: function () {
                         console.log(this.url);
-                        swal("Error deleting!", "Please try again", "error");
+                        swal("Xóa thất bại!", "Vui lòng thử lại!", "error");
                     }
                 });
             } else {
@@ -129,11 +128,11 @@ extraBoard.save = function(){
                 data: JSON.stringify(obj),
                 success: function (data) {
                     $('#modalAddEdit').modal('hide');
-                    swal("Done!","New "+elementName+" was created!","success");
+                    swal("Thành công!", "Dữ liệu đã được tạo!", "success");
                     extraBoard.init();
                 },
                 error: function () {
-                    console.log("error");
+                    swal("Tạo mới thất bại!", "Vui lòng thử lại!", "error");
                 }
             })
             //    post method
@@ -151,8 +150,11 @@ extraBoard.save = function(){
                 data: JSON.stringify(obj),
                 success: function (data) {
                     $('#modalAddEdit').modal('hide');
-                    swal("Done!", " ", "success");
+                    swal("Thành công!", "Dữ liệu đã được cập nhật!", "success");
                     extraBoard.init();
+                },
+                error: function () {
+                    swal("Chỉnh sửa thất bại!", "Vui lòng thử lại!", "error");
                 }
 
 
@@ -162,12 +164,10 @@ extraBoard.save = function(){
 };
 
 extraBoard.addNew = function(element){
-    $('#modalTitle').html("Create new "+element);
+    $('#modalTitle').html("Tạo mới dữ liệu");
     extraBoard.resetFrom();
     $('#modalAddEdit').modal('show');
     elementName = element;
-    console.log($('#id').val()+"add");
-
 };
 
 extraBoard.resetFrom = function(){

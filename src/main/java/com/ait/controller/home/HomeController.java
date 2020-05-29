@@ -7,12 +7,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class HomeController {
     @GetMapping("chart")
-    public String home(Model model){
+    public String chart(Model model){
         return "admin/chart";
     }
 
-    @GetMapping("/")
-    public String hello(Model model){ return "/user/home";}
+    @GetMapping({"/home-vn","/"})
+    public String home_vi(Model model){ return "/user/home";}
 
     @GetMapping("customer")
     public String customer(Model model){return "admin/customer";}

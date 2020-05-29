@@ -1,7 +1,10 @@
 package com.ait.model;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 import java.util.Date;
 
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Customer {
     private Long id;
     private String name;
@@ -13,6 +16,8 @@ public class Customer {
 
     private Long province_id;
     private String province_name;
+
+    private Long amount;
 
     public Customer(Long id, String name, String address, String phone, String identity,
                     Long province_id,String province_name, Integer isDelete,Date create_date ) {
@@ -27,6 +32,12 @@ public class Customer {
         this.create_date = create_date;
 
     }
+
+    public Customer(String province_name, Long amount){
+        this.province_name = province_name;
+        this.amount = amount;
+    }
+
 
     public Long getId() {
         return id;
@@ -98,5 +109,13 @@ public class Customer {
 
     public void setCreate_date(Date create_date) {
         this.create_date = create_date;
+    }
+
+    public Long getAmount() {
+        return amount;
+    }
+
+    public void setAmount(Long amount) {
+        this.amount = amount;
     }
 }

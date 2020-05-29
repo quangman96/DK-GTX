@@ -1,5 +1,6 @@
 package com.ait.controller.rest;
 
+import com.ait.model.Customer;
 import com.ait.model.Vehicle;
 import com.ait.service.JDBC.VehicleJDBC;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +29,12 @@ public class VehicleController {
     public Vehicle findVehicleById(@PathVariable Long id){
         return vehicleService.findById(id);
     }
+
+    @GetMapping("/statistics/brand")
+    public List<Vehicle> statisticsByBrand() {return vehicleService.statisticsByBrand();}
+
+    @GetMapping("/statistics/month")
+    public List<Vehicle> statisticsByMonth() {return vehicleService.statisticsByMonth();}
 
     @PostMapping("/vehicles")
     public Vehicle addNewVehicle(@RequestBody Vehicle vehicle){
