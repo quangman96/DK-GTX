@@ -27,9 +27,6 @@ public class CustomerController {
     @GetMapping("/identity")
     public List identityList() { return customerService.identityList();}
 
-//    @GetMapping("/statistics/province")
-//    public List<Customer> statisticsByProvince() { return customerService.statisticsByProvince();}
-
     @GetMapping("/customers/check/{identity}")
     public Customer findCustomerByIdentity(@PathVariable String identity){ return customerService.findByIdentity(identity);}
 

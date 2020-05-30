@@ -13,16 +13,10 @@ barCharts.initData = function () {
             let chart_bar = new Chart(ctx,{
                 type: 'bar',
                 data:{
-                    labels: [data[0].brand_name,data[1].brand_name,
-                        "a","b","c","d"
-                        // data[2].brand_name,data[3].brand_name,data[4].brand_name,data[5].brand_name
-                    ],
+                    labels: [data[0].element, data[1].element, data[2].element,  data[3].element, data[4].element, data[5].element],
                     datasets: [{
                         label:'quang man',
-                        data:[data[0].amount, data[1].amount,
-                            // data[2].amount, data[3].amount, data[4].amount, data[5].amount
-                            3,2,5,4
-                        ],
+                        data: [data[0].amount, data[1].amount, data[2].amount, data[3].amount, data[4].amount, data[5].amount],
                         backgroundColor:[
                             'rgba(255,99,132,0.6)',
                             'rgba(54,162,235,0.6)',

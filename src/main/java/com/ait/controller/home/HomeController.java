@@ -11,11 +11,11 @@ public class HomeController {
         return "admin/chart";
     }
 
-    @GetMapping("/")
-    public String home(Model model){ return "/user/home";}
+    @GetMapping("")
+    public String home(Model model){ return "/user/hometest";}
 
-    @GetMapping("/test")
-    public String test(Model model){ return "/user/test1";}
+    @GetMapping("/index")
+    public String index(Model model){return "/user/home";}
 
     @GetMapping("customer")
     public String customer(Model model){return "admin/customer";}
