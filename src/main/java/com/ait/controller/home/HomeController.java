@@ -14,9 +14,6 @@ public class HomeController {
     }
 
     @GetMapping("")
-    public String home(Model model){ return "admin/home";}
-
-    @GetMapping("index")
     public String index(Model model){return "user/home";}
 
     @GetMapping("customer")
