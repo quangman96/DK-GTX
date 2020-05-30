@@ -1,10 +1,12 @@
 package com.ait.controller.home;
 
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
+@ComponentScan("com.ait")
 public class HomeController {
     @GetMapping("chart")
     public String chart(Model model){
@@ -14,7 +16,7 @@ public class HomeController {
     @GetMapping("")
     public String home(Model model){ return "/user/hometest";}
 
-    @GetMapping("/index")
+    @GetMapping("index")
     public String index(Model model){return "/user/home";}
 
     @GetMapping("customer")
@@ -28,5 +30,8 @@ public class HomeController {
 
     @GetMapping("brandColor")
     public String brandColor(Model model){return "admin/brandColor";}
+
+    @GetMapping("test")
+    public String test(Model model){return "admin/test";}
 
 }
