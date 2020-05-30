@@ -33,10 +33,10 @@ public class Customer {
 
     }
 
-    public Customer(String province_name, Long amount){
-        this.province_name = province_name;
-        this.amount = amount;
-    }
+//    public Customer(String province_name, Long amount){
+//        this.province_name = province_name;
+//        this.amount = amount;
+//    }
 
 
     public Long getId() {

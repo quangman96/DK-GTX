@@ -128,7 +128,6 @@ index.createNewCustomerAndVehicle = function () {
     formObjVehicle.engine_num = $('#input_engine_num').val();
     formObjVehicle.chassis_num = $('#input_chassis_num').val();
 
-
     $.ajax({
         url : "api/customers",
         method: "POST",

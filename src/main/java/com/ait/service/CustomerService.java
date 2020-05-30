@@ -13,6 +13,6 @@ public interface CustomerService {
     void update(Customer customer);
     void remove(Long id);
     List identityList();
-    List<Customer> statisticsByProvince();
+//    List<Customer> statisticsByProvince();
 
 }

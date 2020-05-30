@@ -110,37 +110,37 @@ public class VehicleJDBC implements VehicleService {
         return chassisNumList;
     }
 
-    @Override
-    public List<Vehicle> statisticsByMonth() {
-        List<Vehicle> vehicles = new ArrayList<>();
-        try(PreparedStatement statement = connection.prepareStatement(STATISTICS_BY_MONTH)) {
-            ResultSet rs = statement.executeQuery();
-            while (rs.next()){
-                String year_month = rs.getString("year_month");
-                Long amount = rs.getLong("amount");
-                vehicles.add(new Vehicle(year_month,amount));
-            }
-        } catch (SQLException e) {
-            printSQLException(e);
-        }
-        return vehicles;
-    }
+//    @Override
+//    public List<Vehicle> statisticsByMonth() {
+//        List<Vehicle> vehicles = new ArrayList<>();
+//        try(PreparedStatement statement = connection.prepareStatement(STATISTICS_BY_MONTH)) {
+//            ResultSet rs = statement.executeQuery();
+//            while (rs.next()){
+//                String year_month = rs.getString("year_month");
+//                Long amount = rs.getLong("amount");
+//                vehicles.add(new Vehicle(year_month,amount));
+//            }
+//        } catch (SQLException e) {
+//            printSQLException(e);
+//        }
+//        return vehicles;
+//    }
 
-    @Override
-    public List<Vehicle> statisticsByBrand() {
-        List<Vehicle> vehicles = new ArrayList<>();
-        try(PreparedStatement statement = connection.prepareStatement(STATISTICS_BY_BRAND)) {
-            ResultSet rs = statement.executeQuery();
-            while (rs.next()){
-                String brand = rs.getString("brand");
-                Long amount = rs.getLong("amount");
-                vehicles.add(new Vehicle(brand,amount));
-            }
-        } catch (SQLException e) {
-            printSQLException(e);
-        }
-        return vehicles;
-    }
+//    @Override
+//    public List<Vehicle> statisticsByBrand() {
+//        List<Vehicle> vehicles = new ArrayList<>();
+//        try(PreparedStatement statement = connection.prepareStatement(STATISTICS_BY_BRAND)) {
+//            ResultSet rs = statement.executeQuery();
+//            while (rs.next()){
+//                String brand = rs.getString("brand");
+//                Long amount = rs.getLong("amount");
+//                vehicles.add(new Vehicle(brand,amount));
+//            }
+//        } catch (SQLException e) {
+//            printSQLException(e);
+//        }
+//        return vehicles;
+//    }
 
     @Override
     public Vehicle findById(Long vehicle_id) {

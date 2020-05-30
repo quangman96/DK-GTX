@@ -42,10 +42,10 @@ public class Vehicle {
 
     }
 
-    public Vehicle(String brand_name, Long amount) {
-        this.brand_name = brand_name;
-        this.amount = amount;
-    }
+//    public Vehicle(String brand_name, Long amount) {
+//        this.brand_name = brand_name;
+//        this.amount = amount;
+//    }
 
 
     public Long getId() {

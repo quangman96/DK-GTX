@@ -30,11 +30,11 @@ public class VehicleController {
         return vehicleService.findById(id);
     }
 
-    @GetMapping("/statistics/brand")
-    public List<Vehicle> statisticsByBrand() {return vehicleService.statisticsByBrand();}
-
-    @GetMapping("/statistics/month")
-    public List<Vehicle> statisticsByMonth() {return vehicleService.statisticsByMonth();}
+//    @GetMapping("/statistics/brand")
+//    public List<Vehicle> statisticsByBrand() {return vehicleService.statisticsByBrand();}
+//
+//    @GetMapping("/statistics/month")
+//    public List<Vehicle> statisticsByMonth() {return vehicleService.statisticsByMonth();}
 
     @PostMapping("/vehicles")
     public Vehicle addNewVehicle(@RequestBody Vehicle vehicle){

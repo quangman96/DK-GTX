@@ -23,8 +23,6 @@ public class BrandJDBC implements BaseService<Brand> {
     private String UPDATE_BRAND = "UPDATE brand SET name=? WHERE id=?;";
     private String REMOVE_BRAND = "UPDATE brand SET isDelete = 1 WHERE id=?; UPDATE vehicle SET isDelete = 1 WHERE vehicle.brand_id = ?";
 
-
-
     @Override
     public List<Brand> findAll() {
         List<Brand> brands = new ArrayList<>();

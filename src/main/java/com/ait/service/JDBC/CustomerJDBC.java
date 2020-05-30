@@ -52,21 +52,21 @@ public class CustomerJDBC implements CustomerService {
 
     }
 
-    @Override
-    public List<Customer> statisticsByProvince() {
-        List<Customer> customers = new ArrayList<>();
-        try(PreparedStatement statement = connection.prepareStatement(STATISTICS_BY_PROVINCE)) {
-            ResultSet rs = statement.executeQuery();
-            while (rs.next()){
-                String province = rs.getString("province");
-                Long amount = rs.getLong("amount");
-                customers.add(new Customer(province,amount));
-            }
-        } catch (SQLException e) {
-            printSQLException(e);
-        }
-        return customers;
-    }
+//    @Override
+//    public List<Customer> statisticsByProvince() {
+//        List<Customer> customers = new ArrayList<>();
+//        try(PreparedStatement statement = connection.prepareStatement(STATISTICS_BY_PROVINCE)) {
+//            ResultSet rs = statement.executeQuery();
+//            while (rs.next()){
+//                String province = rs.getString("province");
+//                Long amount = rs.getLong("amount");
+//                customers.add(new Customer(province,amount));
+//            }
+//        } catch (SQLException e) {
+//            printSQLException(e);
+//        }
+//        return customers;
+//    }
 
 
     @Override

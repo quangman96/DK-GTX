@@ -15,6 +15,6 @@ public interface VehicleService {
     Vehicle findByEngineOrChassisNumber(String engine_num, String chassis_num);
     List engineNumber();
     List chassisNumber();
-    List<Vehicle> statisticsByMonth();
-    List<Vehicle> statisticsByBrand();
+//    List<Vehicle> statisticsByMonth();
+//    List<Vehicle> statisticsByBrand();
 }
