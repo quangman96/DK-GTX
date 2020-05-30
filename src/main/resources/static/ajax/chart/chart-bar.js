@@ -32,7 +32,7 @@ barCharts.initData = function () {
                 },
                 options: {
                     title:{
-                        display:true,
+                        display:false,
                         text:'Thống kê số lượng xe đăng ký theo hãng xe',
                         fontSize:25
                     },

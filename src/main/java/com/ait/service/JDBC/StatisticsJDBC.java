@@ -18,7 +18,7 @@ public class StatisticsJDBC implements StatisticsService {
 
     private String STATISTICS_BY_BRAND = "SELECT brand.name AS brand, COUNT(brand_id) AS amount FROM vehicle INNER JOIN brand ON brand.id = vehicle.brand_id WHERE(brand.isDelete =0 AND vehicle.isDelete =0) GROUP BY brand.name ORDER BY brand.name DESC limit 6;";
 
-    private String STATISTICS_BY_MONTH = "SELECT to_char(date_trunc('month', create_date),'yyyy-MM') year_month, COUNT (EXTRACT(MONTH FROM create_date)) AS amount FROM customer WHERE isDelete = 0 GROUP BY year_month ORDER BY year_month;";
+    private String STATISTICS_BY_MONTH = "SELECT to_char(date_trunc('month', create_date),'yyyy-MM') year_month, COUNT (EXTRACT(MONTH FROM create_date)) AS amount FROM vehicle WHERE isDelete = 0 GROUP BY year_month ORDER BY year_month;";
 
     private String STATISTICS_BY_PROVINCE = "SELECT province.name AS province, COUNT(province_id) AS amount FROM customer INNER JOIN province ON province.id = customer.province_id WHERE (customer.isDelete =0 AND province.isDelete =0) GROUP BY province.name;";
 

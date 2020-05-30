@@ -1,13 +1,11 @@
 let areaCharts = {} || areaCharts;
-let provinces = [];
 
 areaCharts.initData = function () {
     $.ajax({
-        url : "api/statistics/province",
+        url : "api/statistics/month",
         method : "GET",
         dataType : "json",
         success: function (data) {
-            console.log(data);
             var ctx = document.getElementById("areaChart");
             Chart.defaults.global.defaultFontFamily = 'Lato';
             Chart.defaults.global.defaultFontSize = 18;
@@ -18,14 +16,7 @@ areaCharts.initData = function () {
                     labels: ['Jan','Feb','Mar','Apr','May','Jun'],
                     datasets: [{
                         label:'a1',
-                        data:[
-                            data[0].amount,
-                            data[1].amount, 3, 5,2, 4
-                            // data[2].amount,
-                            // data[3].amount,
-                            // data[4].amount,
-                            // data[5].amount
-                        ],
+                        data: [data[0].amount, data[1].amount, data[2].amount, data[3].amount, data[4].amount, data[5].amount],
                         backgroundColor: 'rgba(54,162,235,0.6)',
                         borderWidth:3,
                         borderColor:'#000'

@@ -24,7 +24,7 @@ public class CustomerJDBC implements CustomerService {
     private String SELECT_CUSTOMER_BY_IDENTITY = "SELECT customer.id, customer.name, customer.address, customer.phone, customer.identity, customer.province_id, customer.isDelete, customer.create_date, province.name AS province FROM customer INNER JOIN province ON province.id = customer.province_id WHERE (customer.isDelete=0 AND province.isdelete=0 AND customer.identity = ?);";
     private String INSERT_CUSTOMER = "INSERT INTO customer "+" (name, address,phone,identity,province_id) VALUES "+ "(?,?,?,?,?);";
     private String UPDATE_CUSTOMER = "UPDATE customer SET name=?,address=? ,phone=? ,identity=? ,province_id=? WHERE id=?;";
-    private String REMOVE_CUSTOMER = "UPDATE customer SET isDelete = 1 WHERE id=?;";
+    private String REMOVE_CUSTOMER = "UPDATE customer SET isDelete = 1 WHERE id=?; UPDATE vehicle SET isDelete = 1 WHERE vehicle.customer_id =?";
     private String IDENTITY_LIST = "SELECT customer.identity FROM customer WHERE customer.isDelete =0;";
 
     @Override
@@ -150,6 +150,7 @@ public class CustomerJDBC implements CustomerService {
     public void remove(Long id) {
         try(PreparedStatement statement = connection.prepareStatement(REMOVE_CUSTOMER)) {
             statement.setLong(1,id);
+            statement.setLong(2,id);
             statement.executeUpdate();
         }
         catch (SQLException e) {
