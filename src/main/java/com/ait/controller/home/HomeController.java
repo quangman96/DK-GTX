@@ -15,7 +15,7 @@ public class HomeController {
     public String home(Model model){ return "/user/home";}
 
     @GetMapping("/test")
-    public String test(Model model){ return "/user/home_backup";}
+    public String test(Model model){ return "/user/test";}
 
     @GetMapping("customer")
     public String customer(Model model){return "admin/customer";}
