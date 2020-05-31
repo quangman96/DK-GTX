@@ -1,5 +1,8 @@
 let areaCharts = {} || areaCharts;
 
+Chart.defaults.global.defaultFontFamily = '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
+Chart.defaults.global.defaultFontColor = '#292b2c';
+
 areaCharts.initData = function () {
     $.ajax({
         url : "api/statistics/month",
@@ -7,48 +10,49 @@ areaCharts.initData = function () {
         dataType : "json",
         success: function (data) {
             var ctx = document.getElementById("areaChart");
-            Chart.defaults.global.defaultFontFamily = 'Lato';
-            Chart.defaults.global.defaultFontSize = 18;
-            Chart.defaults.global.defaultFontColor = '#777';
             let massPopChart = new Chart(ctx,{
                 type: 'line',
                 data:{
                     labels: ['Jan','Feb','Mar','Apr','May','Jun'],
                     datasets: [{
-                        label:'a1',
+                        label:'Sản phẩm',
+                        lineTension: 0.3,
+                        backgroundColor: "rgba(2,117,216,0.2)",
+                        borderColor: "rgba(2,117,216,1)",
+                        pointRadius: 5,
+                        pointBackgroundColor: "rgba(2,117,216,1)",
+                        pointBorderColor: "rgba(255,255,255,0.8)",
+                        pointHoverRadius: 5,
+                        pointHoverBackgroundColor: "rgba(2,117,216,1)",
+                        pointHitRadius: 50,
+                        pointBorderWidth: 2,
                         data: [data[0].amount, data[1].amount, data[2].amount, data[3].amount, data[4].amount, data[5].amount],
-                        backgroundColor: 'rgba(54,162,235,0.6)',
-                        borderWidth:3,
-                        borderColor:'#000'
                     }]
                 },
                 options: {
-                    title:{
-                        display:true,
-                        text:'Thống kê số phương tiện đăng ký trong năm 2020',
-                        fontSize:25
-                    },
-                    legend:{
-                        display:true,
-                        position:'right',
-                        labels:{
-                            fontColor:'#000'
-                        }
-                    },
-                    layout:{
-                        padding:{
-                            left:50,
-                            right:50,
-                            bottom:50,
-                            top:0
-                        }
-                    },
                     scales: {
+                        xAxes: [{
+                            time: {
+                                unit: 'date'
+                            },
+                            gridLines: {
+                                display: false
+                            },
+                            ticks: {
+                                maxTicksLimit: 7
+                            }
+                        }],
                         yAxes: [{
                             ticks: {
                                 beginAtZero: true
+                            },
+                            gridLines: {
+                                color: "rgba(0, 0, 0, .125)",
                             }
-                        }]
+                        }],
+                    },
+                    legend: {
+                        display: false
                     }
                 }
             });
