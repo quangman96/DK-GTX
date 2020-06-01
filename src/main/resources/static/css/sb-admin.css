@@ -10913,3 +10913,7 @@ body.sidebar-toggled footer.sticky-footer {
     width: calc(100% - 90px);
   }
 }
+
+.modal .modal-dialog .modal-content span {
+  font-weight: bold;
+}

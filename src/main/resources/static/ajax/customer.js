@@ -68,7 +68,7 @@ customers.get = function(id){
             $('#phone').val(data.phone);
             $('#identity').val(data.identity);
             identityExist =(data.identity);
-            $('#province_name').val(data.province);
+            $('#province').val(data.province_id);
             $('#id').val(data.id);
 
             $('#modalAddEdit').modal('show');

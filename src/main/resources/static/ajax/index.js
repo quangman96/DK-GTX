@@ -233,6 +233,14 @@ index.resetAll = function () {
     $('#form_create')[0].reset();
     $('#input_name').prop("disabled", false);
     $('#input_identity').prop("disabled", false);
+    $('#input_vehicle').prop("disabled",true);
+    $('#brand').prop("disabled",true);
+    $('#color').prop("disabled",true);
+    $('#input_engine_num').prop("disabled",true);
+    $('#input_chassis_num').prop("disabled",true);
+    $('#check_identity').prop("disabled",true);
+    $('#create_form').prop("disabled",true);
+
     formObjCustomer = {};
     formObjVehicle = {};
     customer_status = null;

@@ -81,14 +81,14 @@ vehicles.get = function(id){
                 $('#modalTitle').html("Edit vehicle");
                 $('#vehicle_name').val(data.vehicle_name);
                 $('#customer_name').val(data.customer_name);
-                $('#brand_name').val(data.brand);
-                $('#color_name').val(data.color);
+                $('#brand').val(data.brand_id);
+                $('#color').val(data.color_id);
                 $('#engine_num').val(data.engine_num);
                 $('#chassis_num').val(data.chassis_num);
                 $('#id').val(data.id);
                 $('#customer_id').val(data.customer_id);
-                engineNumberExist = $('#engine_num').val();
-                chassisNumberExist = $('#chassis_num').val();
+                engineNumberExist = ($('#engine_num').val()).toUpperCase();
+                chassisNumberExist = ($('#chassis_num').val()).toUpperCase();
 
                 $('#modalAddEdit').modal('show');
             }
@@ -131,8 +131,8 @@ vehicles.save = function(){
         else{
             let vehicleObj = {};
             vehicleObj.vehicle_name = $('#vehicle_name').val();
-            vehicleObj.engine_num = ($('#input_engine_num').val()).toUpperCase();
-            vehicleObj.chassis_num = ($('#input_chassis_num').val()).toUpperCase();
+            vehicleObj.engine_num = ($('#engine_num').val()).toUpperCase();
+            vehicleObj.chassis_num = ($('#chassis_num').val()).toUpperCase();
             vehicleObj.id = $('#id').val();
             vehicleObj.customer_id = $('#customer_id').val();
 
@@ -168,11 +168,11 @@ vehicles.save = function(){
 };
 
 vehicles.checkEngineNumber = function(engine_num){
-    if(engine_num == engineNumberExist){
+    if((engine_num) == engineNumberExist){
         return true;
     } else {
         for(let i=0; i<engineNumberList.length; i++) {
-            if(engine_num == engineNumberList[i]){
+            if((engine_num) == engineNumberList[i]){
                 return false;
             }
         }
@@ -181,11 +181,11 @@ vehicles.checkEngineNumber = function(engine_num){
 };
 
 vehicles.checkChassisNumber = function(chassis_num){
-    if(chassis_num == chassisNumberExist){
+    if((chassis_num.toUpperCase()) == chassisNumberExist){
         return true;
     } else {
         for(let i=0; i<chassisNumberList.length; i++) {
-            if(chassis_num == chassisNumberList[i]){
+            if((chassis_num.toUpperCase()) == chassisNumberList[i]){
                 return false;
             }
         }
