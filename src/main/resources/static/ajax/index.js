@@ -96,8 +96,8 @@ index.createNewVehicleWithExistCustomer = function() {
     formObjVehicle.vehicle_name = $('#input_vehicle').val();
     formObjVehicle.brand_id = $('#brand').val();
     formObjVehicle.color_id = $('#color').val();
-    formObjVehicle.engine_num = $('#input_engine_num').val();
-    formObjVehicle.chassis_num = $('#input_chassis_num').val();
+    formObjVehicle.engine_num = ($('#input_engine_num').val()).toUpperCase();
+    formObjVehicle.chassis_num = ($('#input_chassis_num').val()).toUpperCase();
 
     $.ajax({
         url : "api/vehicles",
@@ -106,9 +106,22 @@ index.createNewVehicleWithExistCustomer = function() {
         contentType: "application/json",
         data: JSON.stringify(formObjVehicle),
         success: function (data) {
-            console.log("oke ");
-            swal("Done!", "Create success!", "success");
-            index.resetAll();
+            swal({
+                title: "Tạo mới thành công.",
+                text: "Bạn có muốn xem lại thông tin không?",
+                icon: "success",
+                buttons: {
+                    cancel: "Không",
+                    Có: true,
+                },
+            })
+                .then((value) => {
+                    if(value == "Có"){
+                        index.detail();
+                    } else {
+                        index.resetAll();
+                    }
+                });
         },
         error: function () {
             swal("Tạo mới thất bại!", "Vui lòng thử lại!", "error");
@@ -125,8 +138,8 @@ index.createNewCustomerAndVehicle = function () {
     formObjVehicle.vehicle_name = $('#input_vehicle').val();
     formObjVehicle.brand_id = $('#brand').val();
     formObjVehicle.color_id = $('#color').val();
-    formObjVehicle.engine_num = $('#input_engine_num').val();
-    formObjVehicle.chassis_num = $('#input_chassis_num').val();
+    formObjVehicle.engine_num = ($('#input_engine_num').val()).toUpperCase();
+    formObjVehicle.chassis_num = ($('#input_chassis_num').val()).toUpperCase();
 
     $.ajax({
         url : "api/customers",
@@ -153,9 +166,22 @@ index.createNewCustomerAndVehicle = function () {
                         contentType: "application/json",
                         data: JSON.stringify(formObjVehicle),
                         success: function (data) {
-                            console.log("create vehicles");
-                            swal("Done!", "Create success!", "success");
-                            index.resetAll();
+                            swal({
+                                title: "Tạo mới thành công.",
+                                text: "Bạn có muốn xem lại thông tin không?",
+                                icon: "success",
+                                buttons: {
+                                    cancel: "Không",
+                                    Có: true,
+                                },
+                            })
+                                .then((value) => {
+                                    if(value == "Có"){
+                                        index.detail();
+                                    } else {
+                                        index.resetAll();
+                                    }
+                                });
                         },
                         error: function () {
                             swal("Tạo mới thất bại!", "Vui lòng thử lại!", "error");
@@ -173,6 +199,28 @@ index.createNewCustomerAndVehicle = function () {
             console.log("error");
         }
     });
+};
+
+index.detail = function() {
+    $('#modalTitle').html("CHÚC MỪNG BẠN ĐÃ ĐĂNG KÝ THÀNH CÔNG.");
+    $('#detail_name').html($('#input_name').val());
+    $('#detail_identity').html($('#input_identity').val());
+    $('#detail_address').html($('#input_address').val());
+    $('#detail_phone').html($('#input_phone').val());
+    $('#detail_province').html($('#province  option:selected').text());
+    $('#detail_vehicle').html($('#input_vehicle').val());
+    $('#detail_brand').html($('#brand option:selected').text());
+    $('#detail_color').html($('#color option:selected').text());
+    $('#detail_engine').html($('#input_engine_num').val());
+    $('#detail_chassis').html($('#input_chassis_num').val());
+    $('#detail_date').html(index.getDay());
+
+    $('#modalDetails').modal('show');
+};
+
+index.closeModal = function() {
+    $('#modalDetails').modal('hide');
+    index.resetAll();
 };
 
 index.guide = function(){
@@ -202,7 +250,8 @@ index.initValidation = function () {
                 required:true
             },
             input_phone:{
-                required:true
+                required:true,
+                digits:true,
             },
             input_identity:{
                 required:true,
@@ -213,11 +262,9 @@ index.initValidation = function () {
             },
             input_engine_num:{
                 required:true,
-                digits:true,
             },
             input_chassis_num:{
                 required:true,
-                digits:true,
             }
         },
         messages:{
@@ -228,27 +275,36 @@ index.initValidation = function () {
                 required: "Không được để trống trường này!"
             },
             input_phone:{
-                required: "Không được để trống trường này!"
+                required: "Không được để trống trường này!",
+                digits:"Dữ liệu phải là số"
             },
             input_identity:{
                 required: "Không được để trống trường này!",
                 digits:"Dữ liệu phải là số"
             },
             input_vehicle:{
-                required: "Không được để trống trường này!"
+                required: "Không được để trống trường này!",
             },
             input_engine_num:{
                 required: "Không được để trống trường này!",
-                digits:"Dữ liệu phải là số"
             },
             input_chassis_num:{
                 required: "Không được để trống trường này!",
-                digits:"Dữ liệu phải là số"
+
             },
         }
     })
 };
 
+index.getDay = function() {
+    let toDay = new Date();
+    let dd = String(toDay.getDate()).padStart(2, '0');
+    let mm = String(toDay.getMonth() + 1).padStart(2, '0');
+    let yyyy = toDay.getFullYear();
+
+    toDay = mm + '/' + dd + '/' + yyyy;
+    return(toDay);
+};
 
 $(document).ready(function () {
     index.initValidation();

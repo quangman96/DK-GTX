@@ -72,7 +72,7 @@
                             <div class="form-group col-md-3">
                                 <label for="input_phone">Số điện thoại: *</label>
                                 <div class="input-group-lg">
-                                    <input type="number" class="form-control" id="input_phone" name="input_phone" placeholder="Phone" disabled>
+                                    <input type="text" class="form-control" id="input_phone" name="input_phone" placeholder="Phone" disabled>
                                 </div>
                             </div>
 
@@ -136,23 +136,138 @@
 
     </div>
 
-    <div class="modal fade" id="guide" name="guide">
-        <div class="modal-dialog">
+    <div class="modal fade" id="modalDetails" name="modalDetails">
+        <div class="modal-dialog modal-lg">
             <div class="modal-content">
 
                 <!-- Modal Header -->
                 <div class="modal-header">
-                    <h4 class="modal-title" id="guideTittle" ></h4>
+                    <h4 class="modal-title" id="modalTitle" ></h4>
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div>
+
                 </div>
 
                 <!-- Modal body -->
-                <div class="modal-body">
+                <div class="modal-body" style="padding:2rem">
+                    <h4>    - Các thông tin bạn đã nhập:</h4>
+                </div>
+                <div class="row form-group">
+                    <div class="col-2">
+                    </div>
+                    <div class="col-4">
+                        <label>- Chủ sở hữu(Ông/bà):</label>
+                    </div>
+                    <div class="col-6">
+                        <span name="customer_name" id="detail_name"></span>
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <div class="col-2">
+                    </div>
+                    <div class="col-4">
+                        <label>- Số CMND/Hộ chiếu:</label>
+                    </div>
+                    <div class="col-6">
+                        <span name="" id="detail_identity"></span>
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <div class="col-2">
+                    </div>
+                    <div class="col-4">
+                        <label>- Địa chỉ:</label>
+                    </div>
+                    <div class="col-6">
+                        <span name="" id="detail_address"></span>
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <div class="col-2">
+                    </div>
+                    <div class="col-4">
+                        <label>- Số điện thoại:</label>
+                    </div>
+                    <div class="col-6">
+                        <span name="" id="detail_phone"></span>
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <div class="col-2">
+                    </div>
+                    <div class="col-4">
+                        <label>- Tỉnh thành:</label>
+                    </div>
+                    <div class="col-6">
+                        <span name="" id="detail_province"></span>
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <div class="col-2">
+                    </div>
+                    <div class="col-4">
+                        <label>- Tên phương tiện:</label>
+                    </div>
+                    <div class="col-6">
+                        <span name="" id="detail_vehicle"></span>
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <div class="col-2">
+                    </div>
+                    <div class="col-4">
+                        <label>- Hãng xe:</label>
+                    </div>
+                    <div class="col-6">
+                        <span name="" id="detail_brand"></span>
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <div class="col-2">
+                    </div>
+                    <div class="col-4">
+                        <label>- Màu sắc:</label>
+                    </div>
+                    <div class="col-6">
+                        <span name="" id="detail_color"></span>
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <div class="col-2">
+                    </div>
+                    <div class="col-4">
+                        <label>- Số máy:</label>
+                    </div>
+                    <div class="col-6">
+                        <span name="" id="detail_engine"></span>
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <div class="col-2">
+                    </div>
+                    <div class="col-4">
+                        <label>- Số khung:</label>
+                    </div>
+                    <div class="col-6">
+                        <span name="" id="detail_chassis"></span>
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <div class="col-2">
+                    </div>
+                    <div class="col-4">
+                        <label>- Ngày tạo:</label>
+                    </div>
+                    <div class="col-6">
+                        <span name="" id="detail_date"></span>
+                    </div>
                 </div>
 
                 <!-- Modal footer -->
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                    <a href="javascript:;" class="btn btn-primary"
+                       onclick="index.closeModal()">Đóng</a>
                 </div>
 
             </div>

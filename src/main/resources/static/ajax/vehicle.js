@@ -131,8 +131,8 @@ vehicles.save = function(){
         else{
             let vehicleObj = {};
             vehicleObj.vehicle_name = $('#vehicle_name').val();
-            vehicleObj.engine_num = $('#engine_num').val();
-            vehicleObj.chassis_num = $('#chassis_num').val();
+            vehicleObj.engine_num = ($('#input_engine_num').val()).toUpperCase();
+            vehicleObj.chassis_num = ($('#input_chassis_num').val()).toUpperCase();
             vehicleObj.id = $('#id').val();
             vehicleObj.customer_id = $('#customer_id').val();
 
