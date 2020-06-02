@@ -1,6 +1,7 @@
 package com.ait.model;
 
 public class Statistics {
+
     private String element;
     private Long amount;
 

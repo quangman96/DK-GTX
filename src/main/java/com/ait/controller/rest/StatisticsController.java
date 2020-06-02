@@ -12,15 +12,22 @@ import java.util.List;
 @RestController
 @RequestMapping("/api")
 public class StatisticsController {
+
     @Autowired
     StatisticsJDBC statisticsService;
 
     @GetMapping("/statistics/province")
-    public List<Statistics> statisticsByProvince() { return statisticsService.statisticsByProvince();}
+    public List<Statistics> statisticsByProvince() {
+        return statisticsService.statisticsByProvince();
+    }
 
     @GetMapping("/statistics/brand")
-    public List<Statistics> statisticsByBrand() {return statisticsService.statisticsByBrand();}
+    public List<Statistics> statisticsByBrand() {
+        return statisticsService.statisticsByBrand();
+    }
 
     @GetMapping("/statistics/month")
-    public List<Statistics> statisticsByMonth() {return statisticsService.statisticsByMonth();}
+    public List<Statistics> statisticsByMonth() {
+        return statisticsService.statisticsByMonth();
+    }
 }

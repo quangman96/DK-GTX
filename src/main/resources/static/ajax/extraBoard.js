@@ -1,31 +1,31 @@
 let extraBoard = {} || extraBoard;
 let elementName;
 
-extraBoard.initBrand = function(){
+extraBoard.initBrand = function () {
     $.ajax({
         url: "api/brands",
         method: "GET",
         dataType: "JSON",
         success: function (data) {
             $('#tblBrand').DataTable({
-                "scrollY":        "400px",
+                "scrollY": "400px",
                 "scrollCollapse": true,
-                "paging":         false,
+                "paging": false,
                 destroy: true,
-                data:data,
-                columns:[
-                    {'data':'name'},
-                    {'data':'create_date'},
+                data: data,
+                columns: [
+                    {'data': 'name'},
+                    {'data': 'create_date'},
                     {
                         data: 'id',
                         render: function (data, type, row, meta) {
-                            return "<a href='javascript:void(0);' class='edit' onclick='extraBoard.get("+data+",this.id)' id='brands' ><i class=\"fas fa-pen-square fa-2x\" ></i></a>"
+                            return "<a href='javascript:void(0);' class='edit' onclick='extraBoard.get(" + data + ",this.id)' id='brands' ><i class=\"fas fa-pen-square fa-2x\" ></i></a>"
                         }
                     },
                     {
                         data: 'id',
                         render: function (data, type, row, meta) {
-                            return "<a href='javascript:void(0);' class='delete' onclick='extraBoard.delete("+data+",this.id)' id='brands' ><i class=\"fas fa-trash-alt fa-2x\" ></i></a>"
+                            return "<a href='javascript:void(0);' class='delete' onclick='extraBoard.delete(" + data + ",this.id)' id='brands' ><i class=\"fas fa-trash-alt fa-2x\" ></i></a>"
                         }
                     },
                 ]
@@ -35,31 +35,31 @@ extraBoard.initBrand = function(){
     });
 };
 
-extraBoard.initColor = function(){
+extraBoard.initColor = function () {
     $.ajax({
         url: "api/colors",
         method: "GET",
         dataType: "JSON",
         success: function (data) {
             $('#tblColor').DataTable({
-                "scrollY":        "400px",
+                "scrollY": "400px",
                 "scrollCollapse": true,
-                "paging":         false,
+                "paging": false,
                 destroy: true,
-                data:data,
-                columns:[
-                    {'data':'name'},
-                    {'data':'create_date'},
+                data: data,
+                columns: [
+                    {'data': 'name'},
+                    {'data': 'create_date'},
                     {
                         data: 'id',
                         render: function (data, type, row, meta) {
-                            return "<a href='javascript:void(0);' class='edit' onclick='extraBoard.get("+data+",this.id)' id='colors' ><i class=\"fas fa-pen-square fa-2x\" ></i></a>"
+                            return "<a href='javascript:void(0);' class='edit' onclick='extraBoard.get(" + data + ",this.id)' id='colors' ><i class=\"fas fa-pen-square fa-2x\" ></i></a>"
                         }
                     },
                     {
                         data: 'id',
                         render: function (data, type, row, meta) {
-                            return "<a href='javascript:void(0);' class='delete' onclick='extraBoard.delete("+data+",this.id)' id='colors' ><i class=\"fas fa-trash-alt fa-2x\" ></i></a>"
+                            return "<a href='javascript:void(0);' class='delete' onclick='extraBoard.delete(" + data + ",this.id)' id='colors' ><i class=\"fas fa-trash-alt fa-2x\" ></i></a>"
                         }
                     },
                 ]
@@ -69,14 +69,14 @@ extraBoard.initColor = function(){
     });
 };
 
-extraBoard.get = function(id,element){
+extraBoard.get = function (id, element) {
     $.ajax({
-        url:"api/"+element+"/"+id,
+        url: "api/" + element + "/" + id,
         method: "GET",
         dataType: "JSON",
         success: function (data) {
             $('#formAddEdit')[0].reset();
-            $('#modalTitle').html("Edit "+element);
+            $('#modalTitle').html("Edit " + element);
             $('#name').val(data.name);
             $('#id').val(data.id);
             $('#modalAddEdit').modal('show');
@@ -85,7 +85,7 @@ extraBoard.get = function(id,element){
     });
 };
 
-extraBoard.delete = function(id,element){
+extraBoard.delete = function (id, element) {
     console.log(id);
     console.log(element);
     swal({
@@ -98,7 +98,7 @@ extraBoard.delete = function(id,element){
         .then((willDelete) => {
             if (willDelete) {
                 $.ajax({
-                    url: "api/"+element+"/delete/" +id,
+                    url: "api/" + element + "/delete/" + id,
                     method: "PUT",
                     success: function () {
                         swal("Thành công!", "Dữ liệu đã xóa!", "success");
@@ -114,15 +114,15 @@ extraBoard.delete = function(id,element){
         });
 };
 
-extraBoard.save = function(){
-    if($("#formAddEdit").valid()){
-        console.log($('#id').val()+"save");
-        if($('#id').val()==0){
+extraBoard.save = function () {
+    if ($("#formAddEdit").valid()) {
+        console.log($('#id').val() + "save");
+        if ($('#id').val() == 0) {
             let obj = {};
             obj.name = $('#name').val();
 
             $.ajax({
-                url: "/api/"+elementName,
+                url: "/api/" + elementName,
                 method: "POST",
                 contentType: "application/json",
                 data: JSON.stringify(obj),
@@ -136,14 +136,13 @@ extraBoard.save = function(){
                 }
             })
             //    post method
-        }
-        else{
+        } else {
             let obj = {};
             obj.name = $('#name').val();
             obj.id = $('#id').val();
 
             $.ajax({
-                url : "/api/"+elementName+"/"+obj.id,
+                url: "/api/" + elementName + "/" + obj.id,
                 method: "PUT",
                 dataType: "JSON",
                 contentType: "application/json",
@@ -163,21 +162,21 @@ extraBoard.save = function(){
     }
 };
 
-extraBoard.addNew = function(element){
+extraBoard.addNew = function (element) {
     $('#modalTitle').html("Tạo mới dữ liệu");
     extraBoard.resetFrom();
     $('#modalAddEdit').modal('show');
     elementName = element;
 };
 
-extraBoard.resetFrom = function(){
+extraBoard.resetFrom = function () {
     $('#formAddEdit')[0].reset();
     let validator = $("#formAddEdit").validate();
     validator.resetForm();
 };
 
 
-extraBoard.init = function(){
+extraBoard.init = function () {
     extraBoard.initBrand();
     extraBoard.initColor();
 };

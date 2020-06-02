@@ -4,33 +4,33 @@ let chassisNumberList = [];
 let engineNumberExist;
 let chassisNumberExist;
 
-vehicles.iniTable = function(){
+vehicles.iniTable = function () {
     $.ajax({
         url: "api/vehicles",
         method: "GET",
         dataType: "JSON",
         success: function (data) {
             $('#tblVehicle').DataTable({
-                destroy:true,
-                data:data,
-                columns:[
-                    {'data':'vehicle_name'},
-                    {'data':'customer_identity'},
-                    {'data':'brand_name'},
-                    {'data':'color_name'},
-                    {'data':'engine_num'},
-                    {'data':'chassis_num'},
-                    {'data':'create_date'},
+                destroy: true,
+                data: data,
+                columns: [
+                    {'data': 'vehicle_name'},
+                    {'data': 'customer_identity'},
+                    {'data': 'brand_name'},
+                    {'data': 'color_name'},
+                    {'data': 'engine_num'},
+                    {'data': 'chassis_num'},
+                    {'data': 'create_date'},
                     {
                         data: 'id',
                         render: function (data, type, row, meta) {
-                            return "<a href='javascript:void(0);' class='edit' onclick='vehicles.get("+data+")' ><i class=\"fas fa-pen-square fa-2x\" ></i></a>"
+                            return "<a href='javascript:void(0);' class='edit' onclick='vehicles.get(" + data + ")' ><i class=\"fas fa-pen-square fa-2x\" ></i></a>"
                         }
                     },
                     {
                         data: 'id',
                         render: function (data, type, row, meta) {
-                            return "<a href='javascript:void(0);' class='delete' onclick='vehicles.delete("+data+")' ><i class=\"fas fa-trash-alt fa-2x\" ></i></a>"
+                            return "<a href='javascript:void(0);' class='delete' onclick='vehicles.delete(" + data + ")' ><i class=\"fas fa-trash-alt fa-2x\" ></i></a>"
                         }
                     },
                 ]
@@ -39,63 +39,63 @@ vehicles.iniTable = function(){
     });
 };
 
-vehicles.initBrand = function(){
+vehicles.initBrand = function () {
     $.ajax({
-        url : "api/brands",
-        method : "GET",
-        dataType : "json",
+        url: "api/brands",
+        method: "GET",
+        dataType: "json",
         success: function (data) {
             $('#brand').empty();
-            $.each(data,function (i,v) {
+            $.each(data, function (i, v) {
                 $('#brand').append(
-                    "<option value='"+ v.id +"'>"+ v.name +"</option>"
+                    "<option value='" + v.id + "'>" + v.name + "</option>"
                 );
             })
         }
     })
 };
 
-vehicles.initColor = function(){
+vehicles.initColor = function () {
     $.ajax({
-        url : "api/colors",
-        method : "GET",
-        dataType : "json",
+        url: "api/colors",
+        method: "GET",
+        dataType: "json",
         success: function (data) {
             $('#color').empty();
-            $.each(data,function (i,v) {
+            $.each(data, function (i, v) {
                 $('#color').append(
-                    "<option value='"+ v.id +"'>"+ v.name +"</option>"
+                    "<option value='" + v.id + "'>" + v.name + "</option>"
                 );
             })
         }
     })
 };
 
-vehicles.get = function(id){
-        $.ajax({
-            url : "api/vehicles/" + id,
-            method : "GET",
-            dataType : "json",
-            success: function (data) {
-                $('#formAddEdit')[0].reset();
-                $('#modalTitle').html("Edit vehicle");
-                $('#vehicle_name').val(data.vehicle_name);
-                $('#customer_name').val(data.customer_name);
-                $('#brand').val(data.brand_id);
-                $('#color').val(data.color_id);
-                $('#engine_num').val(data.engine_num);
-                $('#chassis_num').val(data.chassis_num);
-                $('#id').val(data.id);
-                $('#customer_id').val(data.customer_id);
-                engineNumberExist = ($('#engine_num').val()).toUpperCase();
-                chassisNumberExist = ($('#chassis_num').val()).toUpperCase();
+vehicles.get = function (id) {
+    $.ajax({
+        url: "api/vehicles/" + id,
+        method: "GET",
+        dataType: "json",
+        success: function (data) {
+            $('#formAddEdit')[0].reset();
+            $('#modalTitle').html("Edit vehicle");
+            $('#vehicle_name').val(data.vehicle_name);
+            $('#customer_name').val(data.customer_name);
+            $('#brand').val(data.brand_id);
+            $('#color').val(data.color_id);
+            $('#engine_num').val(data.engine_num);
+            $('#chassis_num').val(data.chassis_num);
+            $('#id').val(data.id);
+            $('#customer_id').val(data.customer_id);
+            engineNumberExist = ($('#engine_num').val()).toUpperCase();
+            chassisNumberExist = ($('#chassis_num').val()).toUpperCase();
 
-                $('#modalAddEdit').modal('show');
-            }
-        })
-    };
+            $('#modalAddEdit').modal('show');
+        }
+    })
+};
 
-vehicles.delete = function(id){
+vehicles.delete = function (id) {
     swal({
         title: "Bạn có chắc muốn xóa dữ liệu này?",
         icon: "warning",
@@ -106,7 +106,7 @@ vehicles.delete = function(id){
         .then((willDelete) => {
             if (willDelete) {
                 $.ajax({
-                    url: "api/vehicles/delete/" +id,
+                    url: "api/vehicles/delete/" + id,
                     method: "PUT",
                     // dataType: "JSON",
                     success: function () {
@@ -124,11 +124,10 @@ vehicles.delete = function(id){
 
 };
 
-vehicles.save = function(){
-    if($('#formAddEdit').valid()){
-        if($('#id').val()==0){
-        }
-        else{
+vehicles.save = function () {
+    if ($('#formAddEdit').valid()) {
+        if ($('#id').val() == 0) {
+        } else {
             let vehicleObj = {};
             vehicleObj.vehicle_name = $('#vehicle_name').val();
             vehicleObj.engine_num = ($('#engine_num').val()).toUpperCase();
@@ -147,7 +146,7 @@ vehicles.save = function(){
             vehicleObj.color_id = colorObj.id;
 
             $.ajax({
-                url: "api/vehicles/" +vehicleObj.id,
+                url: "api/vehicles/" + vehicleObj.id,
                 method: "PUT",
                 dataType: "JSON",
                 contentType: "application/json",
@@ -167,12 +166,12 @@ vehicles.save = function(){
     }
 };
 
-vehicles.checkEngineNumber = function(engine_num){
-    if((engine_num) == engineNumberExist){
+vehicles.checkEngineNumber = function (engine_num) {
+    if ((engine_num) == engineNumberExist) {
         return true;
     } else {
-        for(let i=0; i<engineNumberList.length; i++) {
-            if((engine_num) == engineNumberList[i]){
+        for (let i = 0; i < engineNumberList.length; i++) {
+            if ((engine_num) == engineNumberList[i]) {
                 return false;
             }
         }
@@ -180,12 +179,12 @@ vehicles.checkEngineNumber = function(engine_num){
     }
 };
 
-vehicles.checkChassisNumber = function(chassis_num){
-    if((chassis_num.toUpperCase()) == chassisNumberExist){
+vehicles.checkChassisNumber = function (chassis_num) {
+    if ((chassis_num.toUpperCase()) == chassisNumberExist) {
         return true;
     } else {
-        for(let i=0; i<chassisNumberList.length; i++) {
-            if((chassis_num.toUpperCase()) == chassisNumberList[i]){
+        for (let i = 0; i < chassisNumberList.length; i++) {
+            if ((chassis_num.toUpperCase()) == chassisNumberList[i]) {
                 return false;
             }
         }
@@ -207,25 +206,25 @@ $("#formAddEdit").submit(function (event) {
     console.log("error");
 });
 
-vehicles.initValidation = function(){
+vehicles.initValidation = function () {
     $("#formAddEdit").validate({
         rules: {
             vehicle_name: "required",
-            chassis_num:{
-                required:true,
-                checkEngineNumber:true,
+            chassis_num: {
+                required: true,
+                checkEngineNumber: true,
             }
         },
         messages: {
             vehicle_name: "Please enter your city vehicle name",
-            chassis_num:{
-                required:"Please enter your chassis_num",
+            chassis_num: {
+                required: "Please enter your chassis_num",
             }
         }
     });
 };
 
-vehicles.initEngineNumberList = function(){
+vehicles.initEngineNumberList = function () {
     $.ajax({
         url: "api/engine_num",
         method: "GET",
@@ -238,7 +237,7 @@ vehicles.initEngineNumberList = function(){
     });
 };
 
-vehicles.initChassisNumberList = function(){
+vehicles.initChassisNumberList = function () {
     $.ajax({
         url: "api/chassis_num",
         method: "GET",
@@ -251,7 +250,7 @@ vehicles.initChassisNumberList = function(){
     });
 };
 
-vehicles.init = function(){
+vehicles.init = function () {
     vehicles.iniTable();
     vehicles.initBrand();
     vehicles.initColor();

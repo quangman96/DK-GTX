@@ -12,6 +12,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
+
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.inMemoryAuthentication()
@@ -24,8 +25,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests().antMatchers("/").permitAll()
                 .and()
-                .authorizeRequests().antMatchers("/customer/**","/vehicle/**","/province/**",
-                                                            "/brandColor/**","/chart/**").hasRole("ADMIN")
+                .authorizeRequests().antMatchers("/customer/**", "/vehicle/**", "/province/**",
+                "/brandColor/**", "/chart/**").hasRole("ADMIN")
                 .and()
                 .formLogin()
 //                .loginPage("/login")

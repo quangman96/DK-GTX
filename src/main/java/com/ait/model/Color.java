@@ -3,6 +3,7 @@ package com.ait.model;
 import java.util.Date;
 
 public class Color {
+
     private Long id;
     private String name;
     private Integer isDelete;

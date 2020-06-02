@@ -6,16 +6,16 @@ let existCustomer_id;
 
 
 index.checkVehicle = function () {
-    if (($('#input_engine_num').valid())&&($('#input_chassis_num').valid())){
+    if (($('#input_engine_num').valid()) && ($('#input_chassis_num').valid())) {
         let engine = $('#input_engine_num').val();
         let chassis = $('#input_chassis_num').val();
 
         $.ajax({
-            url: "api/vehicles/check/" + engine +"/" +chassis,
+            url: "api/vehicles/check/" + engine + "/" + chassis,
             method: "GET",
             dataType: "json",
             success: function () {
-                swal("Mã số đã tồn tại trong hệ thống! Xin thử lại","","warning");
+                swal("Mã số đã tồn tại trong hệ thống! Xin thử lại", "", "warning");
                 $('#input_engine_num').val("");
                 $('#input_chassis_num').val("");
             },
@@ -28,13 +28,13 @@ index.checkVehicle = function () {
 };
 
 index.checkInformation = function () {
-    if ($('#input_identity').valid()){
-        let identity =$('#input_identity').val();
+    if ($('#input_identity').valid()) {
+        let identity = $('#input_identity').val();
 
         $.ajax({
-            url : "api/customers/check/" + identity,
-            method : "GET",
-            dataType : "json",
+            url: "api/customers/check/" + identity,
+            method: "GET",
+            dataType: "json",
             success: function (data) {
                 customer_status = true;
                 swal("Dữ liệu đã có trong hệ thống, tự động cập nhật!");
@@ -43,7 +43,7 @@ index.checkInformation = function () {
                 $('#input_address').val(data.address);
                 $('#input_phone').val(data.phone);
                 $('#input_identity').val(data.identity);
-                $('#province').html("<option value='"+ data.province_id +"'>"+ data.province_name +"</option>");
+                $('#province').html("<option value='" + data.province_id + "'>" + data.province_name + "</option>");
 
                 $('#input_name').prop("disabled", true);
                 $('#input_identity').prop("disabled", true);
@@ -58,9 +58,9 @@ index.checkInformation = function () {
             },
             error: function () {
                 customer_status = false;
-                swal("Tạo mới người đăng ký với số CMND/HC là:  "+identity);
+                swal("Tạo mới người đăng ký với số CMND/HC là:  " + identity);
                 $('#input_identity').prop("disabled", true);
-                $('#province').prop("disabled",false);
+                $('#province').prop("disabled", false);
                 $('#input_name').prop("disabled", false);
                 $('#input_address').prop("disabled", false);
                 $('#input_phone').prop("disabled", false);
@@ -78,19 +78,18 @@ index.checkInformation = function () {
     }
 };
 
-index.createForm = function(){
-    if ($('#form_create').valid()){
-        if(customer_status){
+index.createForm = function () {
+    if ($('#form_create').valid()) {
+        if (customer_status) {
             index.createNewVehicleWithExistCustomer();
-        }
-        else {
+        } else {
             index.createNewCustomerAndVehicle();
         }
     } else {
     }
 };
 
-index.createNewVehicleWithExistCustomer = function() {
+index.createNewVehicleWithExistCustomer = function () {
 
     formObjVehicle.customer_id = existCustomer_id;
     formObjVehicle.vehicle_name = $('#input_vehicle').val();
@@ -100,7 +99,7 @@ index.createNewVehicleWithExistCustomer = function() {
     formObjVehicle.chassis_num = ($('#input_chassis_num').val()).toUpperCase();
 
     $.ajax({
-        url : "api/vehicles",
+        url: "api/vehicles",
         method: "POST",
         dataType: "JSON",
         contentType: "application/json",
@@ -116,7 +115,7 @@ index.createNewVehicleWithExistCustomer = function() {
                 },
             })
                 .then((value) => {
-                    if(value == "Có"){
+                    if (value == "Có") {
                         index.detail();
                     } else {
                         index.resetAll();
@@ -142,7 +141,7 @@ index.createNewCustomerAndVehicle = function () {
     formObjVehicle.chassis_num = ($('#input_chassis_num').val()).toUpperCase();
 
     $.ajax({
-        url : "api/customers",
+        url: "api/customers",
         method: "POST",
         dataType: "JSON",
         contentType: "application/json",
@@ -151,16 +150,16 @@ index.createNewCustomerAndVehicle = function () {
             console.log("create customer");
 
             $.ajax({
-                url : "api/customers/check/" + formObjCustomer.identity,
-                method : "GET",
-                dataType : "json",
+                url: "api/customers/check/" + formObjCustomer.identity,
+                method: "GET",
+                dataType: "json",
                 contentType: "application/json",
                 success: function (data) {
                     formObjVehicle.customer_id = data.id;
                     console.log(formObjVehicle.customer_id);
 
                     $.ajax({
-                        url : "api/vehicles",
+                        url: "api/vehicles",
                         method: "POST",
                         dataType: "JSON",
                         contentType: "application/json",
@@ -176,7 +175,7 @@ index.createNewCustomerAndVehicle = function () {
                                 },
                             })
                                 .then((value) => {
-                                    if(value == "Có"){
+                                    if (value == "Có") {
                                         index.detail();
                                     } else {
                                         index.resetAll();
@@ -201,7 +200,7 @@ index.createNewCustomerAndVehicle = function () {
     });
 };
 
-index.detail = function() {
+index.detail = function () {
     $('#modalTitle').html("CHÚC MỪNG BẠN ĐÃ ĐĂNG KÝ THÀNH CÔNG.");
     $('#detail_name').html($('#input_name').val());
     $('#detail_identity').html($('#input_identity').val());
@@ -218,12 +217,12 @@ index.detail = function() {
     $('#modalDetails').modal('show');
 };
 
-index.closeModal = function() {
+index.closeModal = function () {
     $('#modalDetails').modal('hide');
     index.resetAll();
 };
 
-index.guide = function(){
+index.guide = function () {
     $('#guideTittle').html("Hướng dẫn tạo mới giấy đăng ký xe");
     $('#guide').modal('show');
 
@@ -233,13 +232,13 @@ index.resetAll = function () {
     $('#form_create')[0].reset();
     $('#input_name').prop("disabled", false);
     $('#input_identity').prop("disabled", false);
-    $('#input_vehicle').prop("disabled",true);
-    $('#brand').prop("disabled",true);
-    $('#color').prop("disabled",true);
-    $('#input_engine_num').prop("disabled",true);
-    $('#input_chassis_num').prop("disabled",true);
-    $('#check_identity').prop("disabled",true);
-    $('#create_form').prop("disabled",true);
+    $('#input_vehicle').prop("disabled", true);
+    $('#brand').prop("disabled", true);
+    $('#color').prop("disabled", true);
+    $('#input_engine_num').prop("disabled", true);
+    $('#input_chassis_num').prop("disabled", true);
+    $('#check_identity').prop("disabled", true);
+    $('#create_form').prop("disabled", true);
 
     formObjCustomer = {};
     formObjVehicle = {};
@@ -249,54 +248,54 @@ index.resetAll = function () {
 
 index.initValidation = function () {
     $('#form_create').validate({
-        rules:{
-            input_name:{
-                required:true
+        rules: {
+            input_name: {
+                required: true
 
             },
-            input_address:{
-                required:true
+            input_address: {
+                required: true
             },
-            input_phone:{
-                required:true,
-                digits:true,
+            input_phone: {
+                required: true,
+                digits: true,
             },
-            input_identity:{
-                required:true,
-                digits:true,
+            input_identity: {
+                required: true,
+                digits: true,
             },
-            input_vehicle:{
-                required:true
+            input_vehicle: {
+                required: true
             },
-            input_engine_num:{
-                required:true,
+            input_engine_num: {
+                required: true,
             },
-            input_chassis_num:{
-                required:true,
+            input_chassis_num: {
+                required: true,
             }
         },
-        messages:{
-            input_name:{
+        messages: {
+            input_name: {
                 required: "Không được để trống trường này!"
             },
-            input_address:{
+            input_address: {
                 required: "Không được để trống trường này!"
             },
-            input_phone:{
+            input_phone: {
                 required: "Không được để trống trường này!",
-                digits:"Dữ liệu phải là số"
+                digits: "Dữ liệu phải là số"
             },
-            input_identity:{
+            input_identity: {
                 required: "Không được để trống trường này!",
-                digits:"Dữ liệu phải là số"
+                digits: "Dữ liệu phải là số"
             },
-            input_vehicle:{
-                required: "Không được để trống trường này!",
-            },
-            input_engine_num:{
+            input_vehicle: {
                 required: "Không được để trống trường này!",
             },
-            input_chassis_num:{
+            input_engine_num: {
+                required: "Không được để trống trường này!",
+            },
+            input_chassis_num: {
                 required: "Không được để trống trường này!",
 
             },
@@ -304,14 +303,14 @@ index.initValidation = function () {
     })
 };
 
-index.getDay = function() {
+index.getDay = function () {
     let toDay = new Date();
     let dd = String(toDay.getDate()).padStart(2, '0');
     let mm = String(toDay.getMonth() + 1).padStart(2, '0');
     let yyyy = toDay.getFullYear();
 
     toDay = mm + '/' + dd + '/' + yyyy;
-    return(toDay);
+    return (toDay);
 };
 
 $(document).ready(function () {

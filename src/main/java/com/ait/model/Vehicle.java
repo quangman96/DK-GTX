@@ -1,11 +1,9 @@
 package com.ait.model;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-
 import java.util.Date;
 
-//@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Vehicle {
+
     private Long id;
     private String vehicle_name;
     private String engine_num;
@@ -25,7 +23,7 @@ public class Vehicle {
 
     private Long amount;
 
-    public Vehicle(Long id, String vehicle_name, String engine_num, String chassis_num, Integer isDelete, Long customer_id, String customer_name,String customer_identity, Long brand_id, String brand_name, Long color_id, String color_name,Date create_date) {
+    public Vehicle(Long id, String vehicle_name, String engine_num, String chassis_num, Integer isDelete, Long customer_id, String customer_name, String customer_identity, Long brand_id, String brand_name, Long color_id, String color_name, Date create_date) {
         this.id = id;
         this.vehicle_name = vehicle_name;
         this.engine_num = engine_num;
@@ -41,12 +39,6 @@ public class Vehicle {
         this.customer_identity = customer_identity;
 
     }
-
-//    public Vehicle(String brand_name, Long amount) {
-//        this.brand_name = brand_name;
-//        this.amount = amount;
-//    }
-
 
     public Long getId() {
         return id;

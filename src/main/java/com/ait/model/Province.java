@@ -3,11 +3,11 @@ package com.ait.model;
 import java.util.Date;
 
 public class Province {
+
     private Long id;
     private String name;
     private String province_code;
     private String telephone_code;
-    private Integer quantity;
     private Integer isDelete;
     private Date create_date;
 
@@ -50,14 +50,6 @@ public class Province {
 
     public void setTelephone_code(String telephone_code) {
         this.telephone_code = telephone_code;
-    }
-
-    public Integer getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(Integer quantity) {
-        this.quantity = quantity;
     }
 
     public Integer getIsDelete() {

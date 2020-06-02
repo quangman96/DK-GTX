@@ -5,26 +5,22 @@ import com.ait.model.Color;
 import com.ait.model.Customer;
 import com.ait.model.Province;
 import com.ait.model.Vehicle;
-import org.apache.poi.hssf.usermodel.HSSFCellStyle;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.ss.util.CellRangeAddress;
-import org.apache.poi.xssf.usermodel.XSSFCellStyle;
-import org.apache.poi.xssf.usermodel.XSSFFont;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.util.Date;
 import java.util.List;
 
 public class DataExport {
+
     public static ByteArrayInputStream listToExcelFile(List<Customer> customers, List<Vehicle> vehicles,
                                                        List<Province> provinces, List<Brand> brands,
-                                                       List<Color> colors
-                                                       ) {
+                                                       List<Color> colors) {
 
-        try(Workbook workbook = new XSSFWorkbook()){
+        try (Workbook workbook = new XSSFWorkbook()) {
             Sheet customerSheet = workbook.createSheet("Customers");
             Sheet vehicleSheet = workbook.createSheet("Vehicles");
             Sheet provinceSheet = workbook.createSheet("Provinces");
@@ -87,11 +83,7 @@ public class DataExport {
             cellCustomer.setCellValue("PROVINCE");
             cellCustomer.setCellStyle(headerCellStyle);
 
-//            cellCustomer = rowCustomer.createCell(8);
-//            cellCustomer.setCellValue("CREATE DATE");
-//            cellCustomer.setCellStyle(headerCellStyle);
-
-            for(int i = 0; i < customers.size(); i++) {
+            for (int i = 0; i < customers.size(); i++) {
                 Row dataRow = customerSheet.createRow(i + 6);
                 dataRow.createCell(2).setCellValue(customers.get(i).getId());
                 dataRow.createCell(3).setCellValue(customers.get(i).getName());
@@ -99,18 +91,15 @@ public class DataExport {
                 dataRow.createCell(5).setCellValue(customers.get(i).getPhone());
                 dataRow.createCell(6).setCellValue(customers.get(i).getIdentity());
                 dataRow.createCell(7).setCellValue(customers.get(i).getProvince_name());
-//                dataRow.createCell(8).setCellValue(customers.get(i).getCreate_date());
 
             }
 
-            // Making size of column auto resize to fit with data
             customerSheet.autoSizeColumn(2);
             customerSheet.autoSizeColumn(3);
             customerSheet.autoSizeColumn(4);
             customerSheet.autoSizeColumn(5);
             customerSheet.autoSizeColumn(6);
             customerSheet.autoSizeColumn(7);
-
 
 
             vehicleSheet.addMergedRegion(CellRangeAddress.valueOf("C3:I4"));
@@ -151,7 +140,7 @@ public class DataExport {
             cellVehicle.setCellValue("CHASSIS NUMBER");
             cellVehicle.setCellStyle(headerCellStyle);
 
-            for(int i = 0; i < vehicles.size(); i++) {
+            for (int i = 0; i < vehicles.size(); i++) {
                 Row dataRow = vehicleSheet.createRow(i + 6);
                 dataRow.createCell(2).setCellValue(vehicles.get(i).getId());
                 dataRow.createCell(3).setCellValue(vehicles.get(i).getVehicle_name());
@@ -163,7 +152,6 @@ public class DataExport {
 
             }
 
-            // Making size of column auto resize to fit with data
             vehicleSheet.autoSizeColumn(2);
             vehicleSheet.autoSizeColumn(3);
             vehicleSheet.autoSizeColumn(4);
@@ -198,7 +186,7 @@ public class DataExport {
             cellProvince.setCellValue("PHONE CODE");
             cellProvince.setCellStyle(headerCellStyle);
 
-            for(int i = 0; i < provinces.size(); i++) {
+            for (int i = 0; i < provinces.size(); i++) {
                 Row dataRow = provinceSheet.createRow(i + 6);
                 dataRow.createCell(2).setCellValue(provinces.get(i).getId());
                 dataRow.createCell(3).setCellValue(provinces.get(i).getName());
@@ -207,7 +195,6 @@ public class DataExport {
 
             }
 
-            // Making size of column auto resize to fit with data
             provinceSheet.autoSizeColumn(2);
             provinceSheet.autoSizeColumn(3);
             provinceSheet.autoSizeColumn(4);
@@ -244,7 +231,7 @@ public class DataExport {
             cellExtra.setCellValue("NAME");
             cellExtra.setCellStyle(headerCellStyle);
 
-            for(int i = 0; (i < brands.size()&& i<colors.size()); i++) {
+            for (int i = 0; (i < brands.size() && i < colors.size()); i++) {
                 Row dataRow = extraSheet.createRow(i + 6);
                 dataRow.createCell(2).setCellValue(brands.get(i).getId());
                 dataRow.createCell(3).setCellValue(brands.get(i).getName());
@@ -253,10 +240,10 @@ public class DataExport {
             }
 
 
-            extraSheet.setColumnWidth(2,2000);
-            extraSheet.setColumnWidth(3,5000);
-            extraSheet.setColumnWidth(6,2000);
-            extraSheet.setColumnWidth(7,5000);
+            extraSheet.setColumnWidth(2, 2000);
+            extraSheet.setColumnWidth(3, 5000);
+            extraSheet.setColumnWidth(6, 2000);
+            extraSheet.setColumnWidth(7, 5000);
 
             ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
             workbook.write(outputStream);

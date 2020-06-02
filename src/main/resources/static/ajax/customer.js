@@ -2,7 +2,7 @@ let customers = {} || customers;
 let identityList = [];
 let identityExist;
 
-customers.iniTable = function(){
+customers.iniTable = function () {
     $.ajax({
         url: "api/customers",
         method: "GET",
@@ -11,23 +11,23 @@ customers.iniTable = function(){
             $('#tblCustomer').DataTable({
                 destroy: true,
                 data: data,
-                columns:[
-                    {'data':'name'},
-                    {'data':'address'},
-                    {'data':'phone'},
-                    {'data':'identity'},
-                    {'data':'province_name'},
-                    {'data':'create_date'},
+                columns: [
+                    {'data': 'name'},
+                    {'data': 'address'},
+                    {'data': 'phone'},
+                    {'data': 'identity'},
+                    {'data': 'province_name'},
+                    {'data': 'create_date'},
                     {
                         data: 'id',
                         render: function (data, type, row, meta) {
-                            return "<a href='javascript:void(0);' class='edit' onclick='customers.get("+data+")' ><i class=\"fas fa-pen-square fa-2x\" ></i></a>"
+                            return "<a href='javascript:void(0);' class='edit' onclick='customers.get(" + data + ")' ><i class=\"fas fa-pen-square fa-2x\" ></i></a>"
                         }
                     },
                     {
                         data: 'id',
                         render: function (data, type, row, meta) {
-                            return "<a href='javascript:void(0);' class='delete' onclick='customers.delete("+data+")' ><i class=\"fas fa-trash-alt fa-2x\" ></i></a>"
+                            return "<a href='javascript:void(0);' class='delete' onclick='customers.delete(" + data + ")' ><i class=\"fas fa-trash-alt fa-2x\" ></i></a>"
                         }
                     },
 
@@ -38,16 +38,16 @@ customers.iniTable = function(){
     });
 };
 
-customers.initProvince = function(){
+customers.initProvince = function () {
     $.ajax({
-        url : "api/provinces",
-        method : "GET",
-        dataType : "json",
+        url: "api/provinces",
+        method: "GET",
+        dataType: "json",
         success: function (data) {
             $('#province').empty();
-            $.each(data,function (i,v) {
+            $.each(data, function (i, v) {
                 $('#province').append(
-                    "<option value='"+ v.id +"'>"+ v.name +"</option>"
+                    "<option value='" + v.id + "'>" + v.name + "</option>"
                 );
             })
         }
@@ -55,11 +55,11 @@ customers.initProvince = function(){
 };
 
 
-customers.get = function(id){
+customers.get = function (id) {
     $.ajax({
-        url : "api/customers/" + id,
-        method : "GET",
-        dataType : "json",
+        url: "api/customers/" + id,
+        method: "GET",
+        dataType: "json",
         success: function (data) {
             $('#formAddEdit')[0].reset();
             $('#modalTitle').html("Chỉnh sửa dữ liệu");
@@ -67,7 +67,7 @@ customers.get = function(id){
             $('#address').val(data.address);
             $('#phone').val(data.phone);
             $('#identity').val(data.identity);
-            identityExist =(data.identity);
+            identityExist = (data.identity);
             $('#province').val(data.province_id);
             $('#id').val(data.id);
 
@@ -76,11 +76,10 @@ customers.get = function(id){
     })
 };
 
-customers.save = function(){
-    if($('#formAddEdit').valid()){
-        if($('#id').val()==0){
-        }
-        else{
+customers.save = function () {
+    if ($('#formAddEdit').valid()) {
+        if ($('#id').val() == 0) {
+        } else {
             let customerObj = {};
             customerObj.name = $('#name').val();
             customerObj.address = $('#address').val();
@@ -95,7 +94,7 @@ customers.save = function(){
 
 
             $.ajax({
-                url: "api/customers/" +customerObj.id,
+                url: "api/customers/" + customerObj.id,
                 method: "PUT",
                 dataType: "JSON",
                 contentType: "application/json",
@@ -113,7 +112,7 @@ customers.save = function(){
     }
 };
 
-customers.delete = function(id){
+customers.delete = function (id) {
     swal({
         title: "Bạn có chắc muốn xóa dữ liệu này?",
         icon: "warning",
@@ -124,7 +123,7 @@ customers.delete = function(id){
         .then((willDelete) => {
             if (willDelete) {
                 $.ajax({
-                    url: "api/customers/delete/" +id,
+                    url: "api/customers/delete/" + id,
                     method: "PUT",
                     // dataType: "JSON",
                     success: function () {
@@ -145,23 +144,23 @@ $.validator.addMethod('checkIdentity', function (value, element) {
     return this.optional(element) || customers.checkIdentity(value)
 }, 'Số CMND/HC đã tồn tại trong hệ thống.');
 
-customers.initValidation = function(){
+customers.initValidation = function () {
     $("#formAddEdit").validate({
         rules: {
             name: "required",
             address: "required",
             phone: "required",
-            identity:{
-                required:true,
-                checkIdentity:true,
+            identity: {
+                required: true,
+                checkIdentity: true,
             },
-            chassis_num:{
-                required:true,
-                checkChassisNumber:true,
+            chassis_num: {
+                required: true,
+                checkChassisNumber: true,
             },
-            engine_num:{
-                required:true,
-                checkEngineNumber:true,
+            engine_num: {
+                required: true,
+                checkEngineNumber: true,
             },
 
         },
@@ -169,20 +168,20 @@ customers.initValidation = function(){
             name: "Không được để trống trường này!",
             address: "Không được để trống trường này!",
             phone: "Không được để trống trường này!",
-            identity:{
-                required:"Không được để trống trường này!",
+            identity: {
+                required: "Không được để trống trường này!",
             },
             chassis_num: {
-                required:"Không được để trống trường này!",
+                required: "Không được để trống trường này!",
             },
             engine_num: {
-                required:"Không được để trống trường này!",
+                required: "Không được để trống trường này!",
             }
         }
     });
 };
 
-customers.identityList = function() {
+customers.identityList = function () {
     $.ajax({
         url: "api/identity",
         method: "GET",
@@ -196,22 +195,21 @@ customers.identityList = function() {
     });
 };
 
-customers.checkIdentity = function(identity) {
-    if(identity == identityExist){
+customers.checkIdentity = function (identity) {
+    if (identity == identityExist) {
         return true;
-    }
-    else{
-        for(let i=0; i<identityList.length; i++) {
-            if(identity == identityList[i]){
+    } else {
+        for (let i = 0; i < identityList.length; i++) {
+            if (identity == identityList[i]) {
                 return false;
             }
         }
         return true;
-}
+    }
 };
 
 
-customers.init = function(){
+customers.init = function () {
     customers.iniTable();
     customers.initProvince();
     customers.initValidation();

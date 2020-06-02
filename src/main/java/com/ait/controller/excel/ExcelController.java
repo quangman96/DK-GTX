@@ -15,6 +15,7 @@ import java.util.List;
 
 @Controller
 public class ExcelController {
+
     @Autowired
     CustomerJDBC customerService;
 
@@ -35,31 +36,31 @@ public class ExcelController {
         response.setContentType("application/octet-stream");
         response.setHeader("Content-Disposition", "attachment; filename= data.xlsx");
         ByteArrayInputStream stream = DataExport.listToExcelFile(createCustomerList(), createVehicleList(),
-                createProvinceList(),createBrandList(),
-                createColorList());
+                createProvinceList(), createBrandList(), createColorList());
         IOUtils.copy(stream, response.getOutputStream());
     }
 
-    private List<Customer> createCustomerList(){
+    private List<Customer> createCustomerList() {
         List<Customer> customers = customerService.findAll();
         return customers;
     }
 
-    private List<Vehicle> createVehicleList(){
+    private List<Vehicle> createVehicleList() {
         List<Vehicle> vehicles = vehicleService.findAll();
         return vehicles;
     }
 
-    private List<Province> createProvinceList(){
+    private List<Province> createProvinceList() {
         List<Province> provinces = provinceService.findAll();
         return provinces;
     }
-    private List<Brand> createBrandList(){
+
+    private List<Brand> createBrandList() {
         List<Brand> brands = brandService.findAll();
         return brands;
     }
 
-    private List<Color> createColorList(){
+    private List<Color> createColorList() {
         List<Color> colors = colorService.findAll();
         return colors;
     }

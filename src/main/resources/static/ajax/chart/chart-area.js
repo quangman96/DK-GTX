@@ -5,17 +5,17 @@ Chart.defaults.global.defaultFontColor = '#292b2c';
 
 areaCharts.initData = function () {
     $.ajax({
-        url : "api/statistics/month",
-        method : "GET",
-        dataType : "json",
+        url: "api/statistics/month",
+        method: "GET",
+        dataType: "json",
         success: function (data) {
             var ctx = document.getElementById("areaChart");
-            let massPopChart = new Chart(ctx,{
+            let massPopChart = new Chart(ctx, {
                 type: 'line',
-                data:{
-                    labels: ['Jan','Feb','Mar','Apr','May','Jun'],
+                data: {
+                    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
                     datasets: [{
-                        label:'Sản phẩm',
+                        label: 'Sản phẩm',
                         lineTension: 0.3,
                         backgroundColor: "rgba(2,117,216,0.2)",
                         borderColor: "rgba(2,117,216,1)",

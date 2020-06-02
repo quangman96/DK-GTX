@@ -15,25 +15,26 @@ import java.util.List;
 
 @Service
 public class ColorJDBC implements BaseService<Color> {
+
     Connection connection = DatabaseConnection.getConnection();
 
     private String SELECT_ALL_COLORS = "SELECT * FROM color WHERE isDelete= 0;";
     private String SELECT_COLOR_BY_ID = "SELECT * FROM color WHERE (isDelete=0 AND id=?);";
-    private String INSERT_COLOR = "INSERT INTO color "+" (name) VALUES "+ "(?);";
+    private String INSERT_COLOR = "INSERT INTO color " + " (name) VALUES " + "(?);";
     private String UPDATE_COLOR = "UPDATE color SET name=? WHERE id=?;";
     private String REMOVE_COLOR = "UPDATE color SET isDelete = 1 WHERE id=?;";
 
     @Override
     public List<Color> findAll() {
         List<Color> colors = new ArrayList<>();
-        try(PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ALL_COLORS);){
+        try (PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ALL_COLORS);) {
             ResultSet rs = preparedStatement.executeQuery();
-            while (rs.next()){
-                Long id =rs.getLong("id");
+            while (rs.next()) {
+                Long id = rs.getLong("id");
                 String name = rs.getString("name");
                 Integer isDelete = rs.getInt("isDelete");
                 Date create_date = rs.getDate("create_date");
-                colors.add(new Color(id,name,isDelete,create_date));
+                colors.add(new Color(id, name, isDelete, create_date));
             }
         } catch (SQLException e) {
         }
@@ -54,7 +55,7 @@ public class ColorJDBC implements BaseService<Color> {
                 Integer isDelete = rs.getInt("isDelete");
                 Date create_date = rs.getDate("create_date");
 
-                color =(new Color(id, name, isDelete,create_date));
+                color = (new Color(id, name, isDelete, create_date));
             }
         } catch (SQLException e) {
         }
@@ -87,11 +88,10 @@ public class ColorJDBC implements BaseService<Color> {
 
     @Override
     public void remove(Long id) {
-        try(PreparedStatement statement = connection.prepareStatement(REMOVE_COLOR)) {
-            statement.setLong(1,id);
+        try (PreparedStatement statement = connection.prepareStatement(REMOVE_COLOR)) {
+            statement.setLong(1, id);
             statement.executeUpdate();
-        }
-        catch (SQLException e) {
+        } catch (SQLException e) {
             printSQLException(e);
         }
     }

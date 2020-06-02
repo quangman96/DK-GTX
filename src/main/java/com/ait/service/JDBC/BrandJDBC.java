@@ -15,25 +15,26 @@ import java.util.List;
 
 @Service
 public class BrandJDBC implements BaseService<Brand> {
+
     Connection connection = DatabaseConnection.getConnection();
 
     private String SELECT_ALL_BRANDS = "SELECT * FROM brand WHERE isDelete =0;";
     private String SELECT_BRAND_BY_ID = "SELECT * FROM brand WHERE (isDelete= 0 AND id=?);";
-    private String INSERT_BRAND = "INSERT INTO brand "+" (name) VALUES "+ "(?);";
+    private String INSERT_BRAND = "INSERT INTO brand " + " (name) VALUES " + "(?);";
     private String UPDATE_BRAND = "UPDATE brand SET name=? WHERE id=?;";
     private String REMOVE_BRAND = "UPDATE brand SET isDelete = 1 WHERE id=?;";
 
     @Override
     public List<Brand> findAll() {
         List<Brand> brands = new ArrayList<>();
-        try(PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ALL_BRANDS);){
+        try (PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ALL_BRANDS);) {
             ResultSet rs = preparedStatement.executeQuery();
-            while (rs.next()){
-                Long id =rs.getLong("id");
+            while (rs.next()) {
+                Long id = rs.getLong("id");
                 String name = rs.getString("name");
                 Integer isDelete = rs.getInt("isDelete");
                 Date create_date = rs.getDate("create_date");
-                brands.add(new Brand(id,name,isDelete,create_date));
+                brands.add(new Brand(id, name, isDelete, create_date));
             }
         } catch (SQLException e) {
         }
@@ -54,7 +55,7 @@ public class BrandJDBC implements BaseService<Brand> {
                 Integer isDelete = rs.getInt("isDelete");
                 Date create_date = rs.getDate("create_date");
 
-                brand =(new Brand(id, name, isDelete,create_date));
+                brand = (new Brand(id, name, isDelete, create_date));
             }
         } catch (SQLException e) {
         }
@@ -86,11 +87,10 @@ public class BrandJDBC implements BaseService<Brand> {
 
     @Override
     public void remove(Long id) {
-        try(PreparedStatement statement = connection.prepareStatement(REMOVE_BRAND)) {
-            statement.setLong(1,id);
+        try (PreparedStatement statement = connection.prepareStatement(REMOVE_BRAND)) {
+            statement.setLong(1, id);
             statement.executeUpdate();
-        }
-        catch (SQLException e) {
+        } catch (SQLException e) {
             printSQLException(e);
         }
     }
