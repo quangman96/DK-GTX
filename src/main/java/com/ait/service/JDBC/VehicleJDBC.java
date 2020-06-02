@@ -23,7 +23,7 @@ public class VehicleJDBC implements VehicleService {
         "customer.name AS customer, customer.identity AS customer_identity, brand.name AS brand, color.name AS color FROM vehicle " +
         "INNER JOIN customer ON customer.id = vehicle.customer_id INNER JOIN brand ON brand.id = vehicle.brand_id " +
         "INNER JOIN color ON color.id = vehicle.color_id WHERE (vehicle.isDelete= 0 AND customer.isDelete=0 " +
-        "AND brand.isDelete = 0 AND color.isDelete =0);";
+        "AND brand.isDelete = 0 AND color.isDelete =0) ORDER BY (id) ASC;";
 
     private String SELECT_VEHICLE_BY_ID  = "SELECT vehicle.id, vehicle.vehicle_name, vehicle.engine_num, vehicle.chassis_num, vehicle.customer_id, vehicle.brand_id, vehicle.color_id, vehicle.isDelete, vehicle.create_date, " +
             "customer.name AS customer, customer.identity AS customer_identity, brand.name AS brand, color.name AS color FROM vehicle " +

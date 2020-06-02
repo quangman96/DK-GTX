@@ -15,6 +15,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 
 public class DataExport {
@@ -27,65 +28,79 @@ public class DataExport {
             Sheet customerSheet = workbook.createSheet("Customers");
             Sheet vehicleSheet = workbook.createSheet("Vehicles");
             Sheet provinceSheet = workbook.createSheet("Provinces");
-            Sheet brandSheet = workbook.createSheet("Brands");
-            Sheet colorSheet = workbook.createSheet("Colors");
-            Sheet test = workbook.createSheet("test");
+            Sheet extraSheet = workbook.createSheet("ExtraData");
 
-            Font font = workbook.createFont();
-            font.setBold(true);
-            font.setItalic(false);
-            font.setFontHeightInPoints((short) 20);
+            Font titleFont = workbook.createFont();
+            titleFont.setBold(true);
+            titleFont.setItalic(false);
+            titleFont.setFontHeightInPoints((short) 20);
 
-
+            CreationHelper createHelper = workbook.getCreationHelper();
             CellStyle headerCellStyle = workbook.createCellStyle();
-            headerCellStyle.setFillForegroundColor(IndexedColors.GREY_25_PERCENT.getIndex());
-            headerCellStyle.setFillPattern(FillPatternType.BIG_SPOTS);
-            headerCellStyle.setVerticalAlignment(VerticalAlignment.CENTER);
-            headerCellStyle.setAlignment(HorizontalAlignment.CENTER);
-            headerCellStyle.setFont(font);
+            headerCellStyle.setFillForegroundColor(IndexedColors.BROWN.getIndex());
+            headerCellStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+            headerCellStyle.setDataFormat(createHelper.createDataFormat().getFormat("MM/dd/yyyy"));
 
-//            customerSheet.addMergedRegion(CellRangeAddress.valueOf("C3:H4"));
+
+            CellStyle titleCellStyle = workbook.createCellStyle();
+            titleCellStyle.setVerticalAlignment(VerticalAlignment.CENTER);
+            titleCellStyle.setAlignment(HorizontalAlignment.CENTER);
+            titleCellStyle.setFont(titleFont);
+
+            CellStyle cellStyle = workbook.createCellStyle();
+
+            cellStyle.setDataFormat(
+                    createHelper.createDataFormat().getFormat("yyyy-MM-dd"));
+
+
+            customerSheet.addMergedRegion(CellRangeAddress.valueOf("C3:H4"));
             Row row = customerSheet.createRow(2);
             Cell cell = row.createCell(2);
             cell.setCellValue("Dữ liệu chủ sở hữu đăng ký xe");
-            cell.setCellStyle(headerCellStyle);
+            cell.setCellStyle(titleCellStyle);
 
-            test.autoSizeColumn(0);
+            customerSheet.autoSizeColumn(0);
 
-            // Creating header
-            cell = row.createCell(2);
-            cell.setCellValue("id");
-            cell.setCellStyle(headerCellStyle);
 
-            cell = row.createCell(3);
-            cell.setCellValue("name");
-            cell.setCellStyle(headerCellStyle);
+            Row rowCustomer = customerSheet.createRow(5);
+            Cell cellCustomer = rowCustomer.createCell(2);
+            cellCustomer.setCellValue("ID");
+            cellCustomer.setCellStyle(headerCellStyle);
 
-            cell = row.createCell(4);
-            cell.setCellValue("address");
-            cell.setCellStyle(headerCellStyle);
+            cellCustomer = rowCustomer.createCell(3);
+            cellCustomer.setCellValue("NAME");
+            cellCustomer.setCellStyle(headerCellStyle);
 
-            cell = row.createCell(5);
-            cell.setCellValue("phone");
-            cell.setCellStyle(headerCellStyle);
+            cellCustomer = rowCustomer.createCell(4);
+            cellCustomer.setCellValue("ADDRESS");
+            cellCustomer.setCellStyle(headerCellStyle);
 
-            cell = row.createCell(6);
-            cell.setCellValue("identity");
-            cell.setCellStyle(headerCellStyle);
+            cellCustomer = rowCustomer.createCell(5);
+            cellCustomer.setCellValue("PHONE");
+            cellCustomer.setCellStyle(headerCellStyle);
 
-            cell = row.createCell(7);
-            cell.setCellValue("province_name");
-            cell.setCellStyle(headerCellStyle);
+            cellCustomer = rowCustomer.createCell(6);
+            cellCustomer.setCellValue("IDENTITY");
+            cellCustomer.setCellStyle(headerCellStyle);
 
-            // Creating data rows for each customer
+            cellCustomer = rowCustomer.createCell(7);
+            cellCustomer.setCellValue("PROVINCE");
+            cellCustomer.setCellStyle(headerCellStyle);
+
+//            cellCustomer = rowCustomer.createCell(8);
+//            cellCustomer.setCellValue("CREATE DATE");
+//            cellCustomer.setCellStyle(headerCellStyle);
+
             for(int i = 0; i < customers.size(); i++) {
-                Row dataRow = customerSheet.createRow(i + 1);
+                Row dataRow = customerSheet.createRow(i + 6);
                 dataRow.createCell(2).setCellValue(customers.get(i).getId());
                 dataRow.createCell(3).setCellValue(customers.get(i).getName());
                 dataRow.createCell(4).setCellValue(customers.get(i).getAddress());
                 dataRow.createCell(5).setCellValue(customers.get(i).getPhone());
                 dataRow.createCell(6).setCellValue(customers.get(i).getIdentity());
                 dataRow.createCell(7).setCellValue(customers.get(i).getProvince_name());
+//                dataRow.createCell(8).setCellValue(customers.get(i).getCreate_date());
+
             }
 
             // Making size of column auto resize to fit with data
@@ -98,41 +113,54 @@ public class DataExport {
 
 
 
-            Row row1 = vehicleSheet.createRow(5);
-            // Creating header
-            Cell cell1 = row1.createCell(2);
-            cell1.setCellValue("id");
-            cell1.setCellStyle(headerCellStyle);
+            vehicleSheet.addMergedRegion(CellRangeAddress.valueOf("C3:I4"));
+            Row rowTitle = vehicleSheet.createRow(2);
+            Cell cellTitle = rowTitle.createCell(2);
+            cellTitle.setCellValue("Dữ liệu phương tiện đã đăng ký");
+            cellTitle.setCellStyle(titleCellStyle);
 
-            cell1 = row1.createCell(3);
-            cell1.setCellValue("customer_name");
-            cell1.setCellStyle(headerCellStyle);
+            vehicleSheet.autoSizeColumn(0);
 
-            cell1 = row1.createCell(4);
-            cell1.setCellValue("brand_name");
-            cell1.setCellStyle(headerCellStyle);
 
-            cell1 = row1.createCell(5);
-            cell1.setCellValue("color_name");
-            cell1.setCellStyle(headerCellStyle);
+            Row rowVehicle = vehicleSheet.createRow(5);
+            Cell cellVehicle = rowVehicle.createCell(2);
+            cellVehicle.setCellValue("ID");
+            cellVehicle.setCellStyle(headerCellStyle);
 
-            cell1 = row1.createCell(6);
-            cell1.setCellValue("engine_num");
-            cell1.setCellStyle(headerCellStyle);
+            cellVehicle = rowVehicle.createCell(3);
+            cellVehicle.setCellValue("NAME");
+            cellVehicle.setCellStyle(headerCellStyle);
 
-            cell1 = row1.createCell(7);
-            cell1.setCellValue("chassis_num");
-            cell1.setCellStyle(headerCellStyle);
+            cellVehicle = rowVehicle.createCell(4);
+            cellVehicle.setCellValue("CMND CSH");
+            cellVehicle.setCellStyle(headerCellStyle);
 
-            // Creating data rows for each customer
+            cellVehicle = rowVehicle.createCell(5);
+            cellVehicle.setCellValue("BRAND");
+            cellVehicle.setCellStyle(headerCellStyle);
+
+            cellVehicle = rowVehicle.createCell(6);
+            cellVehicle.setCellValue("COLOR");
+            cellVehicle.setCellStyle(headerCellStyle);
+
+            cellVehicle = rowVehicle.createCell(7);
+            cellVehicle.setCellValue("ENGINE NUMBER");
+            cellVehicle.setCellStyle(headerCellStyle);
+
+            cellVehicle = rowVehicle.createCell(8);
+            cellVehicle.setCellValue("CHASSIS NUMBER");
+            cellVehicle.setCellStyle(headerCellStyle);
+
             for(int i = 0; i < vehicles.size(); i++) {
-                Row dataRow = vehicleSheet.createRow(i + 1);
+                Row dataRow = vehicleSheet.createRow(i + 6);
                 dataRow.createCell(2).setCellValue(vehicles.get(i).getId());
-                dataRow.createCell(3).setCellValue(vehicles.get(i).getCustomer_name());
-                dataRow.createCell(4).setCellValue(vehicles.get(i).getBrand_name());
-                dataRow.createCell(5).setCellValue(vehicles.get(i).getColor_name());
-                dataRow.createCell(6).setCellValue(vehicles.get(i).getEngine_num());
-                dataRow.createCell(7).setCellValue(vehicles.get(i).getChassis_num());
+                dataRow.createCell(3).setCellValue(vehicles.get(i).getVehicle_name());
+                dataRow.createCell(4).setCellValue(vehicles.get(i).getCustomer_identity());
+                dataRow.createCell(5).setCellValue(vehicles.get(i).getBrand_name());
+                dataRow.createCell(6).setCellValue(vehicles.get(i).getColor_name());
+                dataRow.createCell(7).setCellValue(vehicles.get(i).getEngine_num());
+                dataRow.createCell(8).setCellValue(vehicles.get(i).getChassis_num());
+
             }
 
             // Making size of column auto resize to fit with data
@@ -142,83 +170,93 @@ public class DataExport {
             vehicleSheet.autoSizeColumn(5);
             vehicleSheet.autoSizeColumn(6);
             vehicleSheet.autoSizeColumn(7);
+            vehicleSheet.autoSizeColumn(8);
+
+            provinceSheet.addMergedRegion(CellRangeAddress.valueOf("C3:F4"));
+            rowTitle = provinceSheet.createRow(2);
+            cellTitle = rowTitle.createCell(2);
+            cellTitle.setCellValue("Dữ liệu tỉnh thành");
+            cellTitle.setCellStyle(titleCellStyle);
+
+            provinceSheet.autoSizeColumn(0);
 
 
-            Row row2 = provinceSheet.createRow(0);
-            // Creating header
-            Cell cell2 = row2.createCell(0);
-            cell2.setCellValue("id");
-            cell2.setCellStyle(headerCellStyle);
+            Row rowProvince = provinceSheet.createRow(5);
+            Cell cellProvince = rowProvince.createCell(2);
+            cellProvince.setCellValue("ID");
+            cellProvince.setCellStyle(headerCellStyle);
 
-            cell2 = row2.createCell(1);
-            cell2.setCellValue("name");
-            cell2.setCellStyle(headerCellStyle);
+            cellProvince = rowProvince.createCell(3);
+            cellProvince.setCellValue("NAME");
+            cellProvince.setCellStyle(headerCellStyle);
 
-            cell2 = row2.createCell(2);
-            cell2.setCellValue("province_code");
-            cell2.setCellStyle(headerCellStyle);
+            cellProvince = rowProvince.createCell(4);
+            cellProvince.setCellValue("PROVINCE CODE");
+            cellProvince.setCellStyle(headerCellStyle);
 
-            cell2 = row2.createCell(3);
-            cell2.setCellValue("telephone_code");
-            cell2.setCellStyle(headerCellStyle);
+            cellProvince = rowProvince.createCell(5);
+            cellProvince.setCellValue("PHONE CODE");
+            cellProvince.setCellStyle(headerCellStyle);
 
-
-            // Creating data rows for each customer
             for(int i = 0; i < provinces.size(); i++) {
-                Row dataRow = provinceSheet.createRow(i + 1);
-                dataRow.createCell(0).setCellValue(provinces.get(i).getId());
-                dataRow.createCell(1).setCellValue(provinces.get(i).getName());
-                dataRow.createCell(2).setCellValue(provinces.get(i).getProvince_code());
-                dataRow.createCell(3).setCellValue(provinces.get(i).getTelephone_code());
+                Row dataRow = provinceSheet.createRow(i + 6);
+                dataRow.createCell(2).setCellValue(provinces.get(i).getId());
+                dataRow.createCell(3).setCellValue(provinces.get(i).getName());
+                dataRow.createCell(4).setCellValue(provinces.get(i).getProvince_code());
+                dataRow.createCell(5).setCellValue(provinces.get(i).getTelephone_code());
 
             }
 
             // Making size of column auto resize to fit with data
-            provinceSheet.autoSizeColumn(0);
-            provinceSheet.autoSizeColumn(1);
             provinceSheet.autoSizeColumn(2);
             provinceSheet.autoSizeColumn(3);
+            provinceSheet.autoSizeColumn(4);
+            provinceSheet.autoSizeColumn(5);
 
+            extraSheet.addMergedRegion(CellRangeAddress.valueOf("C3:D4"));
 
-            Row row3 = brandSheet.createRow(0);
-            // Creating header
-            Cell cell3 = row3.createCell(0);
-            cell3.setCellValue("id");
-            cell3.setCellStyle(headerCellStyle);
+            rowTitle = extraSheet.createRow(2);
+            cellTitle = rowTitle.createCell(2);
+            cellTitle.setCellValue("Dữ liệu hãng xe");
+            cellTitle.setCellStyle(titleCellStyle);
 
-            cell3 = row3.createCell(1);
-            cell3.setCellValue("name");
-            cell3.setCellStyle(headerCellStyle);
+            extraSheet.autoSizeColumn(0);
 
-            // Creating data rows for each customer
-            for(int i = 0; i < brands.size(); i++) {
-                Row dataRow = brandSheet.createRow(i + 1);
-                dataRow.createCell(0).setCellValue(brands.get(i).getId());
-                dataRow.createCell(1).setCellValue(brands.get(i).getName());
+            extraSheet.addMergedRegion(CellRangeAddress.valueOf("G3:H4"));
+            cellTitle = rowTitle.createCell(6);
+            cellTitle.setCellValue("Dữ liệu màu xe");
+            cellTitle.setCellStyle(titleCellStyle);
+
+            Row rowExtra = extraSheet.createRow(5);
+            Cell cellExtra = rowExtra.createCell(2);
+            cellExtra.setCellValue("ID");
+            cellExtra.setCellStyle(headerCellStyle);
+
+            cellExtra = rowExtra.createCell(3);
+            cellExtra.setCellValue("NAME");
+            cellExtra.setCellStyle(headerCellStyle);
+
+            cellExtra = rowExtra.createCell(6);
+            cellExtra.setCellValue("ID");
+            cellExtra.setCellStyle(headerCellStyle);
+
+            cellExtra = rowExtra.createCell(7);
+            cellExtra.setCellValue("NAME");
+            cellExtra.setCellStyle(headerCellStyle);
+
+            for(int i = 0; (i < brands.size()&& i<colors.size()); i++) {
+                Row dataRow = extraSheet.createRow(i + 6);
+                dataRow.createCell(2).setCellValue(brands.get(i).getId());
+                dataRow.createCell(3).setCellValue(brands.get(i).getName());
+                dataRow.createCell(6).setCellValue(colors.get(i).getId());
+                dataRow.createCell(7).setCellValue(colors.get(i).getName());
             }
 
-            // Making size of column auto resize to fit with data
-            brandSheet.autoSizeColumn(0);
 
-            Row row4 = colorSheet.createRow(0);
-
-            // Creating header
-            Cell cell4 = row4.createCell(0);
-            cell4.setCellValue("id");
-            cell4.setCellStyle(headerCellStyle);
-
-            cell4 = row4.createCell(1);
-            cell4.setCellValue("name");
-            cell4.setCellStyle(headerCellStyle);
-
-            // Creating data rows for each customer
-            for(int i = 0; i < colors.size(); i++) {
-                Row dataRow = colorSheet.createRow(i + 1);
-                dataRow.createCell(0).setCellValue(colors.get(i).getId());
-                dataRow.createCell(1).setCellValue(colors.get(i).getName());
-            }
-            // Making size of column auto resize to fit with data
-            colorSheet.autoSizeColumn(0);
+            extraSheet.setColumnWidth(2,2000);
+            extraSheet.setColumnWidth(3,5000);
+            extraSheet.setColumnWidth(6,2000);
+            extraSheet.setColumnWidth(7,5000);
 
             ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
             workbook.write(outputStream);

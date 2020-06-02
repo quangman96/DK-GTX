@@ -19,7 +19,7 @@ import java.util.List;
 public class CustomerJDBC implements CustomerService {
     Connection connection = DatabaseConnection.getConnection();
 
-    private String SELECT_ALL_CUSTOMERS = "SELECT customer.id, customer.name, customer.address, customer.phone, customer.identity, customer.province_id, customer.isDelete, customer.create_date, province.name AS province FROM customer INNER JOIN province ON province.id = customer.province_id WHERE (customer.isDelete=0 AND province.isdelete=0);";
+    private String SELECT_ALL_CUSTOMERS = "SELECT customer.id, customer.name, customer.address, customer.phone, customer.identity, customer.province_id, customer.isDelete, customer.create_date, province.name AS province FROM customer INNER JOIN province ON province.id = customer.province_id WHERE (customer.isDelete=0 AND province.isdelete=0) ORDER BY (id) ASC;";
     private String SELECT_CUSTOMER_BY_ID = "SELECT customer.id, customer.name, customer.address, customer.phone, customer.identity, customer.province_id, customer.isDelete, customer.create_date, province.name AS province FROM customer INNER JOIN province ON province.id = customer.province_id WHERE (customer.isDelete=0 AND province.isdelete=0 AND customer.id = ?);";
     private String SELECT_CUSTOMER_BY_IDENTITY = "SELECT customer.id, customer.name, customer.address, customer.phone, customer.identity, customer.province_id, customer.isDelete, customer.create_date, province.name AS province FROM customer INNER JOIN province ON province.id = customer.province_id WHERE (customer.isDelete=0 AND province.isdelete=0 AND customer.identity = ?);";
     private String INSERT_CUSTOMER = "INSERT INTO customer "+" (name, address,phone,identity,province_id) VALUES "+ "(?,?,?,?,?);";

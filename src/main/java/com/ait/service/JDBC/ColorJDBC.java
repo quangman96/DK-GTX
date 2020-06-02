@@ -21,7 +21,7 @@ public class ColorJDBC implements BaseService<Color> {
     private String SELECT_COLOR_BY_ID = "SELECT * FROM color WHERE (isDelete=0 AND id=?);";
     private String INSERT_COLOR = "INSERT INTO color "+" (name) VALUES "+ "(?);";
     private String UPDATE_COLOR = "UPDATE color SET name=? WHERE id=?;";
-    private String REMOVE_COLOR = "UPDATE color SET isDelete = 1 WHERE id=?; UPDATE vehicle SET isDelete = 1 WHERE vehicle.color_id = ?";
+    private String REMOVE_COLOR = "UPDATE color SET isDelete = 1 WHERE id=?;";
 
     @Override
     public List<Color> findAll() {
@@ -89,7 +89,6 @@ public class ColorJDBC implements BaseService<Color> {
     public void remove(Long id) {
         try(PreparedStatement statement = connection.prepareStatement(REMOVE_COLOR)) {
             statement.setLong(1,id);
-            statement.setLong(2,id);
             statement.executeUpdate();
         }
         catch (SQLException e) {
