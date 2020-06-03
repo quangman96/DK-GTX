@@ -54,6 +54,11 @@ customers.initProvince = function () {
     })
 };
 
+customers.hideModal = function() {
+    identityExist = null;
+    $('#modalAddEdit').modal('hide');
+};
+
 
 customers.get = function (id) {
     $.ajax({
@@ -144,6 +149,12 @@ $.validator.addMethod('checkIdentity', function (value, element) {
     return this.optional(element) || customers.checkIdentity(value)
 }, 'Số CMND/HC đã tồn tại trong hệ thống.');
 
+// $.validator.addMethod('regex',function (value, element, regExp) {
+//     let check = false;
+//     let re = new RegExp(regExp);
+//     return this.optional(element) || re.test(value);
+// }, 'false');
+
 customers.initValidation = function () {
     $("#formAddEdit").validate({
         rules: {
@@ -153,6 +164,7 @@ customers.initValidation = function () {
             identity: {
                 required: true,
                 checkIdentity: true,
+                // regex: /[^A-Za-z\d\-\=\~\!@#\%&\*\(\)_\+\\\/<>\?\{\}\.\$‘\^\+\"\';:,\s]/
             },
             chassis_num: {
                 required: true,

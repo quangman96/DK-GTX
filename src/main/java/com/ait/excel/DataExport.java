@@ -85,7 +85,7 @@ public class DataExport {
 
             for (int i = 0; i < customers.size(); i++) {
                 Row dataRow = customerSheet.createRow(i + 6);
-                dataRow.createCell(2).setCellValue(customers.get(i).getId());
+                dataRow.createCell(2).setCellValue(i+1);
                 dataRow.createCell(3).setCellValue(customers.get(i).getName());
                 dataRow.createCell(4).setCellValue(customers.get(i).getAddress());
                 dataRow.createCell(5).setCellValue(customers.get(i).getPhone());
@@ -142,7 +142,7 @@ public class DataExport {
 
             for (int i = 0; i < vehicles.size(); i++) {
                 Row dataRow = vehicleSheet.createRow(i + 6);
-                dataRow.createCell(2).setCellValue(vehicles.get(i).getId());
+                dataRow.createCell(2).setCellValue(i+1);
                 dataRow.createCell(3).setCellValue(vehicles.get(i).getVehicle_name());
                 dataRow.createCell(4).setCellValue(vehicles.get(i).getCustomer_identity());
                 dataRow.createCell(5).setCellValue(vehicles.get(i).getBrand_name());
@@ -188,7 +188,7 @@ public class DataExport {
 
             for (int i = 0; i < provinces.size(); i++) {
                 Row dataRow = provinceSheet.createRow(i + 6);
-                dataRow.createCell(2).setCellValue(provinces.get(i).getId());
+                dataRow.createCell(2).setCellValue(i+1);
                 dataRow.createCell(3).setCellValue(provinces.get(i).getName());
                 dataRow.createCell(4).setCellValue(provinces.get(i).getProvince_code());
                 dataRow.createCell(5).setCellValue(provinces.get(i).getTelephone_code());
@@ -233,9 +233,9 @@ public class DataExport {
 
             for (int i = 0; (i < brands.size() && i < colors.size()); i++) {
                 Row dataRow = extraSheet.createRow(i + 6);
-                dataRow.createCell(2).setCellValue(brands.get(i).getId());
+                dataRow.createCell(2).setCellValue(i+1);
                 dataRow.createCell(3).setCellValue(brands.get(i).getName());
-                dataRow.createCell(6).setCellValue(colors.get(i).getId());
+                dataRow.createCell(6).setCellValue(i+1);
                 dataRow.createCell(7).setCellValue(colors.get(i).getName());
             }
 
