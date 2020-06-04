@@ -106,7 +106,6 @@ provinces.save = function () {
             provinceObj.province_code = $('#province_code').val();
             provinceObj.telephone_code = $('#telephone_code').val();
             provinceObj.id = $('#id').val();
-            console.log(provinceObj);
 
             $.ajax({
                 url: "api/provinces/" + provinceObj.id,
@@ -128,7 +127,6 @@ provinces.addNew = function () {
     $('#modalTitle').html("Tạo mới tỉnh thành");
     provinces.resetFrom();
     $('#modalAddEdit').modal('show');
-    console.log($('#id').val());
 };
 
 provinces.resetFrom = function () {

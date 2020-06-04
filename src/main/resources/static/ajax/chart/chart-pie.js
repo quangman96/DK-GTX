@@ -6,7 +6,6 @@ pieCharts.initData = function () {
         method: "GET",
         dataType: "json",
         success: function (data) {
-            console.log(data);
             var ctx = document.getElementById("pieChart");
             Chart.defaults.global.defaultFontFamily = '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
             Chart.defaults.global.defaultFontColor = '#292b2c';

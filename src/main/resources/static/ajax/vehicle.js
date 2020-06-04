@@ -108,7 +108,6 @@ vehicles.delete = function (id) {
                 $.ajax({
                     url: "api/vehicles/delete/" + id,
                     method: "PUT",
-                    // dataType: "JSON",
                     success: function () {
                         swal("Thành công!", "Dữ liệu đã xóa!", "success");
                         vehicles.iniTable();
@@ -152,7 +151,6 @@ vehicles.save = function () {
                 contentType: "application/json",
                 data: JSON.stringify(vehicleObj),
                 success: function (data) {
-                    console.log(vehicleObj);
                     $("#modalAddEdit").modal('hide');
                     swal("Thành công!", "Dữ liệu đã được cập nhật!", "success");
                     engineNumberExist = null;
@@ -203,7 +201,6 @@ $.validator.addMethod('checkChassisNumber', function (value, element) {
 $("#formAddEdit").submit(function (event) {
     event.preventDefault();
     if (!$(this).valid()) return false;
-    console.log("error");
 });
 
 vehicles.initValidation = function () {

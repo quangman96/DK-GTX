@@ -25,11 +25,9 @@
 </head>
 <body id="page top">
 <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
-    <a class="navbar-brand mr-1" href="/">TKGT </a>
+    <button type="button" class="btn btn-danger" style="padding: 10px 60px;" onclick="index.guide();">Hướng dẫn</button>
 
-    <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle" href="#">
-        <i class="fas fa-bars"></i>
-    </button>
+
     <div class="navbar-nav ml-auto">
         <button type="button" class="btn btn-primary float-right" style="padding: 10px 60px;"
                 onclick="location.href='/chart'">Admin Page
@@ -151,12 +149,31 @@
 
 </div>
 
+<div class="modal fade" id="modalGuide" name="modalGuide" style="display: block;padding-left: 17px;
+position:absolute;float: left;left: 37%;top: 54%;transform: translate(-50%, -50%);">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content" style="width:1200px">
+
+            <div class="modal-header" style="background-color: cadetblue;">
+                <h4 class="modal-title" id="guideTitle"></h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <img src="/images/324.png">
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-info" type="button" data-dismiss="modal">Đóng</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="modal fade" id="modalDetails" name="modalDetails">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
 
             <!-- Modal Header -->
-            <div class="modal-header" style="background-color: bisque;">
+            <div class="modal-header" style="background-color: cadetblue;">
                 <h4 class="modal-title" id="modalTitle"></h4>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>

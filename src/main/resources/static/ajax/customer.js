@@ -202,7 +202,6 @@ customers.identityList = function () {
             identityList = data;
         },
         error: function () {
-            console.log("loi~");
         }
     });
 };

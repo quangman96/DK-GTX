@@ -86,8 +86,6 @@ extraBoard.get = function (id, element) {
 };
 
 extraBoard.delete = function (id, element) {
-    console.log(id);
-    console.log(element);
     swal({
         title: "Bạn có chắc muốn xóa dữ liệu này?",
         icon: "warning",
@@ -105,7 +103,6 @@ extraBoard.delete = function (id, element) {
                         extraBoard.init();
                     },
                     error: function () {
-                        console.log(this.url);
                         swal("Xóa thất bại!", "Vui lòng thử lại!", "error");
                     }
                 });
@@ -116,7 +113,6 @@ extraBoard.delete = function (id, element) {
 
 extraBoard.save = function () {
     if ($("#formAddEdit").valid()) {
-        console.log($('#id').val() + "save");
         if ($('#id').val() == 0) {
             let obj = {};
             obj.name = $('#name').val();
