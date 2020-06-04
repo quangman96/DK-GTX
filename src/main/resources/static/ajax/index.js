@@ -247,7 +247,7 @@ $.validator.addMethod(
     function(value, element, regexp) {
         var check = false;
         var re = new RegExp(regexp);
-        return this.optional(element) || !/^[0-9!`@#\$%\^\&*\)\(+=._-]+$/g.test(value);
+        return this.optional(element) || !/^[0-9!`@#\$%\^\&*\)\(+=._-]/.test(value);
 
     }
 );
@@ -286,7 +286,8 @@ index.initValidation = function () {
             input_phone: {
                 required: true,
                 digits: true,
-                regexPhone:true
+                regexPhone:true,
+                maxlength: 15,
             },
             input_identity: {
                 required: true,
@@ -297,7 +298,8 @@ index.initValidation = function () {
             input_vehicle: {
                 required: true,
                 maxlength: 50,
-                minlength: 5
+                regexName: true,
+
             },
             input_engine_num: {
                 required: true,
@@ -319,12 +321,13 @@ index.initValidation = function () {
             },
             input_address: {
                 required: "Không được để trống trường này!",
-                maxlength: "Dữ liệu không hợp lệ",
+                maxlength: "Dữ liệu không được nhập quá 100 kí tự",
             },
             input_phone: {
                 required: "Không được để trống trường này!",
                 digits: "Dữ liệu phải là số",
-                regexPhone: "Số điện thoại không hợp lệ!"
+                regexPhone: "Số điện thoại không hợp lệ!",
+                maxlength: "Số vượt quá kí tự cho phép"
             },
             input_identity: {
                 required: "Không được để trống trường này!",
@@ -334,17 +337,17 @@ index.initValidation = function () {
             },
             input_vehicle: {
                 required: "Không được để trống trường này!",
-                maxlength: "Dữ liệu không hợp lệ",
-                minlength: "Dữ liệu không hợp lệ."
+                maxlength: "Dữ liệu vượt quá kí tự cho phép",
+                regexName: "Tên không hợp lệ!",
             },
             input_engine_num: {
                 required: "Không được để trống trường này!",
-                maxlength: "Dữ liệu không hợp lệ",
+                maxlength: "Dữ liệu vượt quá kí tự cho phép",
                 minlength: "Số máy ít nhất 9 số"
             },
             input_chassis_num: {
                 required: "Không được để trống trường này!",
-                maxlength: "Dữ liệu không hợp lệ",
+                maxlength: "Dữ liệu vượt quá kí tự cho phép",
                 minlength: "Số khung ít nhất 9 số"
 
             },

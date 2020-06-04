@@ -58,6 +58,16 @@ public class VehicleJDBC implements VehicleService {
 
     private String CHASSIS_NUMBER_LIST = "SELECT vehicle.chassis_num FROM vehicle WHERE vehicle.isDelete =0;";
 
+    private String SELECT_VEHICLE_BY_CUSTOMER_ID = "SELECT vehicle.id, vehicle.vehicle_name, vehicle.engine_num, " +
+            "vehicle.chassis_num, vehicle.brand_id, vehicle.color_id, vehicle.isDelete, " +
+            "vehicle.create_date, customer.name AS customer, customer.identity AS customer_identity, " +
+            "brand.name AS brand, color.name AS color " +
+            "FROM vehicle INNER JOIN customer ON customer.id = vehicle.customer_id " +
+            "INNER JOIN brand ON brand.id = vehicle.brand_id " +
+            "INNER JOIN color ON color.id = vehicle.color_id " +
+            "WHERE (vehicle.isDelete= 0 AND customer.isDelete=0 AND brand.isDelete = 0 " +
+            "AND color.isDelete =0 AND vehicle.customer_id=?);";
+
     @Override
     public List<Vehicle> findAll() {
         List<Vehicle> vehicles = new ArrayList<>();
@@ -144,6 +154,34 @@ public class VehicleJDBC implements VehicleService {
         }
         return vehicle;
 
+    }
+
+    @Override
+    public List<Vehicle> findByCustomerId(Long cus_id) {
+        List<Vehicle> vehicles = new ArrayList<>();
+        try (PreparedStatement preparedStatement = connection.prepareStatement(SELECT_VEHICLE_BY_CUSTOMER_ID);){
+            preparedStatement.setLong(1, cus_id);
+            ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next()) {
+                Long id = rs.getLong("id");
+                String vehicle_name = rs.getString("vehicle_name");
+                String engine_num = rs.getString("engine_num");
+                String chassis_num = rs.getString("chassis_num");
+                Long customer_id = cus_id;
+                String customer = rs.getString("customer");
+                Long brand_id = rs.getLong("brand_id");
+                String brand = rs.getString("brand");
+                Long color_id = rs.getLong("color_id");
+                String color = rs.getString("color");
+                Integer isDelete = rs.getInt("isDelete");
+                Date create_date = rs.getDate("create_date");
+                String customer_identity = rs.getString("customer_identity");
+                vehicles.add(new Vehicle(id, vehicle_name, engine_num, chassis_num, isDelete, customer_id, customer, customer_identity, brand_id, brand, color_id, color, create_date));
+            }
+
+        } catch (SQLException e) {
+        }
+        return vehicles;
     }
 
     @Override

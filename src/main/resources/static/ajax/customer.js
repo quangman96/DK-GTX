@@ -12,7 +12,12 @@ customers.iniTable = function () {
                 destroy: true,
                 data: data,
                 columns: [
-                    {'data': 'name'},
+                    {
+                        data: {name:'name',id:'id'},
+                        render: function (data, type, row, meta) {
+                            return "<a href='javascript:void(0);' onclick='customers.getDetail(" + data.id + ")'>"+data.name+"</a>"
+                        }
+                    },
                     {'data': 'address'},
                     {'data': 'phone'},
                     {'data': 'identity'},
@@ -79,6 +84,44 @@ customers.get = function (id) {
             $('#modalAddEdit').modal('show');
         }
     })
+};
+
+customers.getDetail = function(id) {
+    $.ajax({
+        url: "api/customers/" + id,
+        method: "GET",
+        dataType: "json",
+        success: function (dataC) {
+            $.ajax({
+                url: "api/vehicle/customer/"+id,
+                method: "GET",
+                dataType: "json",
+                success: function (dataV) {
+                    console.log(dataC);
+                    console.log(dataV);
+
+                    // $('#modalTitle').html("Thông tin người đăng ký");
+                    // $('#detail_name').html(dataC.name);
+                    // $('#detail_identity').html(dataC.identity);
+                    // $('#detail_address').html(dataC.address);
+                    // $('#detail_phone').html(dataC.phone);
+                    // $('#detail_province').html(dataC.province);
+                    // $('#detail_vehicle').html(dataV.name);
+                    // $('#detail_brand').html(dataV.brand);
+                    // $('#detail_color').html(dataV.color);
+                    // $('#detail_engine').html(dataV.engine_num);
+                    // $('#detail_chassis').html(dataV.chassis_num);
+
+                    // $('#modalCustomer').modal('show');
+                }
+            })
+        }
+    })
+};
+
+customers.closeModal = function () {
+    $('#modalCustomer').modal('hide');
+    index.resetAll();
 };
 
 customers.save = function () {

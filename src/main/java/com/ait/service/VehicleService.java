@@ -10,6 +10,8 @@ public interface VehicleService {
 
     List<Vehicle> findAll();
 
+    List<Vehicle> findByCustomerId(Long id);
+
     Vehicle findById(Long id);
 
     void save(Vehicle vehicle);

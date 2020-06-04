@@ -19,6 +19,9 @@ public class VehicleController {
         return vehicleService.findAll();
     }
 
+    @GetMapping("/vehicle/customer/{id}")
+    public List<Vehicle> vehicleByCustomerId(@PathVariable Long id){return vehicleService.findByCustomerId(id);}
+
     @GetMapping("/engine_num")
     public List engineNumberList() {
         return vehicleService.engineNumber();
