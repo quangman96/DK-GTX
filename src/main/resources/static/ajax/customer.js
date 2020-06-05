@@ -97,31 +97,63 @@ customers.getDetail = function(id) {
                 method: "GET",
                 dataType: "json",
                 success: function (dataV) {
-                    console.log(dataC);
-                    console.log(dataV);
+                    console.log(dataV.length);
+                    if(dataV.length == 1){
+                        $('#modalTitle').html("Thông tin người đăng ký");
+                        $('#detail_name').html(dataC.name);
+                        $('#detail_identity').html(dataC.identity);
+                        $('#detail_address').html(dataC.address);
+                        $('#detail_phone').html(dataC.phone);
+                        $('#detail_province').html(dataC.province_name);
+                        $('#detail_vehicle').html(dataV[0].vehicle_name);
+                        $('#detail_brand').html(dataV[0].brand_name);
+                        $('#detail_color').html(dataV[0].color_name);
+                        $('#detail_engine').html(dataV[0].engine_num);
+                        $('#detail_chassis').html(dataV[0].chassis_num);
 
-                    // $('#modalTitle').html("Thông tin người đăng ký");
-                    // $('#detail_name').html(dataC.name);
-                    // $('#detail_identity').html(dataC.identity);
-                    // $('#detail_address').html(dataC.address);
-                    // $('#detail_phone').html(dataC.phone);
-                    // $('#detail_province').html(dataC.province);
-                    // $('#detail_vehicle').html(dataV.name);
-                    // $('#detail_brand').html(dataV.brand);
-                    // $('#detail_color').html(dataV.color);
-                    // $('#detail_engine').html(dataV.engine_num);
-                    // $('#detail_chassis').html(dataV.chassis_num);
+                        $('#modalCustomer').modal('show');
+                    } else if(dataV.length > 1){
+                        console.log(dataV.length);
+                    } else {
+                        console.log("loi~");
+                    }
 
-                    // $('#modalCustomer').modal('show');
                 }
             })
         }
     })
 };
 
+// drawTable = function(){
+//     $.ajax({
+//         url:'http://localhost:8080/admin/list-product',
+//         method : 'GET',
+//         dataType : 'json',
+//         contentType : 'application/json',
+//         success : function(data){
+//             $('#body').empty();
+//             $.each(data, function(index, value){
+//
+//
+//                 $('#body').append(
+//                     "<tr>"+
+//                     "<td>"+ value.name + "</td>" +
+//                     "<td>" + value.brand.name + "</td>" +
+//                     "<td>" + value.category.name + "</td>" +
+//                     "<td>" + value.amount + "</td>" +
+//                     "<td>" + value.price + "</td>" +
+//                     "<td><img width='150px' height='150px' src='/images/"+ value.image+ "'></td>" +
+//                     "<td><a href='/admin/buy-product/"+value.id+"'>Buy</a></td>" +
+//                     "<td><a href='/admin/edit-product/"+value.id+"'>Edit</a></td>" +
+//                     "<td><a href='/admin/delete-product/"+value.id+"'>Delete</a></td>" +
+//                     "</tr>");
+//             });
+//         }
+//     });
+// };
+
 customers.closeModal = function () {
     $('#modalCustomer').modal('hide');
-    index.resetAll();
 };
 
 customers.save = function () {

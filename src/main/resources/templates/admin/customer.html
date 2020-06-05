@@ -235,7 +235,7 @@
         <div class="modal-content">
 
             <!-- Modal Header -->
-            <div class="modal-header" style="background-color: cadetblue;">
+            <div class="modal-header" >
                 <h4 class="modal-title" id="CustomerTitle"></h4>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
@@ -244,67 +244,110 @@
             </div>
 
             <!-- Modal body -->
-            <div class="row form-group">
-                <div class="col-2">
+            <div>
+                <div class="row form-group">
+                    <div class="col-2">
+                    </div>
+                    <div class="col-4">
+                        <label>- Họ và tên: </label>
+                    </div>
+                    <div class="col-6">
+                        <span name="customer_name" id="detail_name"></span>
+                    </div>
                 </div>
-                <div class="col-4">
-                    <label>- Họ và tên: </label>
+                <div class="row form-group">
+                    <div class="col-2">
+                    </div>
+                    <div class="col-4">
+                        <label>- Số CMND: </label>
+                    </div>
+                    <div class="col-6">
+                        <span name="" id="detail_identity"></span>
+                    </div>
                 </div>
-                <div class="col-6">
-                    <span name="customer_name" id="detail_name"></span>
+                <div class="row form-group">
+                    <div class="col-2">
+                    </div>
+                    <div class="col-4">
+                        <label>- Địa chỉ: </label>
+                    </div>
+                    <div class="col-6">
+                        <span name="" id="detail_address"></span>
+                    </div>
                 </div>
-            </div>
-            <div class="row form-group">
-                <div class="col-2">
+                <div class="row form-group">
+                    <div class="col-2">
+                    </div>
+                    <div class="col-4">
+                        <label>- Số điện thoại: </label>
+                    </div>
+                    <div class="col-6">
+                        <span name="" id="detail_phone"></span>
+                    </div>
                 </div>
-                <div class="col-4">
-                    <label>- Số CMND: </label>
-                </div>
-                <div class="col-6">
-                    <span name="" id="detail_identity"></span>
-                </div>
-            </div>
-            <div class="row form-group">
-                <div class="col-2">
-                </div>
-                <div class="col-4">
-                    <label>- Địa chỉ: </label>
-                </div>
-                <div class="col-6">
-                    <span name="" id="detail_address"></span>
-                </div>
-            </div>
-            <div class="row form-group">
-                <div class="col-2">
-                </div>
-                <div class="col-4">
-                    <label>- Số điện thoại: </label>
-                </div>
-                <div class="col-6">
-                    <span name="" id="detail_phone"></span>
-                </div>
-            </div>
-            <div class="row form-group">
-                <div class="col-2">
-                </div>
-                <div class="col-4">
-                    <label>- Tỉnh thành: </label>
-                </div>
-                <div class="col-6">
-                    <span name="" id="detail_province"></span>
-                </div>
-            </div>
-            <div class="row form-group">
-                <div class="col-2">
-                </div>
-                <div class="col-4">
-                    <label>- Tên phương tiện: </label>
-                </div>
-                <div class="col-6">
-                    <span name="" id="detail_vehicle"></span>
+                <div class="row form-group">
+                    <div class="col-2">
+                    </div>
+                    <div class="col-4">
+                        <label>- Tỉnh thành: </label>
+                    </div>
+                    <div class="col-6">
+                        <span name="" id="detail_province"></span>
+                    </div>
                 </div>
             </div>
-
+            <div id="vehicle_list">
+                <div class="row form-group">
+                    <div class="col-2">
+                    </div>
+                    <div class="col-4">
+                        <label>- Tên phương tiện: </label>
+                    </div>
+                    <div class="col-6">
+                        <span name="" id="detail_vehicle"></span>
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <div class="col-2">
+                    </div>
+                    <div class="col-4">
+                        <label>- Tên hãng: </label>
+                    </div>
+                    <div class="col-6">
+                        <span name="" id="detail_brand"></span>
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <div class="col-2">
+                    </div>
+                    <div class="col-4">
+                        <label>- Màu sắc: </label>
+                    </div>
+                    <div class="col-6">
+                        <span name="" id="detail_color"></span>
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <div class="col-2">
+                    </div>
+                    <div class="col-4">
+                        <label>- Số máy: </label>
+                    </div>
+                    <div class="col-6">
+                        <span name="" id="detail_engine"></span>
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <div class="col-2">
+                    </div>
+                    <div class="col-4">
+                        <label>- Số Khung: </label>
+                    </div>
+                    <div class="col-6">
+                        <span name="" id="detail_chassis"></span>
+                    </div>
+                </div>
+            </div>
             <!-- Modal footer -->
             <div class="modal-footer">
                 <a href="javascript:;" class="btn btn-primary"
