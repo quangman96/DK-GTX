@@ -99,13 +99,14 @@ customers.getDetail = function(id) {
                 success: function (dataV) {
                     console.log(dataV.length);
                     if(dataV.length == 1){
-                        $('#modalTitle').html("Thông tin người đăng ký");
+                        $('#CustomerTitle').html("Thông tin người đăng ký");
                         $('#detail_name').html(dataC.name);
                         $('#detail_identity').html(dataC.identity);
                         $('#detail_address').html(dataC.address);
                         $('#detail_phone').html(dataC.phone);
                         $('#detail_province').html(dataC.province_name);
                         $('#detail_vehicle').html(dataV[0].vehicle_name);
+                        $('#extra_vehicle').html(dataV.length);
                         $('#detail_brand').html(dataV[0].brand_name);
                         $('#detail_color').html(dataV[0].color_name);
                         $('#detail_engine').html(dataV[0].engine_num);
@@ -113,7 +114,7 @@ customers.getDetail = function(id) {
 
                         $('#modalCustomer').modal('show');
                     } else if(dataV.length > 1){
-                        console.log(dataV.length);
+                        $('#extra_vehicle').html(dataV.length);
                     } else {
                         console.log("loi~");
                     }
