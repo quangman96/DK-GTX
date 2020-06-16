@@ -1,6 +1,8 @@
 let customers = {} || customers;
 let identityList = [];
 let identityExist;
+let idCus;
+let status = 1;
 
 customers.iniTable = function () {
     $.ajax({
@@ -59,6 +61,30 @@ customers.initProvince = function () {
     })
 };
 
+customers.moreVehicle = function() {
+    console.log(idCus);
+    $.ajax({
+        url: "api/vehicle/customer/"+idCus,
+        method: "GET",
+        dataType: "json",
+        success: function (data) {
+            console.log(data.length);
+            if(data.length > 1){
+                $('#detail_vehicle').html(data[status].vehicle_name);
+                $('#detail_brand').html(data[status].brand_name);
+                $('#detail_color').html(data[status].color_name);
+                $('#detail_engine').html(data[status].engine_num);
+                $('#detail_chassis').html(data[status].chassis_num);
+                if(status+1 == data.length){
+                    status = 0;
+                } else {
+                    status++;
+                }
+            }
+        }
+        })
+}
+
 customers.hideModal = function() {
     identityExist = null;
     $('#modalAddEdit').modal('hide');
@@ -87,6 +113,7 @@ customers.get = function (id) {
 };
 
 customers.getDetail = function(id) {
+    idCus = id;
     $.ajax({
         url: "api/customers/" + id,
         method: "GET",
@@ -106,15 +133,29 @@ customers.getDetail = function(id) {
                         $('#detail_phone').html(dataC.phone);
                         $('#detail_province').html(dataC.province_name);
                         $('#detail_vehicle').html(dataV[0].vehicle_name);
-                        $('#extra_vehicle').html(dataV.length);
+
                         $('#detail_brand').html(dataV[0].brand_name);
                         $('#detail_color').html(dataV[0].color_name);
                         $('#detail_engine').html(dataV[0].engine_num);
                         $('#detail_chassis').html(dataV[0].chassis_num);
-
+                        $('#extra_vehicle').html(dataV.length);
                         $('#modalCustomer').modal('show');
                     } else if(dataV.length > 1){
+                        $('#CustomerTitle').html("Thông tin người đăng ký");
+                        $('#detail_name').html(dataC.name);
+                        $('#detail_identity').html(dataC.identity);
+                        $('#detail_address').html(dataC.address);
+                        $('#detail_phone').html(dataC.phone);
+                        $('#detail_province').html(dataC.province_name);
+                        $('#detail_vehicle').html(dataV[0].vehicle_name);
+                        $('#detail_brand').html(dataV[0].brand_name);
+                        $('#detail_color').html(dataV[0].color_name);
+                        $('#detail_engine').html(dataV[0].engine_num);
+                        $('#detail_chassis').html(dataV[0].chassis_num);
                         $('#extra_vehicle').html(dataV.length);
+                        document.getElementById("moreVehicle").style.display = "block";
+                        $('#modalCustomer').modal('show');
+
                     } else {
                         console.log("loi~");
                     }
