@@ -30,7 +30,7 @@ extraBoard.initBrand = function () {
                     },
                 ]
             });
-            $("#tblBrand_wrapper .row:first-child .col-sm-12:first-child").prepend("<button type=\"button\" class=\"btn btn-secondary\" id='brands' onclick='extraBoard.addNew(this.id)'>Tạo mới Hãng xe</button>")
+            $("#tblBrand_wrapper .row:first-child .col-sm-12:first-child").prepend("<button type=\"button\" class=\"btn btn-info\" id='brands' onclick='extraBoard.addNew(this.id)'>Tạo mới Hãng xe</button>")
         }
     });
 };
@@ -64,7 +64,7 @@ extraBoard.initColor = function () {
                     },
                 ]
             });
-            $("#tblColor_wrapper .row:first-child .col-sm-12:first-child").prepend("<button type=\"button\" class=\"btn btn-secondary\" id='colors' onclick='extraBoard.addNew(this.id)'>Tạo mới màu xe</button>")
+            $("#tblColor_wrapper .row:first-child .col-sm-12:first-child").prepend("<button type=\"button\" class=\"btn btn-info\" id='colors' onclick='extraBoard.addNew(this.id)'>Tạo mới màu xe</button>")
         }
     });
 };

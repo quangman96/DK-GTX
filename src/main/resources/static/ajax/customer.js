@@ -133,7 +133,6 @@ customers.getDetail = function(id) {
                         $('#detail_phone').html(dataC.phone);
                         $('#detail_province').html(dataC.province_name);
                         $('#detail_vehicle').html(dataV[0].vehicle_name);
-
                         $('#detail_brand').html(dataV[0].brand_name);
                         $('#detail_color').html(dataV[0].color_name);
                         $('#detail_engine').html(dataV[0].engine_num);
@@ -155,7 +154,6 @@ customers.getDetail = function(id) {
                         $('#extra_vehicle').html(dataV.length);
                         document.getElementById("moreVehicle").style.display = "block";
                         $('#modalCustomer').modal('show');
-
                     } else {
                         console.log("loi~");
                     }
@@ -165,34 +163,6 @@ customers.getDetail = function(id) {
         }
     })
 };
-
-// drawTable = function(){
-//     $.ajax({
-//         url:'http://localhost:8080/admin/list-product',
-//         method : 'GET',
-//         dataType : 'json',
-//         contentType : 'application/json',
-//         success : function(data){
-//             $('#body').empty();
-//             $.each(data, function(index, value){
-//
-//
-//                 $('#body').append(
-//                     "<tr>"+
-//                     "<td>"+ value.name + "</td>" +
-//                     "<td>" + value.brand.name + "</td>" +
-//                     "<td>" + value.category.name + "</td>" +
-//                     "<td>" + value.amount + "</td>" +
-//                     "<td>" + value.price + "</td>" +
-//                     "<td><img width='150px' height='150px' src='/images/"+ value.image+ "'></td>" +
-//                     "<td><a href='/admin/buy-product/"+value.id+"'>Buy</a></td>" +
-//                     "<td><a href='/admin/edit-product/"+value.id+"'>Edit</a></td>" +
-//                     "<td><a href='/admin/delete-product/"+value.id+"'>Delete</a></td>" +
-//                     "</tr>");
-//             });
-//         }
-//     });
-// };
 
 customers.closeModal = function () {
     $('#modalCustomer').modal('hide');
